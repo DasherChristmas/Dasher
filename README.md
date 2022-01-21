@@ -24,7 +24,7 @@ The Dasher sequencing app.
       Manifest definition, allow plugin to replace event handlers (like xlights vamp plugin)
     </td>
     <td>
-      low
+      <img src="https://img.shields.io/badge/low-green?style=for-the-badge" />
     </td>
   </tr>
   <tr>
@@ -35,7 +35,7 @@ The Dasher sequencing app.
       Written in js, using dasher-effect lib
     </td>
     <td>
-      <span color="#ffbb00">High</span>
+      <img src="https://img.shields.io/badge/High-orange?style=for-the-badge" />
     </td>
   </tr>
   <tr>
@@ -46,7 +46,7 @@ The Dasher sequencing app.
       Typescript for intellisense
     </td>
     <td>
-      <span color="#ffbb00">High</span>
+      <img src="https://img.shields.io/badge/High-orange?style=for-the-badge" />
     </td>
   </tr>
   <tr>
@@ -57,7 +57,7 @@ The Dasher sequencing app.
       Be able to write both compressed and uncompressed fseq files
     </td>
     <td>
-      <span color="#ff0000">Very High</span>
+      <img src="https://img.shields.io/badge/Very High-ff0000?style=for-the-badge" />
     </td>
   </tr>
 </table>
