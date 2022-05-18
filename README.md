@@ -49,15 +49,4 @@ The Dasher sequencing app.
       <img src="https://img.shields.io/badge/High-orange?style=for-the-badge" />
     </td>
   </tr>
-  <tr>
-    <td>
-      <code>dasher-fseq</code> library
-    </td>
-    <td>
-      Be able to write both compressed and uncompressed fseq files
-    </td>
-    <td>
-      <img src="https://img.shields.io/badge/Very High-ff0000?style=for-the-badge" />
-    </td>
-  </tr>
 </table>
