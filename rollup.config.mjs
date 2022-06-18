@@ -2,15 +2,17 @@ import fs from "fs";
 import copy from "rollup-plugin-copy";
 import typescript from "@rollup/plugin-typescript";
 import svelte from "rollup-plugin-svelte";
-import autoPreprocess from "svelte-preprocess";
+import sveltePreprocess from "svelte-preprocess";
 import resolve from "@rollup/plugin-node-resolve";
-
-import tailwind from "tailwindcss";
-import autoprefixer from "autoprefixer";
+import { terser } from "rollup-plugin-terser";
+import css from "rollup-plugin-css-only";
 
 import { defineConfig } from "rollup";
 
+const production = !process.env.ROLLUP_WATCH;
+
 const pages = fs.readdirSync("./pages").map((page) => ({
+  path: `pages/${page}`,
   page: `page_${page}`,
   renderer: `pages/${page}/renderer.ts`,
   rendererOutput: `dist/pages/${page}/renderer.js`,
@@ -43,17 +45,21 @@ export default defineConfig([
         plugins: [
           typescript(),
           svelte({
-            preprocess: autoPreprocess({
-              postcss: {
-                plugins: [tailwind, autoprefixer]
-              }
+            preprocess: sveltePreprocess({
+              postcss: true
             }),
-            include: ["pages/**/*.svelte"]
+            compilerOptions: {
+              dev: !production
+            }
+          }),
+          css({
+            output: `style.css`
           }),
           resolve({ browser: true }),
           copy({
             targets: page.copyFiles
-          })
+          }),
+          production && terser()
         ]
       };
     }
@@ -64,7 +70,8 @@ export default defineConfig([
       file: "dist/preload.js",
       format: "cjs"
     },
-    plugins: [typescript()]
+    plugins: [typescript()],
+    watch: {}
   },
   {
     input: "process/process.ts",
@@ -72,6 +79,7 @@ export default defineConfig([
       file: "dist/process.js",
       format: "cjs"
     },
-    plugins: [typescript()]
+    plugins: [typescript()],
+    watch: {}
   }
 ]);
