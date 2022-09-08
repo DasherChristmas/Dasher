@@ -1,5 +1,5 @@
-import { app, BrowserWindow, ipcMain, Menu } from 'electron';
-import { getAppConfig, setConfig } from './appConfig';
+import { app, ipcMain, Menu } from 'electron';
+import { getAppConfig } from './appConfig';
 import { appConfigChannels, titleBarChannels } from './channels';
 import { windowEventTarget, windowState } from './getWindowState';
 // eslint-disable-next-line
