@@ -1,6 +1,6 @@
 import { atom, useRecoilState } from 'recoil';
-import { useEffect, useState } from 'react';
-import { titleBarChannels } from '../../main/channels';
+import { useEffect } from 'react';
+import { mainProcessChannels, titleBarChannels } from '../../main/channels';
 
 const { ipcRenderer } = window.electron;
 

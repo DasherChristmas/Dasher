@@ -27,8 +27,13 @@ export const appConfigChannels = buildChannelsObject('appconfig', [
   'setProperty',
 ]);
 
+export const mainProcessChannels = buildChannelsObject('mainprocess', [
+  'openSequence',
+]);
+
 type Channels =
   | ChannelList<typeof titleBarChannels>
-  | ChannelList<typeof appConfigChannels>;
+  | ChannelList<typeof appConfigChannels>
+  | ChannelList<typeof mainProcessChannels>;
 
 export default Channels;

@@ -1,10 +1,12 @@
 import {
-  app,
   Menu,
   shell,
   BrowserWindow,
   MenuItemConstructorOptions,
+  dialog,
 } from 'electron';
+// eslint-disable-next-line import/no-cycle
+import ipcEmitter from './ipc';
 
 interface DarwinMenuItemConstructorOptions extends MenuItemConstructorOptions {
   selector?: string;
@@ -55,8 +57,28 @@ export default class MenuBuilder {
         label: 'File',
         submenu: [
           {
-            label: 'Open',
+            label: 'Open sequence',
             accelerator: 'Ctrl+O',
+            click: async () => {
+              const selectedFiles = await dialog.showOpenDialog(
+                this.mainWindow,
+                {
+                  properties: ['openFile', 'dontAddToRecent'],
+                  title: 'Select sequence file to load',
+                  filters: [
+                    {
+                      name: 'Dasher sequences',
+                      extensions: ['dasher'],
+                    },
+                  ],
+                }
+              );
+
+              ipcEmitter.emit(
+                'mainprocess:openSequence',
+                selectedFiles.filePaths[0]
+              );
+            },
           },
           {
             label: 'Close',

@@ -1,11 +1,29 @@
 import { app, ipcMain, Menu } from 'electron';
+import TypedEmitter from '../common/typedEmitter';
 import { getAppConfig } from './appConfig';
-import { appConfigChannels, titleBarChannels } from './channels';
+import {
+  appConfigChannels,
+  titleBarChannels,
+  mainProcessChannels,
+} from './channels';
 import { windowEventTarget, windowState } from './getWindowState';
 // eslint-disable-next-line
 import { mainWindow } from './main'; // Creates a dependency cycle, which eslint hates XD.
 
 const appConfig = getAppConfig();
+
+type MPC = typeof mainProcessChannels;
+type IpcEvents = {
+  [openFile in MPC['openSequence']]: [string];
+};
+const ipcEmitter = new TypedEmitter<IpcEvents>();
+
+export default ipcEmitter;
+
+/* ---------------------------- Main Process IPC ---------------------------- */
+ipcEmitter.on('mainprocess:openSequence', (path) => {
+  mainWindow?.webContents.send(mainProcessChannels.openSequence, path);
+});
 
 /* ------------------------------ Title Bar IPC ----------------------------- */
 
