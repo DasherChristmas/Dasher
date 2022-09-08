@@ -138,6 +138,7 @@ const configuration: webpack.Configuration = {
 
     new webpack.DefinePlugin({
       'process.type': '"renderer"',
+      'process.platform': '"win32"',
     }),
   ],
 };

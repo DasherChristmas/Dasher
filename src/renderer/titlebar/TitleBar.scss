@@ -5,10 +5,20 @@
   background: var(--c-secondary);
   transition: background 0.1s ease;
   display: grid;
-  grid-template-columns: auto min-content;
+  grid-template-columns: repeat(3, 1fr);
 
   * {
     user-select: none;
+  }
+
+  .AppTitle {
+    margin: 0;
+    place-self: center;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 100%;
+    text-align: center;
   }
 
   div {
@@ -27,24 +37,27 @@
       object-position: center;
     }
 
-    .WindowControl {
-      height: 2rem;
-      width: 3rem;
-      display: grid;
-      place-items: center;
-      background: var(--c-secondary);
-      transition: background 0.1s ease;
-      outline: none;
-      cursor: pointer;
+    &.WindowControlls {
+      justify-self: end;
+      .WindowControl {
+        height: 2rem;
+        width: 3rem;
+        display: grid;
+        place-items: center;
+        background: var(--c-secondary);
+        transition: background 0.1s ease;
+        outline: none;
+        cursor: pointer;
 
-      &:active,
-      &:hover {
-        background: var(--c-tertiary);
-      }
+        &:active,
+        &:hover {
+          background: var(--c-tertiary);
+        }
 
-      &.closeButton:active,
-      &.closeButton:hover {
-        background: #ef4444;
+        &.closeButton:active,
+        &.closeButton:hover {
+          background: #ef4444;
+        }
       }
     }
   }

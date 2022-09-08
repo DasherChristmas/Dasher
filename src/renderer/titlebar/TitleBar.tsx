@@ -11,10 +11,13 @@ import {
   X,
 } from 'react-feather';
 import React, { useMemo, useRef } from 'react';
+import pathParse from 'path-parse';
 
 import TitleBarStateNode, {
   maximizedState,
   menuState,
+  titleEmitter,
+  titleState,
 } from './TitleBarStateNode';
 import appIcon from '../../../assets/icon-nobg.png';
 
@@ -22,36 +25,36 @@ import './TitleBar.scss';
 
 const { ipcRenderer } = window.electron;
 
+// Used to broadcast events to all menus
 const eventTarget = new EventTarget();
 
+// Close all menus when anything else is clicked
 window.addEventListener('click', (e) => {
   if (document.getElementById('AppMenu')!.contains(e.target as Node)) return;
   eventTarget.dispatchEvent(new CustomEvent('blur'));
 });
+// Also close all menus on window blur
 window.addEventListener('blur', () =>
   eventTarget.dispatchEvent(new CustomEvent('blur'))
 );
 
 eventTarget.addEventListener('blur', () => {
+  // Get all of the checkboxes that control menu visibility
   const els = Array.from(
     document.querySelectorAll('.MenuCheck')
   ) as HTMLInputElement[];
-  if (
-    document.getElementById('AppMenu')!.contains(document.activeElement as Node)
-  ) {
-    (document.activeElement as HTMLElement).blur();
-  }
   els.forEach((el) => {
-    el.checked = false;
+    el.checked = false; // Unckeck them to hide the menu
   });
 });
 
-const onRadioClick = function (
+// Allows the MainMenuItem radios to be deselected so that menus can be closed by clicking the label again
+const onRadioClick = (
   ref: React.RefObject<HTMLInputElement> | null,
   e: React.MouseEvent<HTMLLabelElement, MouseEvent>
-) {
-  if (e.target !== e.currentTarget) return;
-  const input = ref?.current;
+) => {
+  if (e.target !== e.currentTarget) return; // Only catch events from current element
+  const input = ref?.current; // ? Could use target.querySelector('input'), but this is cleaner
   if (input && input.checked) {
     input.checked = false;
     e.preventDefault();
@@ -59,14 +62,27 @@ const onRadioClick = function (
   }
 };
 
+/**
+ * An item in a submenu popup.
+ */
 const SubMenuItem: React.FC<{
+  /**
+   * The menu item object
+   */
   item: Electron.MenuItem;
+  /**
+   * A string identifier used to name radio groups and prevent conflict between them
+   */
   menuID: string;
+  /**
+   * The group number of a radio input
+   */
   radioGroup: number;
 }> = ({ item, menuID, radioGroup }) => {
   const radioGroupString = `${menuID}-radio-${radioGroup}`;
   switch (item.type) {
     case 'normal': {
+      // Just a plain button with a label and accelerator.
       return (
         <div
           className="MenuItem"
@@ -88,6 +104,7 @@ const SubMenuItem: React.FC<{
       );
     }
     case 'submenu': {
+      // An item with a nested submenu
       return (
         <label
           className="MenuItem"
@@ -139,6 +156,7 @@ const SubMenuItem: React.FC<{
       );
     }
     case 'separator': {
+      // Unselectable seperator
       return <div className="MenuSeperator" />;
     }
     case 'checkbox': {
@@ -174,7 +192,15 @@ const SubMenuItem: React.FC<{
   }
 };
 
-const SubMenu: React.FC<{ menu: Partial<Electron.Menu> }> = ({ menu }) => {
+/**
+ * A submenu popup.
+ */
+const SubMenu: React.FC<{
+  /**
+   * The menu object used to create the popup
+   */
+  menu: Partial<Electron.Menu>;
+}> = ({ menu }) => {
   const menuID = `menu_${menu.items?.[0].commandId}`;
   const radioGroups: number[][] = useMemo(() => {
     const tempRadioGroups: number[][] = [];
@@ -207,7 +233,13 @@ const SubMenu: React.FC<{ menu: Partial<Electron.Menu> }> = ({ menu }) => {
   );
 };
 
+/**
+ * A labeled item with a submenu that is in the main title/menu bar.
+ */
 const MenuBarItem: React.FC<{
+  /**
+   * The menu item objec to construct the label from
+   */
   menuItem: Partial<Electron.MenuItem>;
 }> = ({ menuItem }) => {
   const ref = useRef<HTMLInputElement>(null);
@@ -241,6 +273,9 @@ const MenuBarItem: React.FC<{
   );
 };
 
+/**
+ * The app's menu bar
+ */
 const AppMenu: React.FC = () => {
   const appMenu = useRecoilValue(menuState);
   const ref = useRef<HTMLElement>(null);
@@ -254,8 +289,12 @@ const AppMenu: React.FC = () => {
   );
 };
 
+/**
+ * The app's title/menu bar.
+ */
 const TitleBar: React.FC = () => {
   const isMaximized = useRecoilValue(maximizedState);
+  const appTitle = useRecoilValue(titleState);
   return (
     <div id="TitleBar">
       <div>
@@ -267,7 +306,8 @@ const TitleBar: React.FC = () => {
         />
         <AppMenu />
       </div>
-      <div>
+      <p className="AppTitle">{appTitle}</p>
+      <div className="WindowControlls">
         <div
           role="button"
           className="WindowControl"
@@ -344,5 +384,12 @@ const TitleBar: React.FC = () => {
     </div>
   );
 };
+
+ipcRenderer.on('mainprocess:openSequence', (filePath) => {
+  if (typeof filePath !== 'string') return;
+  const fileName = pathParse(filePath).base;
+
+  titleEmitter.emit('setTitle', `Dasher Sequencer - Editing ${fileName}`);
+});
 
 export default TitleBar;

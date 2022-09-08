@@ -1,6 +1,6 @@
 import { atom, useRecoilState } from 'recoil';
 import { useEffect } from 'react';
-import { mainProcessChannels, titleBarChannels } from '../../main/channels';
+import TypedEmitter from '../../common/typedEmitter';
 
 const { ipcRenderer } = window.electron;
 
@@ -16,17 +16,25 @@ export const menuState = atom({
   } as Partial<Electron.Menu>,
 });
 
+export const titleState = atom({
+  key: 'appTitle',
+  default: 'Dasher Sequencer',
+});
+
+export const titleEmitter = new TypedEmitter<{
+  setTitle: [string];
+}>();
+
 const TitleBarStateNode: React.FC = () => {
-  const [maximized, setMaximized] = useRecoilState(maximizedState);
-  const [menu, setMenu] = useRecoilState(menuState);
+  const [, setMaximized] = useRecoilState(maximizedState);
+  const [, setMenu] = useRecoilState(menuState);
+  const [, setTitle] = useRecoilState(titleState);
   useEffect(() => {
-    const removeMaximizeListener = ipcRenderer.on(
-      titleBarChannels.maximize,
-      () => setMaximized(true)
+    const removeMaximizeListener = ipcRenderer.on('titlebar:maximize', () =>
+      setMaximized(true)
     );
-    const removeUnmaximizeListener = ipcRenderer.on(
-      titleBarChannels.unmaximize,
-      () => setMaximized(false)
+    const removeUnmaximizeListener = ipcRenderer.on('titlebar:unmaximize', () =>
+      setMaximized(false)
     );
 
     ipcRenderer
@@ -38,11 +46,18 @@ const TitleBarStateNode: React.FC = () => {
       .then((windowState) => setMaximized(windowState.maximized))
       .catch(() => {});
 
+    const titleListener = (title: string) => {
+      setTitle(title);
+    };
+
+    titleEmitter.on('setTitle', titleListener);
+
     return () => {
       removeMaximizeListener?.();
       removeUnmaximizeListener?.();
+      titleEmitter.off('setTitle', titleListener);
     };
-  }, [setMaximized, setMenu]);
+  }, [setMaximized, setMenu, setTitle]);
   return null;
 };
 
