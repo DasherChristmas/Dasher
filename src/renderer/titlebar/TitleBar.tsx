@@ -65,7 +65,6 @@ const SubMenuItem: React.FC<{
   radioGroup: number;
 }> = ({ item, menuID, radioGroup }) => {
   const radioGroupString = `${menuID}-radio-${radioGroup}`;
-  const ref = useRef<HTMLInputElement>(null);
   switch (item.type) {
     case 'normal': {
       return (
