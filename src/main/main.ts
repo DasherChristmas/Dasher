@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 /* eslint global-require: off, no-console: off, promise/always-return: off */
 
 /**
