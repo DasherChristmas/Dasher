@@ -49,7 +49,7 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
-      "cross-env NODE_ENV=development eslint --cache"
+      "prettier --ignore-path .eslintignore --single-quote --write"
     ],
     "*.json,.{eslintrc,prettierrc}": [
       "prettier --ignore-path .eslintignore --parser json --write"
@@ -107,12 +107,16 @@
     }
   },
   "dependencies": {
+    "@types/electron": "^1.6.10",
     "electron-debug": "^3.2.0",
     "electron-log": "^4.4.8",
     "electron-updater": "^5.2.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.3.0"
+    "react-feather": "^2.0.10",
+    "react-router-dom": "^6.3.0",
+    "react-tooltip": "^4.2.21",
+    "recoil": "^0.7.5"
   },
   "devDependencies": {
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.7",

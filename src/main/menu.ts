@@ -11,11 +11,13 @@ interface DarwinMenuItemConstructorOptions extends MenuItemConstructorOptions {
   submenu?: DarwinMenuItemConstructorOptions[] | Menu;
 }
 
-export default class MenuBuilder {
-  mainWindow: BrowserWindow;
+// eslint-disable-next-line
+export let currentMenu: MenuBuilder;
 
-  constructor(mainWindow: BrowserWindow) {
-    this.mainWindow = mainWindow;
+export default class MenuBuilder {
+  constructor(public mainWindow: BrowserWindow) {
+    // eslint-disable-next-line
+    currentMenu = this;
   }
 
   buildMenu(): Menu {
@@ -26,15 +28,18 @@ export default class MenuBuilder {
       this.setupDevelopmentEnvironment();
     }
 
-    const template =
-      process.platform === 'darwin'
-        ? this.buildDarwinTemplate()
-        : this.buildDefaultTemplate();
+    const template = this.buildTemplate();
 
     const menu = Menu.buildFromTemplate(template);
     Menu.setApplicationMenu(menu);
 
     return menu;
+  }
+
+  buildTemplate(): MenuItemConstructorOptions[] {
+    return process.platform === 'darwin'
+      ? this.buildDarwinTemplate()
+      : this.buildDefaultTemplate();
   }
 
   setupDevelopmentEnvironment(): void {
@@ -193,16 +198,16 @@ export default class MenuBuilder {
   }
 
   buildDefaultTemplate() {
-    const templateDefault = [
+    const templateDefault: Electron.MenuItemConstructorOptions[] = [
       {
-        label: '&File',
+        label: 'File',
         submenu: [
           {
-            label: '&Open',
+            label: 'Open',
             accelerator: 'Ctrl+O',
           },
           {
-            label: '&Close',
+            label: 'Close',
             accelerator: 'Ctrl+W',
             click: () => {
               this.mainWindow.close();
@@ -211,20 +216,20 @@ export default class MenuBuilder {
         ],
       },
       {
-        label: '&View',
+        label: 'View',
         submenu:
           process.env.NODE_ENV === 'development' ||
           process.env.DEBUG_PROD === 'true'
             ? [
                 {
-                  label: '&Reload',
+                  label: 'Reload',
                   accelerator: 'Ctrl+R',
                   click: () => {
                     this.mainWindow.webContents.reload();
                   },
                 },
                 {
-                  label: 'Toggle &Full Screen',
+                  label: 'Toggle Full Screen',
                   accelerator: 'F11',
                   click: () => {
                     this.mainWindow.setFullScreen(
@@ -233,16 +238,36 @@ export default class MenuBuilder {
                   },
                 },
                 {
-                  label: 'Toggle &Developer Tools',
+                  label: 'Toggle Developer Tools',
                   accelerator: 'Alt+Ctrl+I',
                   click: () => {
                     this.mainWindow.webContents.toggleDevTools();
                   },
                 },
+                {
+                  label: 'Test Submenu',
+                  type: 'submenu',
+                  submenu: [
+                    {
+                      type: 'normal',
+                      label: 'temp button',
+                    },
+                    { type: 'separator' },
+                    { type: 'radio', label: 'testRadio', checked: true },
+                    { type: 'radio', label: 'testRadio', checked: false },
+                    { type: 'radio', label: 'testRadio', checked: false },
+                    { type: 'radio', label: 'testRadio', checked: false },
+                    { type: 'separator' },
+                    { type: 'radio', label: 'testRadio', checked: true },
+                    { type: 'radio', label: 'testRadio', checked: false },
+                    { type: 'radio', label: 'testRadio', checked: false },
+                    { type: 'radio', label: 'testRadio', checked: false },
+                  ],
+                },
               ]
             : [
                 {
-                  label: 'Toggle &Full Screen',
+                  label: 'Toggle Full Screen',
                   accelerator: 'F11',
                   click: () => {
                     this.mainWindow.setFullScreen(

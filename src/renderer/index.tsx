@@ -1,13 +1,25 @@
 import { createRoot } from 'react-dom/client';
+import React from 'react';
+
 import App from './App';
+import Error from './Error';
+
+import { loadAppConfig } from './appConfig';
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
-root.render(<App />);
-
-// calling IPC exposed from preload script
-window.electron.ipcRenderer.once('ipc-example', (arg) => {
-  // eslint-disable-next-line no-console
-  console.log(arg);
-});
-window.electron.ipcRenderer.sendMessage('ipc-example', ['ping']);
+loadAppConfig()
+  .then(() =>
+    root.render(
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    )
+  )
+  .catch(() =>
+    root.render(
+      <React.StrictMode>
+        <Error detail="" />
+      </React.StrictMode>
+    )
+  );

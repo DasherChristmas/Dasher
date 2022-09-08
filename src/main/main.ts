@@ -9,11 +9,16 @@
  * `./src/main.js` using webpack. This gives us some performance wins.
  */
 import path from 'path';
-import { app, BrowserWindow, shell, ipcMain } from 'electron';
+import { app, BrowserWindow, shell } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
+
+import './ipc';
+import { loadWindowState, setWindowState, windowState } from './getWindowState';
+
+loadWindowState();
 
 class AppUpdater {
   constructor() {
@@ -23,13 +28,8 @@ class AppUpdater {
   }
 }
 
-let mainWindow: BrowserWindow | null = null;
-
-ipcMain.on('ipc-example', async (event, arg) => {
-  const msgTemplate = (pingPong: string) => `IPC test: ${pingPong}`;
-  console.log(msgTemplate(arg));
-  event.reply('ipc-example', msgTemplate('pong'));
-});
+// eslint-disable-next-line
+export let mainWindow: BrowserWindow | null = null;
 
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');
@@ -40,7 +40,9 @@ const isDebug =
   process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true';
 
 if (isDebug) {
-  require('electron-debug')();
+  require('electron-debug')({
+    showDevTools: false,
+  });
 }
 
 const installExtensions = async () => {
@@ -71,8 +73,8 @@ const createWindow = async () => {
 
   mainWindow = new BrowserWindow({
     show: false,
-    width: 1024,
-    height: 728,
+    ...windowState,
+    titleBarStyle: 'hidden',
     icon: getAssetPath('icon.png'),
     webPreferences: {
       sandbox: false,
@@ -92,6 +94,36 @@ const createWindow = async () => {
       mainWindow.minimize();
     } else {
       mainWindow.show();
+      if (windowState.maximized) mainWindow.maximize();
+      mainWindow.on('moved', () => {
+        const newPosition = mainWindow?.getPosition();
+        if (!newPosition) return;
+
+        const [x, y] = newPosition;
+        windowState.x = x;
+        windowState.y = y;
+
+        setWindowState(windowState);
+      });
+      mainWindow.on('resized', () => {
+        const newSize = mainWindow?.getSize();
+        if (!newSize) return;
+
+        const [width, height] = newSize;
+        windowState.width = width;
+        windowState.height = height;
+
+        setWindowState(windowState);
+      });
+      mainWindow.on('maximize', () => {
+        windowState.maximized = true;
+
+        setWindowState(windowState);
+      });
+      mainWindow.on('unmaximize', () => {
+        windowState.maximized = false;
+        setWindowState(windowState);
+      });
     }
   });
 
@@ -136,3 +168,5 @@ app
     });
   })
   .catch(console.log);
+
+if (!app.requestSingleInstanceLock()) app.quit();
