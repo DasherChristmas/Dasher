@@ -3,19 +3,14 @@
 import { useRecoilValue } from 'recoil';
 import {
   CheckCircle,
+  CheckSquare,
   ChevronRight,
   Circle,
   Minus,
   Square,
   X,
 } from 'react-feather';
-import React, {
-  RefAttributes,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import React, { useMemo, useRef } from 'react';
 
 import TitleBarStateNode, {
   maximizedState,
@@ -121,7 +116,6 @@ const SubMenuItem: React.FC<{
         <label
           className="MenuItem"
           onClickCapture={(e) => {
-            console.log(e);
             ipcRenderer.sendMessage('titlebar:menuAction', item.commandId);
             eventTarget.dispatchEvent(new CustomEvent('blur'));
             e.stopPropagation();
@@ -145,7 +139,36 @@ const SubMenuItem: React.FC<{
         </label>
       );
     }
-    case 'separator': // todo
+    case 'separator': {
+      return <div className="MenuSeperator" />;
+    }
+    case 'checkbox': {
+      return (
+        <label
+          className="MenuItem"
+          onClickCapture={(e) => {
+            ipcRenderer.sendMessage('titlebar:menuAction', item.commandId);
+            eventTarget.dispatchEvent(new CustomEvent('blur'));
+            e.stopPropagation();
+          }}
+          role="button"
+          tabIndex={-1}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter')
+              eventTarget.dispatchEvent(new CustomEvent('blur'));
+          }}
+        >
+          {item.label}
+          <input
+            type="checkbox"
+            className="MenuItemRadio"
+            defaultChecked={item.checked}
+          />
+          <Square className="SubMenuIcon RadioUnselected" size="1rem" />
+          <CheckSquare className="SubMenuIcon RadioSelected" size="1rem" />
+        </label>
+      );
+    }
     default: {
       return null;
     }

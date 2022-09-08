@@ -249,19 +249,9 @@ export default class MenuBuilder {
                   type: 'submenu',
                   submenu: [
                     {
-                      type: 'normal',
-                      label: 'temp button',
+                      type: 'checkbox',
+                      label: 'temp box',
                     },
-                    { type: 'separator' },
-                    { type: 'radio', label: 'testRadio', checked: true },
-                    { type: 'radio', label: 'testRadio', checked: false },
-                    { type: 'radio', label: 'testRadio', checked: false },
-                    { type: 'radio', label: 'testRadio', checked: false },
-                    { type: 'separator' },
-                    { type: 'radio', label: 'testRadio', checked: true },
-                    { type: 'radio', label: 'testRadio', checked: false },
-                    { type: 'radio', label: 'testRadio', checked: false },
-                    { type: 'radio', label: 'testRadio', checked: false },
                   ],
                 },
               ]

@@ -55,6 +55,11 @@
     height: 2rem;
     align-items: center;
 
+    .MenuSeperator {
+      border-bottom: 2px solid var(--c-text);
+      margin: 0.5rem;
+    }
+
     .MenuBarItem {
       background: var(--c-secondary);
       transition: background 0.1s ease;
