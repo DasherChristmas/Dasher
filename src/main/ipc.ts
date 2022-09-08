@@ -4,7 +4,6 @@ import { appConfigChannels, titleBarChannels } from './channels';
 import { windowEventTarget, windowState } from './getWindowState';
 // eslint-disable-next-line
 import { mainWindow } from './main'; // Creates a dependency cycle, which eslint hates XD.
-import { currentMenu } from './menu';
 
 const appConfig = getAppConfig();
 

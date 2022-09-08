@@ -11,14 +11,8 @@ interface DarwinMenuItemConstructorOptions extends MenuItemConstructorOptions {
   submenu?: DarwinMenuItemConstructorOptions[] | Menu;
 }
 
-// eslint-disable-next-line
-export let currentMenu: MenuBuilder;
-
 export default class MenuBuilder {
-  constructor(public mainWindow: BrowserWindow) {
-    // eslint-disable-next-line
-    currentMenu = this;
-  }
+  constructor(public mainWindow: BrowserWindow) {}
 
   buildMenu(): Menu {
     if (
