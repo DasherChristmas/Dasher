@@ -1,12 +1,18 @@
-import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
-import ReactTooltip from 'react-tooltip';
+import {
+  MemoryRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
-import './App.css';
+import './App.scss';
 import AppConfigStateNode from './appConfig';
+import StatusBar from './statusbar/StatusBar';
+import Tabs from './tabs/Tabs';
 import TitleBar from './titlebar/TitleBar';
 
-const Hello = () => {
-  return <div></div>;
+const Temp = () => {
+  return null;
 };
 
 export default function App() {
@@ -14,10 +20,15 @@ export default function App() {
     <RecoilRoot>
       <TitleBar />
       <Router>
-        <Routes>
-          <Route path="/" element={<Hello />} />
-        </Routes>
+        <div className="AppContainer">
+          <Tabs />
+          <Routes>
+            <Route path="/" element={<Navigate to="/controllers" />} />
+            <Route path="/controllers" element={<Temp />} />
+          </Routes>
+        </div>
       </Router>
+      <StatusBar />
       <AppConfigStateNode />
     </RecoilRoot>
   );

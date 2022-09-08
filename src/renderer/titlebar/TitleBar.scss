@@ -12,7 +12,6 @@
   }
 
   .AppTitle {
-    margin: 0;
     place-self: center;
     overflow: hidden;
     white-space: nowrap;
@@ -102,10 +101,6 @@
       white-space: nowrap;
       cursor: pointer;
 
-      p {
-        margin: 0;
-      }
-
       &:not(.MenuBarItem) {
         display: grid;
         grid-template-columns: repeat(2, auto);
@@ -133,7 +128,6 @@
       }
 
       .ItemLabel {
-        margin: 0;
         position: relative;
         cursor: pointer;
         outline: none;
@@ -153,7 +147,7 @@
           min-width: 15rem;
           flex-direction: column;
           z-index: 9999;
-          box-shadow: 0 0 7px var(--c-tertiary);
+          box-shadow: 0 0 7px var(--c-quaternary);
           cursor: default;
         }
       }

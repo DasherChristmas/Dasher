@@ -14,15 +14,31 @@ const appConfig = getAppConfig();
 
 type MPC = typeof mainProcessChannels;
 type IpcEvents = {
-  [openFile in MPC['openSequence']]: [string];
+  [key in MPC[keyof MPC]]: [string];
 };
 const ipcEmitter = new TypedEmitter<IpcEvents>();
 
 export default ipcEmitter;
 
 /* ---------------------------- Main Process IPC ---------------------------- */
-ipcEmitter.on('mainprocess:openSequence', (path) => {
+ipcEmitter.on(mainProcessChannels.openSequence, (path) => {
   mainWindow?.webContents.send(mainProcessChannels.openSequence, path);
+});
+
+let progressBarMode: 'normal' | 'indeterminate' | 'error' | 'paused' = 'normal';
+let progressBarProgress = -1;
+ipcMain.on(mainProcessChannels.setProgress, (_, progress) => {
+  mainWindow?.setProgressBar((progressBarProgress = progress), {
+    mode: progressBarMode,
+  });
+});
+ipcMain.on(mainProcessChannels.setProgressMode, (_, mode) => {
+  mainWindow?.setProgressBar(progressBarProgress, {
+    mode: (progressBarMode = mode),
+  });
+});
+ipcEmitter.on(mainProcessChannels.openSettings, () => {
+  mainWindow?.webContents.send(mainProcessChannels.openSettings);
 });
 
 /* ------------------------------ Title Bar IPC ----------------------------- */

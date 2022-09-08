@@ -5,18 +5,13 @@ import paths from './paths';
 import AppConfig from '../common/appConfig';
 
 const defaultConfig: AppConfig = {
-  darkColorScheme: true,
+  editorConfig: path.join(paths.appData, 'default.dasherconfig'),
 };
 
-function validate(config: any): config is AppConfig {
-  if (
-    !('darkColorScheme' in config) ||
-    typeof config.darkColorScheme !== 'boolean'
-  )
-    return false;
-
-  return true;
-}
+const validate = (config: any): config is AppConfig =>
+  typeof config === 'object' &&
+  'editorConfig' in config &&
+  typeof config.editorConfig === 'string';
 
 export function setConfig(config: AppConfig) {
   fs.writeFile(

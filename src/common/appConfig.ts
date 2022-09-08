@@ -1,3 +1,3 @@
 export default interface AppConfig {
-  darkColorScheme: boolean;
+  editorConfig: string;
 }

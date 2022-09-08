@@ -1,0 +1,111 @@
+.StatusBar {
+  height: 1.5rem;
+  min-height: 1.5rem;
+  width: 100%;
+  background: var(--c-secondary);
+  font-size: 0.75rem;
+  border-top: 2px solid var(--c-tertiary);
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center;
+  gap: 1rem;
+  user-select: none;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  grid-auto-columns: 1fr;
+
+  & > * {
+    justify-self: start;
+  }
+
+  .SequencePath {
+    font-family: 'Open Sans';
+    padding: 0.1rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    border-radius: 0.1rem;
+    background: var(--c-tertiary);
+  }
+
+  .ProgressBarContainer {
+    display: grid;
+    position: relative;
+    width: 15rem;
+    height: 1rem;
+    border: 2px solid var(--c-quinary);
+    border-radius: 0.2rem;
+    justify-self: end;
+
+    &.hidden {
+      opacity: 0;
+      height: 0;
+    }
+
+    .ProgressBar {
+      position: absolute;
+      display: grid;
+      overflow: hidden;
+      place-items: center;
+      left: 0;
+      top: 0;
+      height: 100%;
+      background: #22c55e;
+      transition: width 0.1s ease-out;
+
+      &.paused {
+        background: #eab308;
+      }
+
+      &.error {
+        background: #ef4444;
+      }
+
+      &.indeterminate {
+        background: linear-gradient(to right, #22c55e, #22c55e);
+        background-clip: border-box;
+        background-repeat: no-repeat;
+        width: 100% !important;
+        animation: pulse 1.5s infinite ease-out;
+
+        @keyframes pulse {
+          0% {
+            background-position: -15rem 0px;
+            opacity: 1;
+          }
+          50% {
+            opacity: 1;
+          }
+          99%,
+          100% {
+            background-position: 0px 0px;
+            opacity: 0;
+          }
+        }
+      }
+
+      p {
+        font-size: 0.8em;
+      }
+    }
+  }
+
+  .StatusText {
+    width: 100%;
+    text-align: start;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  @media screen and (max-width: 768px) and (min-height: 100vw) {
+    & {
+      grid-auto-flow: row;
+      height: min-content;
+      gap: 0.5rem;
+
+      & > * {
+        justify-self: center;
+      }
+    }
+  }
+}

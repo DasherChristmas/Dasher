@@ -12,9 +12,7 @@ export const appConfigAtom = atom({
   default: {} as AppConfig,
 });
 
-function postLoad() {
-  if (appConfig.darkColorScheme) document.body.classList.add('dark');
-}
+function postLoad() {}
 
 export async function loadAppConfig(): Promise<void> {
   appConfig = await ipcRenderer.invoke(appConfigChannels.getConfig);
@@ -41,11 +39,6 @@ const AppConfigStateNode: React.FC = () => {
   const [currentAppConfig, setAppConfig] = useRecoilState(appConfigAtom);
   const [onConfigChange] = useState(() => () => {
     setAppConfig({ ...appConfig });
-    if (appConfig.darkColorScheme) {
-      document.body.classList.add('dark');
-    } else {
-      document.body.classList.remove('dark');
-    }
   });
   useEffect(() => {
     setAppConfig(appConfig);

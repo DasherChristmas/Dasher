@@ -29,6 +29,9 @@ export const appConfigChannels = buildChannelsObject('appconfig', [
 
 export const mainProcessChannels = buildChannelsObject('mainprocess', [
   'openSequence',
+  'setProgress',
+  'setProgressMode',
+  'openSettings',
 ]);
 
 type Channels =

@@ -87,6 +87,13 @@ export default class MenuBuilder {
               this.mainWindow.close();
             },
           },
+          {
+            label: 'Preferences',
+            accelerator: 'Ctrl+,',
+            click: () => {
+              ipcEmitter.emit('mainprocess:openSettings', '');
+            },
+          },
         ],
       },
       {

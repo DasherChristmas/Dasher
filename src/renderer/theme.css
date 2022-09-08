@@ -10,17 +10,10 @@
 
 :root {
   --c-accent: #a855f7;
-  --c-primary: #fafafa;
-  --c-secondary: #f4f4f5;
-  --c-tertiary: #e4e4e7;
-  --c-quaternary: #d4d4d8;
-  --c-text: #18181b;
-}
-
-.dark {
   --c-primary: #18181b;
   --c-secondary: #27272a;
   --c-tertiary: #3f3f46;
   --c-quaternary: #52525b;
+  --c-quinary: #a1a1aa;
   --c-text: #fafafa;
 }
