@@ -7,13 +7,11 @@ import {
 import { RecoilRoot } from 'recoil';
 import './App.scss';
 import AppConfigStateNode from './appConfig';
+import Controllers from './pages/controllers/Controllers';
+import Models from './pages/models/Models';
 import StatusBar from './statusbar/StatusBar';
 import Tabs from './tabs/Tabs';
 import TitleBar from './titlebar/TitleBar';
-
-const Temp = () => {
-  return null;
-};
 
 export default function App() {
   return (
@@ -24,7 +22,8 @@ export default function App() {
           <Tabs />
           <Routes>
             <Route path="/" element={<Navigate to="/controllers" />} />
-            <Route path="/controllers" element={<Temp />} />
+            <Route path="/controllers" element={<Controllers />} />
+            <Route path="/models" element={<Models />} />
           </Routes>
         </div>
       </Router>
