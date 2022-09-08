@@ -244,16 +244,6 @@ export default class MenuBuilder {
                     this.mainWindow.webContents.toggleDevTools();
                   },
                 },
-                {
-                  label: 'Test Submenu',
-                  type: 'submenu',
-                  submenu: [
-                    {
-                      type: 'checkbox',
-                      label: 'temp box',
-                    },
-                  ],
-                },
               ]
             : [
                 {
