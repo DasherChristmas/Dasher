@@ -4,13 +4,23 @@
  */
 
 @import url('./preflight.css');
-@import url('./theme.css');
+@import './theme.scss';
+
+@font-face {
+  font-family: 'Open Sans';
+  src: url('../../assets/OpenSans.ttf');
+}
+
+* {
+  font-family: 'Open Sans';
+  color: $text;
+  font-size: 0.95rem;
+}
 
 body {
   position: relative;
-  color: var(--c-text);
-  background: var(--c-primary);
-  transition: background 0.1s ease;
+  color: $text;
+  background: $primary;
 }
 
 #root {

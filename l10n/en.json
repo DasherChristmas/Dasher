@@ -1,0 +1,13 @@
+{
+  "controllers/directory-title": "Directory",
+  "controllers/directory-prefix": "Current show directory:",
+  "controllers/change-temp": "Change temporarily",
+  "controllers/change-perm": "Change permenantly",
+  "controllers/controllers-title": "Controllers",
+  "controllers/name": "Name",
+  "controllers/protocol": "Protocol",
+  "controllers/address": "IP Address",
+  "controllers/universe-id": "Universes / ID",
+  "controllers/channel-count": "Channel Count",
+  "controllers/description": "Description"
+}

@@ -1,0 +1,11 @@
+$accent: #a855f7;
+$primary: #18181b;
+$secondary: #27272a;
+$tertiary: #3f3f46;
+$quaternary: #52525b;
+$quinary: #a1a1aa;
+$text: #fafafa;
+
+@function spacing($num) {
+  @return 0.25rem * $num;
+}

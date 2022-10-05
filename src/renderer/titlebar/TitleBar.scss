@@ -1,8 +1,10 @@
+@import '../theme.scss';
+
 #TitleBar {
   -webkit-app-region: drag;
   grid-column: 1 / span 1;
   grid-row: 1 / span 1;
-  background: var(--c-secondary);
+  background: $secondary;
   transition: background 0.1s ease;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -28,29 +30,30 @@
     }
 
     #appicon {
-      height: 1.5rem;
-      width: 1.5rem;
-      padding: 0.25rem;
+      height: spacing(6);
+      width: spacing(6);
+      padding: spacing(0.5);
       -webkit-app-region: drag;
       object-fit: contain;
       object-position: center;
+      align-self: center;
     }
 
     &.WindowControlls {
       justify-self: end;
       .WindowControl {
-        height: 2rem;
-        width: 3rem;
+        height: spacing(8);
+        width: spacing(12);
         display: grid;
         place-items: center;
-        background: var(--c-secondary);
+        background: $secondary;
         transition: background 0.1s ease;
         outline: none;
         cursor: pointer;
 
         &:active,
         &:hover {
-          background: var(--c-tertiary);
+          background: $tertiary;
         }
 
         &.closeButton:active,
@@ -64,17 +67,16 @@
   #AppMenu {
     display: flex;
     flex-direction: row;
-    height: 2rem;
+    height: spacing(8);
     align-items: center;
 
     .MenuSeperator {
-      border-bottom: 2px solid var(--c-text);
-      margin: 0.5rem;
+      border-bottom: 2px solid $text;
+      margin: spacing(2);
     }
 
     .MenuBarItem {
-      background: var(--c-secondary);
-      transition: background 0.1s ease;
+      background: $secondary;
       position: relative;
       height: 100%;
       cursor: pointer;
@@ -84,15 +86,15 @@
       .ItemLabel {
         display: grid;
         height: 100%;
-        padding-left: 0.5rem;
-        padding-right: 0.5rem;
+        padding-left: spacing(2);
+        padding-right: spacing(2);
         align-items: center;
         position: relative;
       }
 
       .SubMenu {
-        top: 1.75rem;
-        left: 0.75rem;
+        top: spacing(7);
+        left: spacing(3);
       }
     }
 
@@ -105,11 +107,11 @@
         display: grid;
         grid-template-columns: repeat(2, auto);
         grid-template-rows: 100%;
-        gap: 1rem;
+        gap: spacing(4);
         align-items: center;
-        padding: 0.25rem;
-        padding-left: 0.75rem;
-        padding-right: 0.75rem;
+        padding: spacing(1);
+        padding-left: spacing(3);
+        padding-right: spacing(3);
 
         .ItemLabel {
           padding: 0;
@@ -124,7 +126,7 @@
       &:active,
       &:focus-within,
       &:hover {
-        background: var(--c-tertiary);
+        background: $tertiary;
       }
 
       .ItemLabel {
@@ -137,17 +139,16 @@
         }
 
         .SubMenu {
-          background: var(--c-secondary);
+          background: $secondary;
           border-radius: 0.315rem;
-          border: 2px solid var(--c-quaternary);
-          padding-top: 0.5rem;
-          padding-bottom: 0.5rem;
+          border: 2px solid $quaternary;
+          padding-top: spacing(2);
+          padding-bottom: spacing(2);
           position: absolute;
           display: none;
-          min-width: 15rem;
+          min-width: spacing(60);
           flex-direction: column;
           z-index: 9999;
-          box-shadow: 0 0 7px var(--c-quaternary);
           cursor: default;
         }
       }

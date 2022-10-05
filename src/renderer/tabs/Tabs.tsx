@@ -2,11 +2,12 @@ import path from 'path';
 import { useEffect } from 'react';
 import { Box, Film, Icon, Settings, Sliders } from 'react-feather';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { ipcRenderer } from 'electron';
+
 import TypedEmitter from '../../common/typedEmitter';
 
 import './Tabs.scss';
-
-const { ipcRenderer } = window.electron;
+import { mainProcessChannels } from '../../main/channels';
 
 const dasherTabs: {
   icon: Icon;
@@ -56,16 +57,14 @@ const Tabs: React.FC = () => {
 
     tabEmitter.on('setPath', pathListener);
 
-    const openSettingsListener = ipcRenderer.on(
-      'mainprocess:openSettings',
-      () => {
-        navigate('/settings');
-      }
-    );
+    const openSettingsListener = () => {
+      navigate('/settings');
+    };
+    ipcRenderer.on(mainProcessChannels.openSettings, openSettingsListener);
 
     return () => {
       tabEmitter.off('setPath', pathListener);
-      openSettingsListener?.();
+      ipcRenderer.off(mainProcessChannels.openSettings, openSettingsListener);
     };
   }, [navigate]);
   return (

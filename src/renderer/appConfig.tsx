@@ -1,9 +1,9 @@
 import { atom, useRecoilState } from 'recoil';
 import { useEffect, useState } from 'react';
+import { ipcRenderer } from 'electron';
 import AppConfig from '../common/appConfig';
 import { appConfigChannels } from '../main/channels';
-
-const { ipcRenderer } = window.electron;
+import { L10N } from '../common/l10n';
 
 // eslint-disable-next-line
 export let appConfig: AppConfig;
@@ -12,7 +12,9 @@ export const appConfigAtom = atom({
   default: {} as AppConfig,
 });
 
-function postLoad() {}
+function postLoad() {
+  L10N.loadLocale(appConfig.loc);
+}
 
 export async function loadAppConfig(): Promise<void> {
   appConfig = await ipcRenderer.invoke(appConfigChannels.getConfig);
@@ -29,7 +31,7 @@ export function setConfigProperty<P extends keyof AppConfig>(
     ...appConfig,
     [property]: value,
   };
-  ipcRenderer.sendMessage('appconfig:setProperty', property, value);
+  ipcRenderer.send(appConfigChannels.setProperty, property, value);
   eventTarget.dispatchEvent(new CustomEvent('change'));
 }
 

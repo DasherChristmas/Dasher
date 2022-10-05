@@ -1,11 +1,14 @@
-import { app, ipcMain, Menu } from 'electron';
+import { app, BrowserWindow, dialog, ipcMain, Menu, shell } from 'electron';
 import TypedEmitter from '../common/typedEmitter';
-import { getAppConfig } from './appConfig';
+import { getAppConfig, setConfig } from './appConfig';
 import {
   appConfigChannels,
   titleBarChannels,
   mainProcessChannels,
+  appStateChannels,
 } from './channels';
+import { getControllers, saveControllers } from './controllers';
+import { Controller } from '../renderer/types';
 import { windowEventTarget, windowState } from './getWindowState';
 // eslint-disable-next-line
 import { mainWindow } from './main'; // Creates a dependency cycle, which eslint hates XD.
@@ -39,6 +42,9 @@ ipcMain.on(mainProcessChannels.setProgressMode, (_, mode) => {
 });
 ipcEmitter.on(mainProcessChannels.openSettings, () => {
   mainWindow?.webContents.send(mainProcessChannels.openSettings);
+});
+ipcMain.on(mainProcessChannels.openFolder, (_, folder: string) => {
+  shell.openPath(folder);
 });
 
 /* ------------------------------ Title Bar IPC ----------------------------- */
@@ -125,3 +131,42 @@ ipcMain.on(
     appConfig[propertyName] = value;
   }
 );
+
+/* ------------------------------ App State IPC ----------------------------- */
+ipcMain.handle(appStateChannels.getDirectory, () => {
+  return appConfig.rootDir;
+});
+
+const loadNewDirectory = (dir: string) => {
+  BrowserWindow.getFocusedWindow()?.webContents.send(
+    appStateChannels.setDirectory,
+    dir
+  );
+};
+
+ipcMain.on(appStateChannels.setDirectory, async (_, permenant: boolean) => {
+  const selected = await dialog.showOpenDialog(
+    BrowserWindow.getFocusedWindow()!,
+    {
+      buttonLabel: 'Select directory',
+      defaultPath: appConfig.rootDir,
+      title: 'Select new root directory',
+      properties: ['openDirectory', 'dontAddToRecent', 'promptToCreate'],
+    }
+  );
+  const dir = selected.filePaths[0];
+  if (!dir) return;
+
+  loadNewDirectory(dir);
+  if (permenant) {
+    appConfig.rootDir = dir;
+    setConfig(appConfig);
+  }
+});
+
+ipcMain.handle(appStateChannels.getControllers, () => {
+  return getControllers(getAppConfig().rootDir);
+});
+ipcMain.on(appStateChannels.setControllers, (_, controllers: Controller[]) => {
+  saveControllers(getAppConfig().rootDir, controllers);
+});

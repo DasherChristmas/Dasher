@@ -13,6 +13,11 @@ module.exports = {
       'LabeledStatement',
       'WithStatement',
     ],
+    'prettier/prettier': 'off',
+    'react/jsx-props-no-spreading': 'off',
+    'jsx-a11y/no-static-element-interactions': 'off',
+    '@typescript-eslint/no-namespace': 'off',
+    'max-classes-per-file': 'off',
   },
   parserOptions: {
     ecmaVersion: 2020,

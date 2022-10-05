@@ -1,0 +1,33 @@
+{
+  "$id": "https://dasherchristmas.github.io/schemas/l10n",
+  "title": "L10N",
+  "description": "L10N Messages schema",
+  "type": "object",
+  "patternProperties": {
+    "^.+\\/.+$": {
+      "description": "A localized string",
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "placeholders": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "singular": {
+              "type": "string"
+            },
+            "plural": {
+              "type": "string"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

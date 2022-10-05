@@ -3,15 +3,22 @@ import path from 'path';
 import paths from './paths';
 
 import AppConfig from '../common/appConfig';
+import { L10N } from '../common/l10n';
 
 const defaultConfig: AppConfig = {
   editorConfig: path.join(paths.appData, 'default.dasherconfig'),
+  rootDir: paths.appData,
+  loc: 'en',
 };
 
 const validate = (config: any): config is AppConfig =>
   typeof config === 'object' &&
   'editorConfig' in config &&
-  typeof config.editorConfig === 'string';
+  typeof config.editorConfig === 'string' &&
+  'rootDir' in config &&
+  typeof config.rootDir === 'string' &&
+  'loc' in config &&
+  L10N.supportedLocales.includes(config.loc);
 
 export function setConfig(config: AppConfig) {
   fs.writeFile(

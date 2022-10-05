@@ -1,0 +1,235 @@
+@import '../../theme.scss';
+
+.ControllersContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: spacing(2);
+  padding: spacing(4);
+  padding-top: spacing(2);
+
+  .SectionTitle {
+    position: absolute;
+    left: spacing(2);
+    top: spacing(-4);
+    background-color: $tertiary;
+    padding: spacing(1);
+    padding-left: spacing(2);
+    padding-right: spacing(2);
+    border-radius: spacing(1.5);
+  }
+
+  .Section {
+    position: relative;
+    margin-top: spacing(4);
+    background-color: $secondary;
+    border-radius: spacing(1.5);
+    padding: spacing(4);
+    width: 100%;
+  }
+
+  .DirectorySelection {
+    height: min-content;
+    user-select: none;
+
+    div {
+      display: flex;
+      flex-direction: row;
+      gap: spacing(4);
+      align-items: center;
+      p {
+        code {
+          background-color: $primary;
+          padding: spacing(1);
+          border-radius: spacing(1.5);
+        }
+      }
+    }
+  }
+
+  .ControllersPanel {
+    flex-grow: 1;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: spacing(4);
+
+    .Container {
+      position: relative;
+      height: 100%;
+      width: 100%;
+      border-radius: spacing(2);
+      overflow-y: auto;
+      border: 2px solid $primary;
+
+      .Panel {
+        width: 100%;
+        height: min-content;
+        border-collapse: collapse;
+        table-layout: fixed;
+        border-radius: spacing(1.5);
+        overflow: hidden;
+        user-select: none;
+
+        th {
+          font-weight: normal;
+          border-bottom: solid 2px $quaternary;
+          background-color: $primary;
+          pointer-events: none;
+        }
+
+        th,
+        td {
+          padding: spacing(1);
+          padding-left: spacing(2);
+          padding-right: spacing(2);
+        }
+
+        tr {
+          border-radius: spacing(1.5);
+
+          td {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            text-shadow: spacing(0.4) spacing(0.4) 0px rgba($quaternary, 0.5);
+          }
+        }
+
+        tr:not(:last-of-type) {
+          border-bottom: 2px solid $tertiary;
+        }
+
+        th:not(:first-of-type),
+        td:not(:first-of-type) {
+          border-left: 1px solid $tertiary;
+        }
+
+        tbody {
+          tr {
+            background: $secondary;
+            box-shadow: 0 0 0px $secondary;
+            cursor: pointer;
+            position: relative;
+
+            &:not(:last-of-type) {
+              border-bottom: 1px solid $tertiary;
+            }
+
+            &:hover {
+              background: linear-gradient(
+                  rgba($accent, 0.1),
+                  rgba($accent, 0.1)
+                ),
+                linear-gradient($secondary, $secondary);
+            }
+
+            &:nth-child(even) {
+              background: rgba($primary, 0.5);
+
+              &:hover {
+                background: linear-gradient(
+                    rgba($accent, 0.1),
+                    rgba($accent, 0.1)
+                  ),
+                  linear-gradient(rgba($primary, 0.5), rgba($primary, 0.5));
+              }
+            }
+
+            &.Selected {
+              background: $accent !important;
+
+              td {
+                text-shadow: spacing(0.4) spacing(0.4) 0px rgba($primary, 0.5);
+              }
+            }
+          }
+        }
+      }
+      .Controls {
+        position: absolute;
+        border-radius: 9999px;
+        height: min-content;
+        width: spacing(8);
+        background-color: $quaternary;
+        display: flex;
+        flex-direction: column;
+        right: spacing(2);
+        bottom: spacing(2);
+
+        *:not(.Seperator) {
+          height: spacing(4);
+          width: spacing(4);
+          margin: spacing(2);
+          position: relative;
+          border-radius: 9999px;
+          cursor: pointer;
+
+          &:hover {
+            background-color: rgba($accent, 0.75);
+            box-shadow: 0 0 0px spacing(1.25) rgba($accent, 0.75);
+          }
+
+          &:active {
+            background-color: $accent;
+            box-shadow: 0 0 0px spacing(1) $accent;
+          }
+        }
+
+        .Seperator {
+          width: spacing(6);
+          height: 0;
+          border-bottom: 2px solid $quinary;
+          border-radius: 1px;
+          margin-left: spacing(1);
+          margin-right: spacing(1);
+        }
+      }
+    }
+
+    .Editor {
+      position: relative;
+      border-radius: spacing(2);
+      overflow: hidden;
+      border: 2px solid $primary;
+
+      table {
+        overflow-y: auto;
+        width: 100%;
+        th {
+          font-weight: normal;
+          border-right: solid 2px $quaternary;
+          background-color: $primary;
+          pointer-events: none;
+          width: 15%;
+        }
+
+        th,
+        td {
+          padding: spacing(1);
+          padding-left: spacing(2);
+          padding-right: spacing(2);
+        }
+
+        tr {
+          border-radius: spacing(1.5);
+
+          td {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            text-shadow: spacing(0.4) spacing(0.4) 0px rgba($quaternary, 0.5);
+          }
+        }
+
+        tr:not(:last-of-type) {
+          border-bottom: 1px solid $tertiary;
+        }
+
+        th:not(:first-of-type),
+        td:not(:first-of-type) {
+          border-bottom: 1px solid $tertiary;
+        }
+      }
+    }
+  }
+}

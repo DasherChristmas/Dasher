@@ -32,11 +32,20 @@ export const mainProcessChannels = buildChannelsObject('mainprocess', [
   'setProgress',
   'setProgressMode',
   'openSettings',
+  'openFolder',
+]);
+
+export const appStateChannels = buildChannelsObject('appstate', [
+  'getDirectory',
+  'setDirectory',
+  'getControllers',
+  'setControllers',
 ]);
 
 type Channels =
   | ChannelList<typeof titleBarChannels>
   | ChannelList<typeof appConfigChannels>
-  | ChannelList<typeof mainProcessChannels>;
+  | ChannelList<typeof mainProcessChannels>
+  | ChannelList<typeof appStateChannels>;
 
 export default Channels;

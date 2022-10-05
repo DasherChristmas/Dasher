@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { atom, useRecoilState, useRecoilValue } from 'recoil';
+import { ipcRenderer } from 'electron';
 import TypedEmitter from '../../common/typedEmitter';
 import './StatusBar.scss';
-
-const { ipcRenderer } = window.electron;
+import { mainProcessChannels } from '../../main/channels';
 
 const filePathState = atom({
   key: 'sequenceFilePath',
@@ -24,13 +24,13 @@ export const statusBarEmitter = new TypedEmitter<{
 (window as any).statusBarEmitter = statusBarEmitter;
 
 statusBarEmitter.on('setProgress', (percent) => {
-  ipcRenderer.sendMessage('mainprocess:setProgress', percent);
+  ipcRenderer.send(mainProcessChannels.setProgress, percent);
 });
 statusBarEmitter.on('setProgressMode', (type) => {
-  ipcRenderer.sendMessage('mainprocess:setProgressMode', type);
+  ipcRenderer.send(mainProcessChannels.setProgressMode, type);
 });
 statusBarEmitter.on('clearProgress', () => {
-  ipcRenderer.sendMessage('mainprocess:setProgress', 0);
+  ipcRenderer.send(mainProcessChannels.setProgress, 0);
 });
 
 const StatusBar: React.FC = () => {
@@ -58,15 +58,16 @@ const StatusBar: React.FC = () => {
       progressListener(0);
     };
     statusBarEmitter.on('clearProgress', clearListener);
-    const cleanupPathListener = ipcRenderer.on(
-      'mainprocess:openSequence',
-      (filePath) => {
-        setFilePath(filePath as string);
-      }
-    );
+    const cleanupPathListener = (
+      _: Electron.IpcRendererEvent,
+      filePath: string
+    ) => {
+      setFilePath(filePath as string);
+    };
+    ipcRenderer.on(mainProcessChannels.openSequence, cleanupPathListener);
 
     return () => {
-      cleanupPathListener?.();
+      ipcRenderer.off(mainProcessChannels.openSequence, cleanupPathListener);
       statusBarEmitter.off('setProgress', progressListener);
       statusBarEmitter.off('setProgressMode', typeListener);
       statusBarEmitter.off('clearProgress', clearListener);

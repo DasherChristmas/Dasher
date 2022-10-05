@@ -1,0 +1,82 @@
+@import '../../theme.scss';
+
+.Button {
+  padding: spacing(1);
+  padding-left: spacing(2);
+  padding-right: spacing(2);
+  border-radius: spacing(1.5);
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 0.1s ease;
+  user-select: none;
+  outline: none;
+
+  &:disabled {
+    background-color: #b91c1c !important;
+    cursor: not-allowed;
+  }
+
+  &:after {
+    display: none;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    content: '';
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  &:focus,
+  &:hover:after {
+    display: block;
+  }
+
+  &:focus,
+  &:hover {
+    box-shadow: 0 0 0px spacing(1) rgba($text, 0.05);
+  }
+
+  &.accent {
+    background-color: $accent;
+    &:active:not([disabled]) {
+      box-shadow: 0 0 0px spacing(1) rgba($accent, 0.25);
+    }
+  }
+
+  &.secondary {
+    background-color: $secondary;
+    &:active:not([disabled]) {
+      box-shadow: 0 0 0px spacing(1) rgba($secondary, 0.75);
+    }
+  }
+
+  &.tertiary {
+    background-color: $tertiary;
+    &:active:not([disabled]) {
+      box-shadow: 0 0 0px spacing(1) rgba($tertiary, 0.75);
+    }
+  }
+
+  &.quaternary {
+    background-color: $quaternary;
+    &:active:not([disabled]) {
+      box-shadow: 0 0 0px spacing(1) rgba($quaternary, 0.75);
+    }
+  }
+
+  &.quinary {
+    background-color: $quinary;
+    color: scale-color($text, $lightness: -80%);
+    &:active:not([disabled]) {
+      box-shadow: 0 0 0px spacing(1) rgba($quinary, 0.75);
+    }
+  }
+
+  &.red {
+    background-color: #ef4444;
+    &:active:not([disabled]) {
+      box-shadow: 0 0 0px spacing(1) rgba(#ef4444, 0.25);
+    }
+  }
+}

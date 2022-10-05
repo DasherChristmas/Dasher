@@ -12,6 +12,8 @@ import {
 } from 'react-feather';
 import React, { useMemo, useRef } from 'react';
 import pathParse from 'path-parse';
+import { ClickAwayListener } from '@mui/base';
+import { ipcRenderer } from 'electron';
 
 import TitleBarStateNode, {
   maximizedState,
@@ -22,17 +24,11 @@ import TitleBarStateNode, {
 import appIcon from '../../../assets/icon-nobg.png';
 
 import './TitleBar.scss';
-
-const { ipcRenderer } = window.electron;
+import { mainProcessChannels, titleBarChannels } from '../../main/channels';
 
 // Used to broadcast events to all menus
 const eventTarget = new EventTarget();
 
-// Close all menus when anything else is clicked
-window.addEventListener('click', (e) => {
-  if (document.getElementById('AppMenu')!.contains(e.target as Node)) return;
-  eventTarget.dispatchEvent(new CustomEvent('blur'));
-});
 // Also close all menus on window blur
 window.addEventListener('blur', () =>
   eventTarget.dispatchEvent(new CustomEvent('blur'))
@@ -80,6 +76,7 @@ const SubMenuItem: React.FC<{
   radioGroup: number;
 }> = ({ item, menuID, radioGroup }) => {
   const radioGroupString = `${menuID}-radio-${radioGroup}`;
+  const ref = useRef<HTMLInputElement>(null);
   switch (item.type) {
     case 'normal': {
       // Just a plain button with a label and accelerator.
@@ -87,7 +84,7 @@ const SubMenuItem: React.FC<{
         <div
           className="MenuItem"
           onClick={(e) => {
-            ipcRenderer.sendMessage('titlebar:menuAction', item.commandId);
+            ipcRenderer.send(titleBarChannels.menuAction, item.commandId);
             eventTarget.dispatchEvent(new CustomEvent('blur'));
             e.preventDefault();
           }}
@@ -106,25 +103,35 @@ const SubMenuItem: React.FC<{
     case 'submenu': {
       // An item with a nested submenu
       return (
-        <label
-          className="MenuItem"
-          onClickCapture={onRadioClick.bind(onRadioClick, null)}
-          role="button"
-          tabIndex={-1}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter')
-              onRadioClick(
-                null,
-                e as unknown as React.MouseEvent<HTMLLabelElement, MouseEvent>
-              );
+        <ClickAwayListener
+          onClickAway={() => {
+            if (ref.current) ref.current.checked = false;
           }}
         >
-          {item.label}
-          <ChevronRight className="SubMenuIcon" size="1rem" strokeWidth="2px" />
-          <input type="checkbox" className="MenuCheck" />
-          {/* eslint-disable-next-line @typescript-eslint/no-use-before-define */}
-          <SubMenu menu={item.submenu! as Electron.Menu} />
-        </label>
+          <label
+            className="MenuItem"
+            onClickCapture={onRadioClick.bind(onRadioClick, null)}
+            role="button"
+            tabIndex={-1}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter')
+                onRadioClick(
+                  null,
+                  e as unknown as React.MouseEvent<HTMLLabelElement, MouseEvent>
+                );
+            }}
+          >
+            {item.label}
+            <ChevronRight
+              className="SubMenuIcon"
+              size="1rem"
+              strokeWidth="2px"
+            />
+            <input type="checkbox" className="MenuCheck" ref={ref} />
+            {/* eslint-disable-next-line @typescript-eslint/no-use-before-define */}
+            <SubMenu menu={item.submenu! as Electron.Menu} />
+          </label>
+        </ClickAwayListener>
       );
     }
     case 'radio': {
@@ -132,7 +139,7 @@ const SubMenuItem: React.FC<{
         <label
           className="MenuItem"
           onClickCapture={(e) => {
-            ipcRenderer.sendMessage('titlebar:menuAction', item.commandId);
+            ipcRenderer.send(titleBarChannels.menuAction, item.commandId);
             eventTarget.dispatchEvent(new CustomEvent('blur'));
             e.stopPropagation();
           }}
@@ -164,7 +171,7 @@ const SubMenuItem: React.FC<{
         <label
           className="MenuItem"
           onClickCapture={(e) => {
-            ipcRenderer.sendMessage('titlebar:menuAction', item.commandId);
+            ipcRenderer.send(titleBarChannels.menuAction, item.commandId);
             eventTarget.dispatchEvent(new CustomEvent('blur'));
             e.stopPropagation();
           }}
@@ -246,29 +253,35 @@ const MenuBarItem: React.FC<{
   return (
     <div role="button" tabIndex={-1} className="MenuBarItem MenuItem">
       {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-      <label
-        className="ItemLabel"
-        onClick={onRadioClick.bind(onRadioClick, ref)}
-        // eslint-disable-next-line jsx-a11y/no-noninteractive-element-to-interactive-role
-        role="button"
-        tabIndex={-1}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter')
-            onRadioClick(
-              ref,
-              e as unknown as React.MouseEvent<HTMLLabelElement, MouseEvent>
-            );
+      <ClickAwayListener
+        onClickAway={() => {
+          if (ref.current) ref.current.checked = false;
         }}
       >
-        {menuItem.label}
-        <input
-          type="radio"
-          name="MainMenuCheck"
-          className="MenuCheck"
-          ref={ref}
-        />
-        <SubMenu menu={menuItem.submenu! as Electron.Menu} />
-      </label>
+        <label
+          className="ItemLabel"
+          onClick={onRadioClick.bind(onRadioClick, ref)}
+          // eslint-disable-next-line jsx-a11y/no-noninteractive-element-to-interactive-role
+          role="button"
+          tabIndex={-1}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter')
+              onRadioClick(
+                ref,
+                e as unknown as React.MouseEvent<HTMLLabelElement, MouseEvent>
+              );
+          }}
+        >
+          {menuItem.label}
+          <input
+            type="radio"
+            name="MainMenuCheck"
+            className="MenuCheck"
+            ref={ref}
+          />
+          <SubMenu menu={menuItem.submenu! as Electron.Menu} />
+        </label>
+      </ClickAwayListener>
     </div>
   );
 };
@@ -311,9 +324,9 @@ const TitleBar: React.FC = () => {
         <div
           role="button"
           className="WindowControl"
-          onClick={() => ipcRenderer.sendMessage('titlebar:minimize')}
+          onClick={() => ipcRenderer.send(titleBarChannels.minimize)}
           onKeyDown={(e) => {
-            if (e.key === 'Enter') ipcRenderer.sendMessage('titlebar:minimize');
+            if (e.key === 'Enter') ipcRenderer.send(titleBarChannels.minimize);
           }}
           tabIndex={-1}
         >
@@ -323,14 +336,18 @@ const TitleBar: React.FC = () => {
           role="button"
           className="WindowControl"
           onClick={() =>
-            ipcRenderer.sendMessage(
-              isMaximized ? 'titlebar:unmaximize' : 'titlebar:maximize'
+            ipcRenderer.send(
+              isMaximized
+                ? titleBarChannels.unmaximize
+                : titleBarChannels.maximize
             )
           }
           onKeyDown={(e) => {
             if (e.key === 'Enter')
-              ipcRenderer.sendMessage(
-                isMaximized ? 'titlebar:unmaximize' : 'titlebar:maximize'
+              ipcRenderer.send(
+                isMaximized
+                  ? titleBarChannels.unmaximize
+                  : titleBarChannels.maximize
               );
           }}
           tabIndex={-1}
@@ -371,9 +388,10 @@ const TitleBar: React.FC = () => {
         <div
           role="button"
           className="WindowControl closeButton"
-          onClick={() => ipcRenderer.sendMessage('titlebar:quit')}
+          onClick={() => ipcRenderer.send(titleBarChannels.quit)}
           onKeyDown={(e) => {
-            if (e.key === 'Enter') ipcRenderer.sendMessage('titlebar:quit');
+            if (e.key === 'Enter') ipcRenderer.send(titleBarChannels.quit);
+            if (e.key === 'Enter') ipcRenderer.send(titleBarChannels.quit);
           }}
           tabIndex={-1}
         >
@@ -385,7 +403,7 @@ const TitleBar: React.FC = () => {
   );
 };
 
-ipcRenderer.on('mainprocess:openSequence', (filePath) => {
+ipcRenderer.on(mainProcessChannels.openSequence, (_, filePath) => {
   if (typeof filePath !== 'string') return;
   const fileName = pathParse(filePath).base;
 

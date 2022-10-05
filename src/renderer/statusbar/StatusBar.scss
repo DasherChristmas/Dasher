@@ -1,17 +1,19 @@
+@import '../theme.scss';
+
 .StatusBar {
-  height: 1.5rem;
-  min-height: 1.5rem;
+  height: spacing(6);
+  min-height: spacing(6);
   width: 100%;
-  background: var(--c-secondary);
+  background: $secondary;
   font-size: 0.75rem;
-  border-top: 2px solid var(--c-tertiary);
+  border-top: 2px solid $tertiary;
   display: grid;
   grid-auto-flow: column;
   align-items: center;
-  gap: 1rem;
+  gap: spacing(4);
   user-select: none;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
+  padding-left: spacing(2);
+  padding-right: spacing(2);
   grid-auto-columns: 1fr;
 
   & > * {
@@ -20,19 +22,19 @@
 
   .SequencePath {
     font-family: 'Open Sans';
-    padding: 0rem;
-    padding-left: 0.25rem;
-    padding-right: 0.25rem;
+    padding: spacing(0);
+    padding-left: spacing(1);
+    padding-right: spacing(1);
     border-radius: 0.1rem;
-    background: var(--c-tertiary);
+    background: $tertiary;
   }
 
   .ProgressBarContainer {
     display: grid;
     position: relative;
-    width: 15rem;
-    height: 1rem;
-    border: 2px solid var(--c-quinary);
+    width: spacing(60);
+    height: spacing(4);
+    border: 2px solid $quinary;
     border-radius: 0.2rem;
     justify-self: end;
 
@@ -69,7 +71,7 @@
 
         @keyframes pulse {
           0% {
-            background-position: -15rem 0px;
+            background-position: spacing(-60) 0px;
             opacity: 1;
           }
           50% {
@@ -101,7 +103,7 @@
     & {
       grid-auto-flow: row;
       height: min-content;
-      gap: 0.5rem;
+      gap: spacing(2);
 
       & > * {
         justify-self: center;

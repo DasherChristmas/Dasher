@@ -1,0 +1,190 @@
+[
+  {
+    "id": -1,
+    "name": "F16V3 v2.59",
+    "description": "Main controller",
+    "type": "Ethernet",
+    "vendor": "Falcon",
+    "model": "F16V3",
+    "variant": "One Expansion Board",
+    "autoSize": true,
+    "fullControl": true,
+    "defaultBrightness": 70,
+    "activeState": "Active",
+    "autoLayout": true,
+    "autoUpload": false,
+    "suppressDuplicateFrames": false,
+    "ip": "192.168.1.236",
+    "protocol": "E131",
+    "fppProxy": "",
+    "priority": 100,
+    "version": 1,
+    "expanded": true,
+    "ups": false,
+    "universes": [
+      {
+        "port": "192.168.1.263",
+        "baudRate": 1,
+        "protocol": "E131",
+        "maxChannels": 450
+      },
+      {
+        "port": "192.168.1.263",
+        "baudRate": 2,
+        "protocol": "E131",
+        "maxChannels": 450
+      },
+      {
+        "port": "192.168.1.263",
+        "baudRate": 3,
+        "protocol": "E131",
+        "maxChannels": 450
+      },
+      {
+        "port": "192.168.1.263",
+        "baudRate": 4,
+        "protocol": "E131",
+        "maxChannels": 450
+      },
+      {
+        "port": "192.168.1.263",
+        "baudRate": 5,
+        "protocol": "E131",
+        "maxChannels": 450
+      },
+      {
+        "port": "192.168.1.263",
+        "baudRate": 6,
+        "protocol": "E131",
+        "maxChannels": 450
+      },
+      {
+        "port": "192.168.1.263",
+        "baudRate": 7,
+        "protocol": "E131",
+        "maxChannels": 450
+      },
+      {
+        "port": "192.168.1.263",
+        "baudRate": 8,
+        "protocol": "E131",
+        "maxChannels": 450
+      },
+      {
+        "port": "192.168.1.263",
+        "baudRate": 9,
+        "protocol": "E131",
+        "maxChannels": 450
+      },
+      {
+        "port": "192.168.1.263",
+        "baudRate": 10,
+        "protocol": "E131",
+        "maxChannels": 450
+      },
+      {
+        "port": "192.168.1.263",
+        "baudRate": 11,
+        "protocol": "E131",
+        "maxChannels": 450
+      },
+      {
+        "port": "192.168.1.263",
+        "baudRate": 12,
+        "protocol": "E131",
+        "maxChannels": 450
+      },
+      {
+        "port": "192.168.1.263",
+        "baudRate": 13,
+        "protocol": "E131",
+        "maxChannels": 450
+      },
+      {
+        "port": "192.168.1.263",
+        "baudRate": 14,
+        "protocol": "E131",
+        "maxChannels": 450
+      },
+      {
+        "port": "192.168.1.263",
+        "baudRate": 15,
+        "protocol": "E131",
+        "maxChannels": 450
+      },
+      {
+        "port": "192.168.1.263",
+        "baudRate": 16,
+        "protocol": "E131",
+        "maxChannels": 450
+      },
+      {
+        "port": "192.168.1.263",
+        "baudRate": 17,
+        "protocol": "E131",
+        "maxChannels": 450
+      },
+      {
+        "port": "192.168.1.263",
+        "baudRate": 18,
+        "protocol": "E131",
+        "maxChannels": 450
+      },
+      {
+        "port": "192.168.1.263",
+        "baudRate": 19,
+        "protocol": "E131",
+        "maxChannels": 450
+      },
+      {
+        "port": "192.168.1.263",
+        "baudRate": 20,
+        "protocol": "E131",
+        "maxChannels": 450
+      },
+      {
+        "port": "192.168.1.263",
+        "baudRate": 21,
+        "protocol": "E131",
+        "maxChannels": 450
+      },
+      {
+        "port": "192.168.1.263",
+        "baudRate": 22,
+        "protocol": "E131",
+        "maxChannels": 450
+      }
+    ]
+  },
+  {
+    "id": 1,
+    "name": "LOR",
+    "description": "",
+    "type": "Ethernet",
+    "vendor": "LOR",
+    "model": "",
+    "variant": "",
+    "autoSize": true,
+    "fullControl": true,
+    "defaultBrightness": 100,
+    "activeState": "Active",
+    "autoLayout": true,
+    "autoUpload": false,
+    "suppressDuplicateFrames": false,
+    "ip": "192.168.1.236",
+    "protocol": "E131",
+    "fppProxy": "",
+    "priority": 100,
+    "version": 1,
+    "expanded": false,
+    "ups": false,
+    "universes": [
+      {
+        "port": "192.168.1.263",
+        "baudRate": 23,
+        "protocol": "E131",
+        "maxChannels": 510
+      }
+    ]
+  }
+]

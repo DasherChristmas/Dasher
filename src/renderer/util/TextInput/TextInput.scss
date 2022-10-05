@@ -1,0 +1,11 @@
+@import '../../theme.scss';
+
+.TextInput {
+  color: $text;
+  outline: none;
+  background-color: transparent;
+
+  &.primary {
+    background-color: $primary;
+  }
+}
