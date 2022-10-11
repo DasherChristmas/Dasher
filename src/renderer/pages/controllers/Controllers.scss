@@ -82,17 +82,17 @@
           padding: spacing(1);
           padding-left: spacing(2);
           padding-right: spacing(2);
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        td {
+          text-shadow: spacing(0.4) spacing(0.4) 0px rgba($quaternary, 0.5);
         }
 
         tr {
           border-radius: spacing(1.5);
-
-          td {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            text-shadow: spacing(0.4) spacing(0.4) 0px rgba($quaternary, 0.5);
-          }
         }
 
         tr:not(:last-of-type) {
@@ -189,18 +189,19 @@
     .Editor {
       position: relative;
       border-radius: spacing(2);
-      overflow: hidden;
+      overflow-y: auto;
       border: 2px solid $primary;
 
       table {
-        overflow-y: auto;
+        overflow: hidden;
         width: 100%;
+        border-radius: spacing(1.5);
         th {
           font-weight: normal;
           border-right: solid 2px $quaternary;
           background-color: $primary;
           pointer-events: none;
-          width: 15%;
+          width: spacing(50);
         }
 
         th,
@@ -212,12 +213,35 @@
 
         tr {
           border-radius: spacing(1.5);
+          background: $secondary;
 
           td {
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
             text-shadow: spacing(0.4) spacing(0.4) 0px rgba($quaternary, 0.5);
+            position: relative;
+
+            .TextInput {
+              width: 100%;
+            }
+          }
+
+          &:hover {
+            background: linear-gradient(rgba($accent, 0.1), rgba($accent, 0.1)),
+              linear-gradient($secondary, $secondary);
+          }
+
+          &:nth-child(even) {
+            background: rgba($primary, 0.5);
+
+            &:hover {
+              background: linear-gradient(
+                  rgba($accent, 0.1),
+                  rgba($accent, 0.1)
+                ),
+                linear-gradient(rgba($primary, 0.5), rgba($primary, 0.5));
+            }
           }
         }
 

@@ -1,0 +1,282 @@
+{
+  "$id": "https://dasherchristmas.github.io/schemas/controllerset",
+  "title": "Controller set",
+  "type": "object",
+  "properties": {
+    "vendor": {
+      "type": "string"
+    },
+    "abstractVariants": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/variant"
+      }
+    },
+    "controllers": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/controller"
+      }
+    }
+  },
+  "required": ["vendor", "controllers"],
+  "definitions": {
+    "variant": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "extends": {
+          "type": "string"
+        },
+        "noWebUI": {
+          "type": "boolean"
+        },
+        "upload": {
+          "type": "boolean"
+        },
+        "inputOnlyUpload": {
+          "type": "boolean"
+        },
+        "autoUpload": {
+          "type": "boolean"
+        },
+        "pixelPortCommonSettings": {
+          "type": "boolean"
+        },
+        "pixelZigZag": {
+          "type": "boolean"
+        },
+        "maxZigZag": {
+          "type": "number"
+        },
+        "fullControl": {
+          "type": "boolean"
+        },
+        "multipleSimulOutProtocols": {
+          "type": "boolean"
+        },
+        "multipleSimulInProtocols": {
+          "type": "boolean"
+        },
+        "ledPanelMatrix": {
+          "type": "boolean"
+        },
+        "allInputUniversesSameSize": {
+          "type": "boolean"
+        },
+        "virtualStrings": {
+          "type": "boolean"
+        },
+        "autoLayout": {
+          "type": "boolean"
+        },
+        "mergeConsecutiveVirtStrings": {
+          "type": "boolean"
+        },
+        "remotes": {
+          "type": "boolean"
+        },
+        "defaultBrightness": {
+          "type": "boolean"
+        },
+        "maxInputUniverses": {
+          "type": "number"
+        },
+        "maxSerialPortChannels": {
+          "type": "number"
+        },
+        "serialProtocols": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protocol"
+          }
+        },
+        "pixelProtocols": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protocol"
+          }
+        },
+        "inputProtocols": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protocol"
+          }
+        },
+        "maxPixelPortChannels": {
+          "type": "number"
+        },
+        "allSmartRemoteTypesPerPortSame": {
+          "type": "boolean"
+        },
+        "smartRemotes": {
+          "type": "number"
+        },
+        "needsDDPInputUpload": {
+          "type": "boolean"
+        },
+        "smartRemoteTypes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "maxPixelPort": {
+          "type": "number"
+        },
+        "maxSerialPort": {
+          "type": "number"
+        },
+        "banks": {
+          "type": "number"
+        },
+        "bankSize": {
+          "type": "number"
+        },
+        "maxStartNulls": {
+          "type": "number"
+        },
+        "maxEndNulls": {
+          "type": "number"
+        },
+        "maxGroup": {
+          "type": "number"
+        },
+        "minGroup": {
+          "type": "number"
+        },
+        "needsFullUniverseForSerial": {
+          "type": "boolean"
+        },
+        "allInputUniversesMustBe510": {
+          "type": "boolean"
+        },
+        "forceExpanded": {
+          "type": "boolean"
+        },
+        "pixelPortGrouping": {
+          "type": "boolean"
+        },
+        "pixelProtColorOrder": {
+          "type": "boolean"
+        },
+        "maxInputUniverseChannels": {
+          "type": "number"
+        },
+        "minInputUniverseChannels": {
+          "type": "number"
+        },
+        "universesMustBeSequential": {
+          "type": "boolean"
+        },
+        "pixelPortEndNullPixels": {
+          "type": "boolean"
+        },
+        "universesMustBeInNumericalOrder": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": true,
+      "required": ["name"]
+    },
+    "controller": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "variants": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/variant"
+          }
+        }
+      },
+      "required": ["name", "variants"]
+    },
+    "protocol": {
+      "type": "string",
+      "enum": [
+        "twinkly",
+        "qed3110",
+        "dmx",
+        "renard",
+        "ws2811",
+        "tm18xx",
+        "lx1203",
+        "ws2801",
+        "tls3001",
+        "lpd6803",
+        "gece",
+        "lpd8806",
+        "apa102",
+        "ucs2903",
+        "tm1814a",
+        "e131",
+        "artnet",
+        "zcpp",
+        "ddp",
+        "apa109",
+        "sm16716",
+        "tm1814",
+        "tm1829",
+        "ucs8903",
+        "ucs8903 16 bit",
+        "ucs8904",
+        "ucs8904 16 bit",
+        "ws2811 slow",
+        "dmx512p",
+        "dmx512p-4",
+        "sj1221",
+        "tm1803",
+        "tm1804",
+        "tm1809",
+        "tm1914",
+        "apa104",
+        "dmx512",
+        "sm16703",
+        "sm16704",
+        "sm16714",
+        "mbi6020",
+        "my9231",
+        "my9221",
+        "my9291",
+        "sk6812",
+        "sk6813",
+        "sk6822",
+        "sk9822",
+        "ucs1903",
+        "ucs2904",
+        "ucs9812",
+        "gs8208",
+        "p9813",
+        "mb16020",
+        "tlc5973",
+        "tm1812",
+        "9pdot",
+        "9pdot (16)",
+        "spxl",
+        "spxl (16)",
+        "opendmx",
+        "genericserial",
+        "lor",
+        "pixelnet",
+        "pixelnet-open",
+        "ddp-input",
+        "dmx-pro",
+        "dmx-open",
+        "pixelnet-lynx",
+        "lor optimised",
+        "ccr",
+        "ccb",
+        "gs820x",
+        "rgb+",
+        "rgbw+",
+        "rgb+2",
+        "rm2021"
+      ]
+    }
+  }
+}

@@ -21,7 +21,7 @@ import {
   selectedControllerState,
 } from '../../appState';
 import { appStateChannels, mainProcessChannels } from '../../../main/channels';
-import { controllerSchema } from '../../types';
+import { Controller, controllerSchema } from '../../types';
 import TextInput from '../../util/TextInput/TextInput';
 import useL10N from '../../util/l10n/l10n';
 
@@ -73,23 +73,21 @@ const DirectorySelection: React.FC = () => {
 const ControllerEditor: React.FC = () => {
   const [controllers, setControllers] = useRecoilState(controllersState);
   const selectedController = useRecoilValue(selectedControllerState);
-  const controller = useMemo(
-    () => controllers[selectedController],
-    [controllers, selectedController]
-  );
+  const controller = controllers[selectedController];
 
   const updateControllerProperty = useCallback(
-    <P extends keyof typeof controller>(
-      prop: P,
-      value: typeof controller[P]
-    ) => {
-      const idx = controllers.indexOf(controller);
+    <P extends keyof Controller>(prop: P, value: typeof controller[P]) => {
+      const idx = selectedController;
       const newController = { ...controller };
       newController[prop] = value;
-      setControllers([...controllers].splice(idx, 1, newController));
+      const newControllers = [...controllers];
+      newControllers.splice(idx, 1, newController);
+      setControllers(newControllers);
     },
-    [controllers, controller, setControllers]
+    [controllers, controller, setControllers, selectedController]
   );
+  const msg = useL10N();
+
   return (
     <div className="Editor">
       <table>
@@ -98,8 +96,8 @@ const ControllerEditor: React.FC = () => {
               switch (value.type) {
                 case 'string': {
                   return (
-                    <tr>
-                      <th>{prop}</th>
+                    <tr key={`${controller.id}-${prop}`}>
+                      <th>{msg(`controllers/${prop}`)}</th>
                       <td>
                         <TextInput
                           color="none"
@@ -108,6 +106,9 @@ const ControllerEditor: React.FC = () => {
                               prop as keyof typeof controller
                             ] as string
                           }
+                          onChange={(e) => {
+                            updateControllerProperty(prop, e.target.value);
+                          }}
                         />
                       </td>
                     </tr>

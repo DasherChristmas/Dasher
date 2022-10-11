@@ -1,4 +1,3 @@
-import fs from 'fs/promises';
 import TypedEmitter from './typedEmitter';
 
 export class L10N {

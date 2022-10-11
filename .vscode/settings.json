@@ -30,8 +30,12 @@
   "typescript.tsdk": "node_modules\\typescript\\lib",
   "json.schemas": [
     {
-      "fileMatch": ["l10n/*.json"],
+      "fileMatch": ["/l10n/*.json"],
       "url": "/config/l10n.schema.json"
+    },
+    {
+      "fileMatch": ["/controllers/*.json"],
+      "url": "/config/controller.schema.json"
     }
   ]
 }

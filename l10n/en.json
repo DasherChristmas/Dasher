@@ -9,5 +9,12 @@
   "controllers/address": "IP Address",
   "controllers/universe-id": "Universes / ID",
   "controllers/channel-count": "Channel Count",
-  "controllers/description": "Description"
+  "controllers/description": "Description",
+  "controllers/type": "Type",
+  "controllers/vendor": "Vendor",
+  "controllers/model": "Model",
+  "controllers/variant": "Variant",
+  "controllers/activeState": "State",
+  "controllers/ip": "IP Address",
+  "controllers/fppProxy": "FPP Proxy IP / Hostname"
 }

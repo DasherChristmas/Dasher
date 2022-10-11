@@ -1,0 +1,356 @@
+{
+  "vendor": "Falcon",
+  "abstractVariants": [
+    {
+      "name": "BaseFalconSettings",
+      "upload": true,
+      "inputOnlyUpload": true,
+      "pixelPortCommonSettings": true,
+      "pixelZigZag": true,
+      "maxZigZag": 512,
+      "fullControl": true,
+      "multipleSimulOutProtocols": true,
+      "multipleSimulInProtocols": true,
+      "universesMustBeInNumericalOrder": true,
+      "virtualStrings": true,
+      "autoLayout": true,
+      "mergeConsecutiveVirtStrings": true,
+      "remotes": true,
+      "defaultBrightness": true,
+      "maxInputUniverses": 96,
+      "maxSerialPortChannels": 512,
+      "serialProtocols": ["dmx", "renard", "pixelnet"],
+      "pixelProtocols": [
+        "ws2811",
+        "tm18xx",
+        "lx1203",
+        "ws2801",
+        "tls3001",
+        "lpd6803",
+        "gece",
+        "lpd8806",
+        "apa102",
+        "ucs2903",
+        "tm1814a"
+      ]
+    },
+    {
+      "name": "BaseFalconV2Settings",
+      "extends": "Falcon:BaseFalconSettings",
+      "maxPixelPortChannels": 2040,
+      "inputProtocols": ["e131", "artnet"]
+    },
+    {
+      "name": "BaseFalconV3Settings",
+      "extends": "Falcon:BaseFalconSettings",
+      "smartRemotes": 3,
+      "allSmartRemoteTypesPerPortSame": true,
+      "maxPixelPortChannels": 3072,
+      "inputProtocols": ["e131", "artnet", "zcpp", "ddp"],
+      "needsDDPInputUpload": true,
+      "smartRemoteTypes": ["falcon_v1"]
+    },
+    {
+      "name": "BaseFalconV4Settings",
+      "upload": true,
+      "inputOnlyUpload": true,
+      "pixelPortCommonSettings": true,
+      "pixelZigZag": true,
+      "maxZigZag": 512,
+      "fullControl": true,
+      "multipleSimulOutProtocols": true,
+      "multipleSimulInProtocols": true,
+      "virtualStrings": true,
+      "autoLayout": true,
+      "mergeConsecutiveVirtStrings": true,
+      "pixelPortEndNullPixels": true,
+      "maxStartNulls": 20,
+      "maxEndNulls": 20,
+      "minGroup": 1,
+      "allSmartRemoteTypesPerPortSame": true,
+      "defaultBrightness": true,
+      "maxInputUniverses": 192,
+      "maxSerialPortChannels": 512,
+      "serialProtocols": ["dmx", "renard"],
+      "pixelProtocols": [
+        "apa102",
+        "apa109",
+        "lpd6803",
+        "lpd8806",
+        "sm16716",
+        "tls3001",
+        "tm1814",
+        "tm1829",
+        "ucs8903",
+        "ucs8903 16 bit",
+        "ucs8904",
+        "ucs8904 16 bit",
+        "ws2801",
+        "ws2811",
+        "ws2811 slow",
+        "dmx512p",
+        "dmx512p-4",
+        "sj1221"
+      ],
+      "inputProtocols": ["e131", "artnet", "ddp", "zcpp"],
+      "smartRemoteTypes": ["falcon_v2"]
+    }
+  ],
+  "controllers": [
+    {
+      "name": "F4V2",
+      "variants": [
+        {
+          "name": "No Expansion Board",
+          "extends": "Falcon:BaseFalconV2Settings",
+          "maxPixelPort": 4,
+          "maxSerialPort": 1
+        },
+        {
+          "name": "One Expansion Board",
+          "extends": "Falcon:BaseFalconV2Settings",
+          "maxPixelPort": 12,
+          "maxSerialPort": 1
+        }
+      ]
+    },
+    {
+      "name": "F4V3",
+      "variants": [
+        {
+          "name": "No Expansion Board",
+          "extends": "Falcon:BaseFalconV3Settings",
+          "maxPixelPort": 4,
+          "maxSerialPort": 1
+        },
+        {
+          "name": "One Expansion Board",
+          "extends": "Falcon:BaseFalconV3Settings",
+          "maxPixelPort": 12,
+          "maxSerialPort": 1
+        }
+      ]
+    },
+    {
+      "name": "F16V2",
+      "variants": [
+        {
+          "name": "No Expansion Boards",
+          "extends": "Falcon:BaseFalconV2Settings",
+          "maxPixelPort": 16,
+          "maxSerialPort": 4
+        },
+        {
+          "name": "One Expansion Board",
+          "extends": "Falcon:BaseFalconV2Settings",
+          "maxPixelPort": 32,
+          "maxSerialPort": 4
+        }
+      ]
+    },
+    {
+      "name": "F16V2R",
+      "variants": [
+        {
+          "name": "No Expansion Boards",
+          "extends": "Falcon:BaseFalconV2Settings",
+          "maxPixelPort": 16,
+          "maxSerialPort": 4,
+          "banks": 1,
+          "bankSize": 16
+        },
+        {
+          "name": "No Expansion + Serial Port Remotes",
+          "extends": "Falcon:BaseFalconV2Settings",
+          "maxPixelPort": 32,
+          "maxSerialPort": 4,
+          "banks": 2,
+          "bankSize": 16
+        },
+        {
+          "name": "One Expansion Board",
+          "extends": "Falcon:BaseFalconV2Settings",
+          "maxPixelPort": 32,
+          "maxSerialPort": 4,
+          "banks": 2,
+          "bankSize": 16
+        }
+      ]
+    },
+    {
+      "name": "F16V3",
+      "variants": [
+        {
+          "name": "No Expansion Boards",
+          "extends": "Falcon:BaseFalconV3Settings",
+          "maxPixelPort": 16,
+          "maxSerialPort": 4
+        },
+        {
+          "name": "No Expansion + Serial Port Remotes",
+          "extends": "Falcon:BaseFalconV3Settings",
+          "maxPixelPort": 20,
+          "maxSerialPort": 0,
+          "banks": 2,
+          "bankSize": 16
+        },
+        {
+          "name": "One Expansion Board",
+          "extends": "Falcon:BaseFalconV3Settings",
+          "maxPixelPort": 32,
+          "maxSerialPort": 4,
+          "banks": 2,
+          "bankSize": 16
+        },
+        {
+          "name": "One Expansion + Serial Port Remotes",
+          "extends": "Falcon:BaseFalconV3Settings",
+          "maxPixelPort": 36,
+          "maxSerialPort": 0,
+          "banks": 3,
+          "bankSize": 16
+        },
+        {
+          "name": "Two Expantion Boards",
+          "extends": "Falcon:BaseFalconV3Settings",
+          "maxPixelPort": 48,
+          "maxSerialPort": 4,
+          "banks": 3,
+          "bankSize": 16
+        }
+      ]
+    },
+    {
+      "name": "F48",
+      "variants": [
+        {
+          "name": "",
+          "extends": "Falcon:BaseFalconV3Settings",
+          "maxPixelPort": 48,
+          "maxSerialPort": 4,
+          "banks": 3,
+          "bankSize": 16
+        }
+      ]
+    },
+    {
+      "name": "F16V4",
+      "variants": [
+        {
+          "name": "16 Local Ports",
+          "extends": "Falcon:BaseFalconV4Settings",
+          "maxPixelPort": 16,
+          "maxSerialPort": 1,
+          "maxPixelPortChannels": 3072,
+          "v4BoardMode": 0
+        },
+        {
+          "name": "16 Local Ports + 2 Smart Reciever Chains",
+          "extends": "Falcon:BaseFalconV4Settings",
+          "maxPixelPort": 24,
+          "maxSerialPort": 1,
+          "maxPixelPortChannels": 3072,
+          "v4BoardMode": 1,
+          "remotes": true,
+          "smartRemotes": 6
+        },
+        {
+          "name": "16 + 16 Local Ports",
+          "extends": "Falcon:BaseFalconV4Settings",
+          "maxPixelPort": 32,
+          "maxSerialPort": 1,
+          "maxPixelPortChannels": 3072,
+          "v4BoardMode": 2
+        },
+        {
+          "name": "16 + 16 Local Ports + 2 Smart Receiver Chains",
+          "extends": "Falcon:BaseFalconV4Settings",
+          "maxPixelPort": 40,
+          "maxSerialPort": 1,
+          "maxPixelPortChannels": 2112,
+          "v4BoardMode": 3,
+          "remotes": true,
+          "smartRemotes": 6
+        },
+        {
+          "name": "16 Local Ports + 4 Smart Receiver Chains",
+          "extends": "Falcon:BaseFalconV4Settings",
+          "maxPixelPort": 32,
+          "maxSerialPort": 1,
+          "maxPixelPortChannels": 3072,
+          "v4BoardMode": 4,
+          "remotes": true,
+          "smartRemotes": 6
+        },
+        {
+          "name": "16 Local Ports + 4 + 2 Smart Receiver Chains",
+          "extends": "Falcon:BaseFalconV4Settings",
+          "maxPixelPort": 40,
+          "maxSerialPort": 1,
+          "maxPixelPortChannels": 2112,
+          "v4BoardMode": 5,
+          "remotes": true,
+          "smartRemotes": 6
+        },
+        {
+          "name": "16 + 16 + 16 Local Ports",
+          "extends": "Falcon:BaseFalconV4Settings",
+          "maxPixelPort": 48,
+          "maxSerialPort": 1,
+          "maxPixelPortChannels": 2112,
+          "v4BoardMode": 6
+        },
+        {
+          "name": "16 + 16 Local Ports + 4 Smart Receiver Chains",
+          "extends": "Falcon:BaseFalconV4Settings",
+          "maxPixelPort": 48,
+          "maxSerialPort": 1,
+          "maxPixelPortChannels": 2112,
+          "v4BoardMode": 7,
+          "remotes": true,
+          "smartRemotes": 6
+        },
+        {
+          "name": "16 + 4 Smart Receiver Chains + 16 Local Ports",
+          "extends": "Falcon:BaseFalconV4Settings",
+          "maxPixelPort": 48,
+          "maxSerialPort": 1,
+          "maxPixelPortChannels": 2112,
+          "v4BoardMode": 8,
+          "remotes": true,
+          "smartRemotes": 6
+        },
+        {
+          "name": "16 Local Ports + 4 + 4 Smart Receiver Chains",
+          "extends": "Falcon:BaseFalconV4Settings",
+          "maxPixelPort": 48,
+          "maxSerialPort": 1,
+          "maxPixelPortChannels": 2112,
+          "v4BoardMode": 9,
+          "remotes": true,
+          "smartRemotes": 6
+        },
+        {
+          "name": "4 + 4 + 4 Smart Receiver Chains",
+          "extends": "Falcon:BaseFalconV4Settings",
+          "maxPixelPort": 48,
+          "maxSerialPort": 1,
+          "maxPixelPortChannels": 2112,
+          "v4BoardMode": 10,
+          "remotes": true,
+          "smartRemotes": 6
+        },
+        {
+          "name": "4 + 4 Smart Receiver Chains",
+          "extends": "Falcon:BaseFalconV4Settings",
+          "maxPixelPort": 32,
+          "maxSerialPort": 1,
+          "maxPixelPortChannels": 3072,
+          "v4BoardMode": 11,
+          "remotes": true,
+          "smartRemotes": 6
+        }
+      ]
+    }
+  ]
+}

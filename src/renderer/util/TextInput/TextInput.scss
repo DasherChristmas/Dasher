@@ -4,8 +4,39 @@
   color: $text;
   outline: none;
   background-color: transparent;
+  border-bottom: 2px solid rgba($text, 0.25);
+  border-radius: 1px;
+  padding: {
+    left: spacing(0.5);
+    right: spacing(0.5);
+  }
 
   &.primary {
     background-color: $primary;
+  }
+
+  &.secondary {
+    background-color: $secondary;
+  }
+
+  &.tertiary {
+    background-color: $tertiary;
+  }
+
+  &.quaternary {
+    background-color: $quaternary;
+  }
+
+  &.quinary {
+    background-color: $quinary;
+  }
+
+  &:hover {
+    background-color: rgba($text, 0.05);
+  }
+
+  &:focus {
+    background-color: rgba($text, 0.075);
+    border-bottom: 2px solid rgba($text, 0.5);
   }
 }

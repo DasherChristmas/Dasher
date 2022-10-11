@@ -1,0 +1,317 @@
+{
+  "vendor": "Advatek",
+  "abstractVariants": [
+    {
+      "name": "PLMK3",
+      "pixelPortCommonSettings": true,
+      "upload": true,
+      "maxSerialPortChannels": 512,
+      "maxPixelPortChannels": 3060,
+      "maxStartNulls": 50,
+      "maxGroup": 50,
+      "minGroup": 1,
+      "autoLayout": true,
+      "needsFullUniverseForSerial": true,
+      "fullControl": true,
+      "allInputUniversesSameSize": true,
+      "allInputUniversesMustBe510": true,
+      "pixelProtocols": [
+        "ws2811",
+        "tm1803",
+        "tm1804",
+        "tm1809",
+        "tm1814",
+        "tm1914",
+        "ws2801",
+        "tls3001",
+        "lpd6803",
+        "lpd8806",
+        "apa102",
+        "apa104",
+        "apa109",
+        "dmx512",
+        "sm16703",
+        "sm16704",
+        "sm16714",
+        "sm16716",
+        "mbi6020",
+        "my9231",
+        "my9221",
+        "my9291",
+        "sk6812",
+        "sk6813",
+        "sk6822",
+        "sk9822",
+        "ucs1903",
+        "ucs2903",
+        "ucs2904",
+        "ucs9812",
+        "gs8208",
+        "p9813"
+      ],
+      "serialProtocols": ["dmx"],
+      "inputProtocols": ["e131", "artnet"]
+    },
+    {
+      "name": "PLMK2",
+      "pixelPortCommonSettings": true,
+      "upload": true,
+      "maxSerialPortChannels": 512,
+      "maxPixelPortChannels": 3060,
+      "maxStartNulls": 10,
+      "maxGroup": 340,
+      "minGroup": 1,
+      "noWebUI": true,
+      "autoLayout": true,
+      "pixelZigZag": true,
+      "maxZigZag": 768,
+      "needsFullUniverseForSerial": true,
+      "fullControl": true,
+      "allInputUniversesSameSize": true,
+      "allInputUniversesMustBe510": true,
+      "pixelProtocols": [
+        "ws2811",
+        "tm18xx",
+        "tm1803",
+        "tm1804",
+        "tm1809",
+        "ws2801",
+        "tls3001",
+        "lpd6803",
+        "lpd8806",
+        "apa102",
+        "apa109",
+        "dmx512",
+        "sm16716",
+        "mb16020",
+        "my9231",
+        "my9221",
+        "sk6812",
+        "ucs1903",
+        "ucs2903"
+      ],
+      "serialProtocols": ["dmx"],
+      "inputProtocols": ["e131", "artnet"]
+    },
+    {
+      "name": "PLMK1",
+      "pixelPortCommonSettings": true,
+      "upload": true,
+      "maxSerialPortChannels": 512,
+      "maxPixelPortChannels": 2040,
+      "autoLayout": true,
+      "maxStartNulls": 10,
+      "maxGroup": 340,
+      "minGroup": 1,
+      "needsFullUniverseForSerial": true,
+      "noWebUI": true,
+      "fullControl": true,
+      "allInputUniversesSameSize": true,
+      "allInputUniversesMustBe510": true,
+      "pixelProtocols": [
+        "ws2811",
+        "tm18xx",
+        "tm1803",
+        "tm1804",
+        "tm1809",
+        "ws2801",
+        "tls3001",
+        "lpd6803",
+        "lpd8806",
+        "apa102",
+        "apa109",
+        "sm16716",
+        "mb16020",
+        "my9231",
+        "my9221",
+        "sk6812",
+        "ucs1903",
+        "ucs2903"
+      ],
+      "serialProtocols": ["dmx"],
+      "inputProtocols": ["e131", "artnet"]
+    }
+  ],
+  "controllers": [
+    {
+      "name": "PixLite E4-S Mk3",
+      "variants": [
+        {
+          "name": "Normal",
+          "extends": "Advatek:PLMK3",
+          "maxInputUniverses": 24,
+          "maxPixelPort": 4,
+          "maxSerialPort": 1
+        },
+        {
+          "name": "Expanded",
+          "extends": "Advatek:PLMK3",
+          "maxInputUniverses": 24,
+          "maxPixelPort": 8,
+          "maxSerialPort": 1,
+          "forceExpanded": true
+        }
+      ]
+    },
+    {
+      "name": "PixLite E16-S Mk3",
+      "variants": [
+        {
+          "name": "Normal",
+          "extends": "Advatek:PLMK3",
+          "maxInputUniverses": 96,
+          "maxPixelPort": 16,
+          "maxSerialPort": 1
+        },
+        {
+          "name": "Expanded",
+          "extends": "Advatek:PLMK3",
+          "maxInputUniverses": 96,
+          "maxPixelPort": 32,
+          "maxSerialPort": 1,
+          "forceExpanded": true
+        }
+      ]
+    },
+    {
+      "name": "PixLite T8-S Mk3",
+      "variants": [
+        {
+          "name": "Normal",
+          "extends": "Advatek:PLMK3",
+          "maxInputUniverses": 96,
+          "maxPixelPort": 16,
+          "maxSerialPort": 1
+        },
+        {
+          "name": "Expanded",
+          "extends": "Advatek:PLMK3",
+          "maxInputUniverses": 96,
+          "maxPixelPort": 32,
+          "maxSerialPort": 1,
+          "forceExpanded": true
+        }
+      ]
+    },
+    {
+      "name": "PixLite 4 MkII",
+      "variants": [
+        {
+          "name": "Normal",
+          "extends": "Advatek:PLMK2",
+          "maxInputUniverses": 96,
+          "maxPixelPort": 4,
+          "maxSerialPort": 1
+        },
+        {
+          "name": "Expanded",
+          "extends": "Advatek:PLMK2",
+          "maxInputUniverses": 96,
+          "maxPixelPort": 8,
+          "maxSerialPort": 1,
+          "forceExpanded": true
+        }
+      ]
+    },
+    {
+      "name": "PixLite 16 MkII",
+      "variants": [
+        {
+          "name": "Normal",
+          "extends": "Advatek:PLMK2",
+          "maxInputUniverses": 96,
+          "maxPixelPort": 16,
+          "maxSerialPort": 4
+        },
+        {
+          "name": "Expanded",
+          "extends": "Advatek:PLMK2",
+          "maxInputUniverses": 96,
+          "maxPixelPort": 32,
+          "maxSerialPort": 4,
+          "forceExpanded": true
+        }
+      ]
+    },
+    {
+      "name": "PixLite 16 MkII Long Range",
+      "variants": [
+        {
+          "name": "Normal",
+          "extends": "Advatek:PLMK2",
+          "maxInputUniverses": 96,
+          "maxPixelPort": 32,
+          "maxSerialPort": 4
+        },
+        {
+          "name": "Expanded",
+          "extends": "Advatek:PLMK2",
+          "maxInputUniverses": 96,
+          "maxPixelPort": 32,
+          "maxSerialPort": 4,
+          "forceExpanded": true
+        }
+      ]
+    },
+    {
+      "name": "PixLite 4",
+      "variants": [
+        {
+          "name": "Normal",
+          "extends": "Advatek:PLMK1",
+          "maxInputUniverses": 96,
+          "maxPixelPort": 4,
+          "maxSerialPort": 1
+        },
+        {
+          "name": "Expanded",
+          "extends": "Advatek:PLMK1",
+          "maxInputUniverses": 96,
+          "maxPixelPort": 8,
+          "maxSerialPort": 1,
+          "forceExpanded": true
+        }
+      ]
+    },
+    {
+      "name": "PixLite 16",
+      "variants": [
+        {
+          "name": "Normal",
+          "extends": "Advatek:PLMK1",
+          "maxInputUniverses": 96,
+          "maxPixelPort": 16,
+          "maxSerialPort": 4
+        },
+        {
+          "name": "Expanded",
+          "extends": "Advatek:PLMK1",
+          "maxInputUniverses": 96,
+          "maxPixelPort": 32,
+          "maxSerialPort": 4,
+          "forceExpanded": true
+        }
+      ]
+    },
+    {
+      "name": "PixLite 16 Long Range",
+      "variants": [
+        {
+          "name": "Normal",
+          "extends": "Advatek:PLMK1",
+          "maxInputUniverses": 96,
+          "maxPixelPort": 16,
+          "maxSerialPort": 4
+        },
+        {
+          "name": "Expanded",
+          "extends": "Advatek:PLMK1",
+          "maxInputUniverses": 96,
+          "maxPixelPort": 32,
+          "maxSerialPort": 4,
+          "forceExpanded": true
+        }
+      ]
+    }
+  ]
+}

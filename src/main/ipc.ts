@@ -161,6 +161,7 @@ ipcMain.on(appStateChannels.setDirectory, async (_, permenant: boolean) => {
   if (permenant) {
     appConfig.rootDir = dir;
     setConfig(appConfig);
+    saveControllers(getAppConfig().rootDir, getControllers(appConfig.rootDir));
   }
 });
 

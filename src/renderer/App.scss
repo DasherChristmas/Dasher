@@ -15,6 +15,10 @@
   font-family: 'Open Sans';
   color: $text;
   font-size: 0.95rem;
+
+  &::selection {
+    background-color: rgba($accent, 0.5);
+  }
 }
 
 body {

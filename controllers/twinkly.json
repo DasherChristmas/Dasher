@@ -1,0 +1,195 @@
+{
+  "vendor": "Twinkly",
+  "abstractVariants": [
+    {
+      "name": "BaseTwinklySettings",
+      "noWebUI": true,
+      "autoLayout": true,
+      "pixelProtocols": ["qed3110"],
+      "inputProtocols": ["twinkly"],
+      "maxPixelPort": 1,
+      "maxSerialPort": 0
+    }
+  ],
+  "controllers": [
+    {
+      "name": "Twinkly Strings",
+      "variants": [
+        {
+          "name": "250 RGB+W",
+          "extends": "Twinkly:BaseTwinklySettings",
+          "maxPixelPortChannels": 1000
+        },
+        {
+          "name": "400 RGB+W",
+          "extends": "Twinkly:BaseTwinklySettings",
+          "maxPixelPort": 1,
+          "maxSerialPort": 0,
+          "maxPixelPortChannels": 1600
+        },
+        {
+          "name": "600 RGB+W",
+          "extends": "Twinkly:BaseTwinklySettings",
+          "maxPixelPort": 1,
+          "maxSerialPort": 0,
+          "maxPixelPortChannels": 2400
+        },
+        {
+          "name": "100 RGB",
+          "extends": "Twinkly:BaseTwinklySettings",
+          "maxPixelPort": 1,
+          "maxSerialPort": 0,
+          "maxPixelPortChannels": 300
+        },
+        {
+          "name": "250 RGB",
+          "extends": "Twinkly:BaseTwinklySettings",
+          "maxPixelPort": 1,
+          "maxSerialPort": 0,
+          "maxPixelPortChannels": 750
+        },
+        {
+          "name": "400 RGB",
+          "extends": "Twinkly:BaseTwinklySettings",
+          "maxPixelPort": 1,
+          "maxSerialPort": 0,
+          "maxPixelPortChannels": 1200
+        },
+        {
+          "name": "600 RGB",
+          "extends": "Twinkly:BaseTwinklySettings",
+          "maxPixelPort": 1,
+          "maxSerialPort": 0,
+          "maxPixelPortChannels": 1800
+        }
+      ]
+    },
+    {
+      "name": "Twinkly Festoon",
+      "variants": [
+        {
+          "name": "20 RGB",
+          "extends": "Twinkly:BaseTwinklySettings",
+          "maxPixelPort": 1,
+          "maxSerialPort": 0,
+          "maxPixelPortChannels": 60
+        },
+        {
+          "name": "40 RGB",
+          "extends": "Twinkly:BaseTwinklySettings",
+          "maxPixelPort": 1,
+          "maxSerialPort": 0,
+          "maxPixelPortChannels": 120
+        }
+      ]
+    },
+    {
+      "name": "Twinkly Flex",
+      "variants": []
+    },
+    {
+      "name": "Twinkly Line",
+      "variants": []
+    },
+    {
+      "name": "Twinkly Cluster",
+      "variants": [
+        {
+          "name": "190 RGB+W",
+          "extends": "Twinkly:BaseTwinklySettings",
+          "maxPixelPort": 1,
+          "maxSerialPort": 0,
+          "maxPixelPortChannels": 760
+        }
+      ]
+    },
+    {
+      "name": "Twinkly Spritzer",
+      "variants": [
+        {
+          "name": "200 RGB",
+          "extends": "Twinkly:BaseTwinklySettings",
+          "maxPixelPort": 1,
+          "maxSerialPort": 0,
+          "maxPixelPortChannels": 600
+        }
+      ]
+    },
+    {
+      "name": "Twinkly Dots",
+      "variants": [
+        {
+          "name": "60 RGB",
+          "extends": "Twinkly:BaseTwinklySettings",
+          "maxPixelPort": 1,
+          "maxSerialPort": 0,
+          "maxPixelPortChannels": 180
+        },
+        {
+          "name": "200 RGB",
+          "extends": "Twinkly:BaseTwinklySettings",
+          "maxPixelPort": 1,
+          "maxSerialPort": 0,
+          "maxPixelPortChannels": 500
+        },
+        {
+          "name": "400 RGB",
+          "extends": "Twinkly:BaseTwinklySettings",
+          "maxPixelPort": 1,
+          "maxSerialPort": 0,
+          "maxPixelPortChannels": 1200
+        }
+      ]
+    },
+    {
+      "name": "Twinkly Squares",
+      "variants": [
+        {
+          "name": "5 + 1",
+          "extends": "Twinkly:BaseTwinklySettings",
+          "maxPixelPort": 1,
+          "maxSerialPort": 0,
+          "maxPixelPortChannels": 192
+        }
+      ]
+    },
+    {
+      "name": "Twinkly Curtain",
+      "variants": [
+        {
+          "name": "210 RGB+W",
+          "extends": "Twinkly:BaseTwinklySettings",
+          "maxPixelPort": 1,
+          "maxSerialPort": 0,
+          "maxPixelPortChannels": 840
+        }
+      ]
+    },
+    {
+      "name": "Twinkly Light Tree",
+      "variants": [
+        {
+          "name": "2m 300 RGB+W",
+          "extends": "Twinkly:BaseTwinklySettings",
+          "maxPixelPort": 1,
+          "maxSerialPort": 0,
+          "maxPixelPortChannels": 1200
+        },
+        {
+          "name": "3m 450 RGB+W",
+          "extends": "Twinkly:BaseTwinklySettings",
+          "maxPixelPort": 1,
+          "maxSerialPort": 0,
+          "maxPixelPortChannels": 1800
+        },
+        {
+          "name": "4m 750 RGB+W",
+          "extends": "Twinkly:BaseTwinklySettings",
+          "maxPixelPort": 1,
+          "maxSerialPort": 0,
+          "maxPixelPortChannels": 3000
+        }
+      ]
+    }
+  ]
+}

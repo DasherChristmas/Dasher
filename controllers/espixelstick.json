@@ -1,0 +1,71 @@
+{
+  "vendor": "ESPixelStick",
+  "controllers": [
+    {
+      "name": "ESPixelStick",
+      "variants": [
+        {
+          "name": "",
+          "pixelPortCommonSettings": true,
+          "upload": true,
+          "maxInputUniverses": 8,
+          "maxPixelPort": 1,
+          "maxSerialPort": 0,
+          "maxSerialPortChannels": 512,
+          "maxPixelPortChannels": 4080,
+          "allInputUniversesSameSize": true,
+          "universesMustBeSequential": true,
+          "autoLayout": true,
+          "pixelProtocols": ["ws2811", "gece"],
+          "serialProtocols": [],
+          "inputProtocols": ["e131", "ddp", "zcpp"]
+        }
+      ]
+    },
+    {
+      "name": "ESPixelStick-4.x",
+      "variants": [
+        {
+          "name": "ESP8266",
+          "pixelPortCommonSettings": true,
+          "upload": true,
+          "inputOnlyUpload": true,
+          "autoUpload": true,
+          "maxInputUniverses": 6,
+          "maxPixelPort": 1,
+          "maxSerialPort": 1,
+          "maxSerialPortChannels": 512,
+          "maxPixelPortChannels": 3072,
+          "allInputUniversesSameSize": true,
+          "universesMustBeSequential": true,
+          "autoLayout": true,
+          "pixelPortEndNullPixels": true,
+          "needsDDPInputUpload": true,
+          "pixelProtocols": ["ws2811", "gece", "tm1814"],
+          "serialProtocols": [],
+          "inputProtocols": ["e131", "ddp", "artnet"]
+        },
+        {
+          "name": "ESP32",
+          "pixelPortCommonSettings": true,
+          "upload": true,
+          "inputOnlyUpload": true,
+          "autoUpload": true,
+          "maxInputUniverses": 12,
+          "maxPixelPort": 6,
+          "maxSerialPort": 1,
+          "maxSerialPortChannels": 512,
+          "maxPixelPortChannels": 3072,
+          "allInputUniversesSameSize": true,
+          "universesMustBeSequential": true,
+          "autoLayout": true,
+          "pixelPortEndNullPixels": true,
+          "needsDDPInputUpload": true,
+          "pixelProtocols": ["ws2811", "gece", "tm1814"],
+          "serialProtocols": ["dmx", "renard"],
+          "inputProtocols": ["e131", "ddp", "artnet"]
+        }
+      ]
+    }
+  ]
+}

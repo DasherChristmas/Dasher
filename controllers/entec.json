@@ -1,0 +1,272 @@
+{
+  "vendor": "Entec",
+  "controllers": [
+    {
+      "name": "Pixelator Mini PX1-8D",
+      "variants": [
+        {
+          "name": "",
+          "pixelPortGrouping": true,
+          "pixelProtColorOrder": true,
+          "maxInputUniverses": 16,
+          "maxPixelPort": 8,
+          "maxSerialPort": 0,
+          "maxSerialPortChannels": 0,
+          "maxPixelPortChannels": 1020,
+          "allInputUniversesSameSize": true,
+          "allInputUniversesMustBe510": true,
+          "pixelProtocols": [
+            "ws2811",
+            "apa104",
+            "sk6812",
+            "tlc5973",
+            "tm1804",
+            "tm1812",
+            "ucs1903",
+            "ucs2903",
+            "ucs2904",
+            "ucs8903",
+            "ucs8904",
+            "9pdot",
+            "9pdot (16)",
+            "spxl",
+            "spxl (16)"
+          ],
+          "serialProtocols": [],
+          "inputProtocols": ["e131", "artnet"]
+        }
+      ]
+    },
+    {
+      "name": "OCTO",
+      "variants": [
+        {
+          "name": "",
+          "maxInputUniverses": 8,
+          "maxPixelPort": 2,
+          "maxSerialPort": 0,
+          "maxSerialPortChannels": 0,
+          "maxPixelPortChannels": 2040,
+          "allInputUniversesSameSize": true,
+          "allInputUniversesMustBe510": true,
+          "pixelProtocols": [
+            "ws2811",
+            "apa102",
+            "apa104",
+            "sk6812",
+            "tm1804",
+            "tm1812",
+            "tm1814",
+            "ucs1903",
+            "ucs2903",
+            "ucs2904",
+            "ucs8903",
+            "ucs8904",
+            "9pdot",
+            "9pdot (16)",
+            "spxl",
+            "spxl (16)"
+          ],
+          "inputProtocols": ["e131", "artnet"],
+          "serialProtocols": []
+        }
+      ]
+    },
+    {
+      "name": "Pixel OCTO",
+      "variants": [
+        {
+          "name": "",
+          "maxInputUniverses": 8,
+          "maxPixelPort": 2,
+          "maxSerialPort": 0,
+          "maxSerialPortChannels": 0,
+          "maxPixelPortChannels": 2040,
+          "allInputUniversesSameSize": true,
+          "allInputUniversesMustBe510": true,
+          "pixelProtocols": [
+            "ws2811",
+            "apa102",
+            "apa104",
+            "sk6812",
+            "tm1804",
+            "tm1812",
+            "tm1814",
+            "ucs1903",
+            "ucs2903",
+            "ucs2904",
+            "ucs8903",
+            "ucs8904",
+            "9pdot",
+            "9pdot (16)",
+            "spxl",
+            "spxl (16)"
+          ],
+          "inputProtocols": ["e131", "artnet"],
+          "serialProtocols": []
+        }
+      ]
+    },
+    {
+      "name": "Pixel TRITON",
+      "variants": [
+        {
+          "name": "",
+          "maxInputUniverses": 8,
+          "maxPixelPort": 2,
+          "maxSerialPort": 0,
+          "maxSerialPortChannels": 0,
+          "maxPixelPortChannels": 2040,
+          "allInputUniversesSameSize": true,
+          "allInputUniversesMustBe510": true,
+          "pixelProtocols": [
+            "ws2811",
+            "apa104",
+            "sk6812",
+            "tm1804",
+            "tm1812",
+            "tm1814",
+            "ucs1903",
+            "ucs2903",
+            "ucs2904",
+            "ucs8903",
+            "ucs8904",
+            "9pdot",
+            "9pdot (16)",
+            "spxl",
+            "spxl (16)"
+          ],
+          "inputProtocols": ["e131", "artnet"],
+          "serialProtocols": []
+        }
+      ]
+    },
+    {
+      "name": "Pixelator",
+      "variants": [
+        {
+          "name": "",
+          "maxInputUniverses": 48,
+          "maxPixelPort": 24,
+          "maxSerialPort": 0,
+          "maxSerialPortChannels": 0,
+          "maxPixelPortChannels": 1020,
+          "allInputUniversesSameSize": true,
+          "allInputUniversesMustBe510": true,
+          "pixelProtocols": [
+            "ws2811",
+            "apa104",
+            "sk6812",
+            "tm1804",
+            "tm1812",
+            "tm1814",
+            "ucs1903",
+            "ucs2903",
+            "ucs2904",
+            "ucs8903",
+            "ucs8904",
+            "9pdot",
+            "9pdot (16)",
+            "spxl",
+            "spxl (16)"
+          ],
+          "inputProtocols": ["e131", "artnet"],
+          "serialProtocols": []
+        }
+      ]
+    },
+    {
+      "name": "Pixelator Mini",
+      "variants": [
+        {
+          "name": "",
+          "maxInputUniverses": 16,
+          "maxPixelPort": 8,
+          "maxSerialPort": 0,
+          "maxSerialPortChannels": 0,
+          "maxPixelPortChannels": 1020,
+          "allInputUniversesSameSize": true,
+          "allInputUniversesMustBe510": true,
+          "pixelProtocols": [
+            "ws2811",
+            "apa104",
+            "sk6812",
+            "tlc5973",
+            "tm1804",
+            "tm1812",
+            "ucs1903",
+            "ucs2903",
+            "ucs2904",
+            "ucs8903",
+            "ucs8904",
+            "9pdot",
+            "9pdot (16)",
+            "spxl",
+            "spxl (16)"
+          ],
+          "inputProtocols": ["e131", "artnet"],
+          "serialProtocols": []
+        }
+      ]
+    },
+    {
+      "name": "Pixel Port",
+      "variants": [
+        {
+          "name": "",
+          "pixelPortGrouping": true,
+          "pixelProtColorOrder": true,
+          "maxInputUniverses": 2,
+          "maxPixelPort": 1,
+          "maxSerialPort": 0,
+          "maxSerialPortChannels": 0,
+          "maxPixelPortChannels": 1020,
+          "allInputUniversesSameSize": true,
+          "allInputUniversesMustBe510": true,
+          "pixelProtocols": [
+            "ws2811",
+            "apa104",
+            "sk6812",
+            "tm1804",
+            "tm1812",
+            "ucs1903",
+            "ucs2903",
+            "ucs2904",
+            "9pdot",
+            "9pdot (16)"
+          ],
+          "inputProtocols": ["e131", "artnet"],
+          "serialProtocols": []
+        }
+      ]
+    },
+    {
+      "name": "Pixie Driver",
+      "variants": [
+        {
+          "name": "",
+          "maxPixelPort": 2,
+          "maxSerialPort": 0,
+          "maxSerialPortChannels": 0,
+          "maxPixelPortChannels": 900,
+          "pixelProtocols": [
+            "ws2811",
+            "apa104",
+            "sk6812",
+            "tm1804",
+            "tm1812",
+            "ucs1903",
+            "ucs2903",
+            "ucs2904",
+            "ucs8903",
+            "ucs8904",
+            "9pdot",
+            "spxl"
+          ],
+          "inputProtocols": [],
+          "serialProtocols": ["dmx"]
+        }
+      ]
+    }
+  ]
+}

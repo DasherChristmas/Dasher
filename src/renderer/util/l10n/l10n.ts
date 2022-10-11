@@ -1,7 +1,7 @@
 import { atom, useRecoilValue } from 'recoil';
 import { useMemo } from 'react';
-import { L10N } from '../../../common/l10n';
 import memoizee from 'memoizee';
+import { L10N } from '../../../common/l10n';
 
 const l10nState = atom<{
   locale: L10N.Locale;
