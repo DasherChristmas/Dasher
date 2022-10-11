@@ -1,308 +1,365 @@
-<Vendor Name="Falcon">
-    <AbstractVariant Name="BaseFalconSettings">
+<Vendor Name="FPP">
+    <Controller Name="FPP">
+        <!-- FPP's various serial outputs configured on the "Other" output tab -->
+        <Variant Name="">
+            <MaxPixelPort>0</MaxPixelPort>
+            <MaxSerialPort>1</MaxSerialPort>
+            <MaxSerialPortChannels>4096</MaxSerialPortChannels>
+            <MaxPixelPortChannels>0</MaxPixelPortChannels>
+            <SupportsAutoLayout/>
+            <SupportsUpload/>
+            <SupportsAutoUpload/>
+            <PixelProtocols>
+            </PixelProtocols>
+            <SerialProtocols>
+                <Protocol>DMX</Protocol>
+                <Protocol>OpenDMX</Protocol>
+                <Protocol>GenericSerial</Protocol>
+                <Protocol>LOR</Protocol>
+                <Protocol>Pixelnet</Protocol>
+                <Protocol>Pixelnet-Open</Protocol>
+                <Protocol>Renard</Protocol>
+            </SerialProtocols>
+            <InputProtocols>
+                <Protocol>ddp-input</Protocol>
+            </InputProtocols>
+        </Variant>
+    </Controller>
+    <AbstractVariant Name="BaseFPPSettings">
+        <SupportsPixelPortCommonSettings/>
+        <SupportsPixelZigZag/>
+        <MaxZigZag>600</MaxZigZag>
         <SupportsUpload/>
         <SupportsInputOnlyUpload/>
-        <!--SupportsAutoUpload/-->
-
-		<SupportsPixelPortCommonSettings/>
-        <SupportsPixelZigZag/>
-        <MaxZigZag>512</MaxZigZag>
-
-		<SupportsFullxLightsControl/>
-
-        <SupportsMultipleSimultaneousOutputProtocols/>
+        <MaxInputUniverses>1000</MaxInputUniverses>
+        <InputProtocols>
+            <Protocol>e131</Protocol>
+            <Protocol>artnet</Protocol>
+            <Protocol>ddp</Protocol>
+        </InputProtocols>
         <SupportsMultipleSimultaneousInputProtocols/>
-        <UniversesMustBeInNumericalOrder/>
-
-        <!--SupportsLEDPanelMatrix/-->
-        <!--AllInputUniversesMustBeSameSize/-->
-        <!--UniversesMustBeSequential/-->
-        <!--NoWebUI/-->
+        <SupportsAutoUpload/>
+        <SupportsFullxLightsControl/>
+        <SupportsDefaultBrightness/>
+        <SupportsDefaultGamma/>
+        <PreferredInputProtocol>DDP</PreferredInputProtocol>
+    </AbstractVariant>
+    <AbstractVariant Name="FPPStringCape" Base="FPP:BaseFPPSettings">
+        <MaxSerialPortChannels>512</MaxSerialPortChannels>
+        <MaxPixelPortChannels>4200</MaxPixelPortChannels>
         <SupportsVirtualStrings/>
         <SupportsAutoLayout/>
-        <MergeConsecutiveVirtualStrings/>
-		<SupportsRemotes/>
-        <SupportsDefaultBrightness/>
-
-        <MaxInputUniverses>96</MaxInputUniverses>
-        <MaxSerialPortChannels>512</MaxSerialPortChannels>
+        <SupportsRemotes/>
+        <SupportsSmartRemotes>6</SupportsSmartRemotes>
+        <AllSmartRemoteTypesPerPortMustBeSame/>
+        <SupportsPixelPortEndNullPixels/>
+        <PixelProtocols>
+            <Protocol>ws2811</Protocol>
+        </PixelProtocols>
         <SerialProtocols>
             <Protocol>dmx</Protocol>
-            <Protocol>renard</Protocol>
             <Protocol>pixelnet</Protocol>
         </SerialProtocols>
-        <PixelProtocols>
-            <Protocol>ws2811</Protocol>
-            <Protocol>tm18xx</Protocol>
-            <Protocol>lx1203</Protocol>
-            <Protocol>ws2801</Protocol>
-            <Protocol>tls3001</Protocol>
-            <Protocol>lpd6803</Protocol>
-            <Protocol>gece</Protocol>
-            <Protocol>lpd8806</Protocol>
-            <Protocol>apa102</Protocol>
-            <Protocol>ucs2903</Protocol>
-            <Protocol>tm1814a</Protocol>
-        </PixelProtocols>
-    </AbstractVariant>
-    <AbstractVariant Name="BaseFalconV2Settings" Base="Falcon:BaseFalconSettings">
-        <MaxPixelPortChannels>2040</MaxPixelPortChannels>
-        <InputProtocols>
-            <Protocol>e131</Protocol>
-            <Protocol>artnet</Protocol>
-        </InputProtocols>
-    </AbstractVariant>
-    <AbstractVariant Name="BaseFalconV3Settings" Base="Falcon:BaseFalconSettings">
-        <SupportsSmartRemotes>3</SupportsSmartRemotes>
-        <AllSmartRemoteTypesPerPortMustBeSame/>
-        <MaxPixelPortChannels>3072</MaxPixelPortChannels>
-        <InputProtocols>
-            <Protocol>e131</Protocol>
-            <Protocol>artnet</Protocol>
-            <Protocol>zcpp</Protocol>
-            <Protocol>ddp</Protocol>
-        </InputProtocols>
-		<NeedsDDPInputUpload/>
         <SmartRemoteTypes>
             <Type>falcon_v1</Type>
+            <Type>fpp_v2</Type>
         </SmartRemoteTypes>
+        <fppStringFileName>co-bbbStrings</fppStringFileName>
     </AbstractVariant>
-	<Controller Name="F4V2">
-		<Variant Name="No Expansion Board" Base="Falcon:BaseFalconV2Settings">
-			<MaxPixelPort>4</MaxPixelPort>
-			<MaxSerialPort>1</MaxSerialPort>
-		</Variant>
-		<Variant Name="One Expansion Board" Base="Falcon:BaseFalconV2Settings">
-			<MaxPixelPort>12</MaxPixelPort>
-			<MaxSerialPort>1</MaxSerialPort>
-		</Variant>
-	</Controller>
-	<Controller Name="F4V3">
-		<Variant Name="No Expansion Board" Base="Falcon:BaseFalconV3Settings">
-			<MaxPixelPort>4</MaxPixelPort>
-			<MaxSerialPort>1</MaxSerialPort>
-		</Variant>
-		<Variant Name="One Expansion Board" Base="Falcon:BaseFalconV3Settings">
-			<MaxPixelPort>12</MaxPixelPort>
-			<MaxSerialPort>1</MaxSerialPort>
-		</Variant>
-	</Controller>
-	<Controller Name="F16V2">
-		<Variant Name="No Expansion Boards" Base="Falcon:BaseFalconV2Settings">
-			<MaxPixelPort>16</MaxPixelPort>
-			<MaxSerialPort>4</MaxSerialPort>
-		</Variant>
-		<Variant Name="One Expansion Board" Base="Falcon:BaseFalconV2Settings">
-			<MaxPixelPort>32</MaxPixelPort>
-			<MaxSerialPort>4</MaxSerialPort>
-		</Variant>
-	</Controller>
-	<Controller Name="F16V2R">
-		<Variant Name="No Expansion Boards" Base="Falcon:BaseFalconV2Settings">
-			<MaxPixelPort>16</MaxPixelPort>
-			<MaxSerialPort>4</MaxSerialPort>
-			<NumberOfBanks>1</NumberOfBanks>
-            <BankSize>16</BankSize>
-		</Variant>
-		<Variant Name="No Expansion + Serial Port Remotes" Base="Falcon:BaseFalconV2Settings">
-			<MaxPixelPort>20</MaxPixelPort>
-			<MaxSerialPort>0</MaxSerialPort>
-			<NumberOfBanks>2</NumberOfBanks>
-            <BankSize>16</BankSize>
-		</Variant>
-		<Variant Name="One Expansion Board" Base="Falcon:BaseFalconV2Settings">
-			<MaxPixelPort>32</MaxPixelPort>
-			<MaxSerialPort>4</MaxSerialPort>
-			<NumberOfBanks>2</NumberOfBanks>
-            <BankSize>16</BankSize>
-		</Variant>
-	</Controller>
-	<Controller Name="F16V3">
-		<Variant Name="No Expansion Boards" Base="Falcon:BaseFalconV3Settings">
-			<MaxPixelPort>16</MaxPixelPort>
-			<MaxSerialPort>4</MaxSerialPort>
-		</Variant>
-		<Variant Name="No Expansion + Serial Port Remotes" Base="Falcon:BaseFalconV3Settings">
-			<MaxPixelPort>20</MaxPixelPort>
-			<MaxSerialPort>0</MaxSerialPort>
-			<NumberOfBanks>2</NumberOfBanks>
-            <BankSize>16</BankSize>
-		</Variant>
-		<Variant Name="One Expansion Board" Base="Falcon:BaseFalconV3Settings">
-			<MaxPixelPort>32</MaxPixelPort>
-			<MaxSerialPort>4</MaxSerialPort>
-			<NumberOfBanks>2</NumberOfBanks>
-            <BankSize>16</BankSize>
-		</Variant>
-		<Variant Name="One Expansion + Serial Port Remotes" Base="Falcon:BaseFalconV3Settings">
-			<MaxPixelPort>36</MaxPixelPort>
-			<MaxSerialPort>0</MaxSerialPort>
-			<NumberOfBanks>3</NumberOfBanks>
-            <BankSize>16</BankSize>
-		</Variant>
-		<Variant Name="Two Expansion Boards" Base="Falcon:BaseFalconV3Settings">
-			<MaxPixelPort>48</MaxPixelPort>
-			<MaxSerialPort>4</MaxSerialPort>
-			<NumberOfBanks>3</NumberOfBanks>
-            <BankSize>16</BankSize>
-		</Variant>
-	</Controller>
-	<Controller Name="F48">
-		<Variant Name="" Base="Falcon:BaseFalconV3Settings">
-			<MaxPixelPort>48</MaxPixelPort>
-			<MaxSerialPort>4</MaxSerialPort>
-			<NumberOfBanks>3</NumberOfBanks>
-            <BankSize>16</BankSize>
-		</Variant>
-	</Controller>
-    <AbstractVariant Name="BaseV4FalconSettings">
-        <SupportsUpload/>
-        <SupportsInputOnlyUpload/>
-		<SupportsPixelPortCommonSettings/>
-        <SupportsPixelZigZag/>
-        <MaxZigZag>512</MaxZigZag>
-		<SupportsFullxLightsControl/>
-        <SupportsMultipleSimultaneousOutputProtocols/>
-        <SupportsMultipleSimultaneousInputProtocols/>
+    <AbstractVariant Name="FPPStringCapeTTYs" Base="FPP:BaseFPPSettings">
+        <MaxSerialPortChannels>512</MaxSerialPortChannels>
+        <MaxPixelPortChannels>4200</MaxPixelPortChannels>
         <SupportsVirtualStrings/>
         <SupportsAutoLayout/>
-        <MergeConsecutiveVirtualStrings/>
-        <SupportsPixelPortEndNullPixels/>
-        <MaxStartNulls>20</MaxStartNulls>
-        <MaxEndNulls>20</MaxEndNulls>
-        <MaxGroup>100</MaxGroup>
-        <MinGroup>1</MinGroup>
+        <SupportsRemotes/>
+        <SupportsSmartRemotes>6</SupportsSmartRemotes>
         <AllSmartRemoteTypesPerPortMustBeSame/>
-        <SupportsDefaultBrightness/>
-        <MaxInputUniverses>192</MaxInputUniverses>
-        <MaxSerialPortChannels>512</MaxSerialPortChannels>
-        <SerialProtocols>
-            <Protocol>dmx</Protocol>
-            <Protocol>renard</Protocol>
-        </SerialProtocols>
+        <SupportsPixelPortEndNullPixels/>
         <PixelProtocols>
             <Protocol>ws2811</Protocol>
-			<Protocol>apa102</Protocol>
-			<Protocol>apa109</Protocol>
-			<Protocol>lpd6803</Protocol>
-			<Protocol>lpd8806</Protocol>
-			<Protocol>sm16716</Protocol>
-			<Protocol>tls3001</Protocol>
-			<Protocol>tm1814</Protocol>
-			<Protocol>tm1829</Protocol>
-			<Protocol>ucs8903</Protocol>
-			<Protocol>ucs8903 16 bit</Protocol>
-			<Protocol>ucs8904</Protocol>
-			<Protocol>ucs8904 16 bit</Protocol>
-			<Protocol>ws2801</Protocol>
-			<Protocol>ws2811</Protocol>
-			<Protocol>ws2811 slow</Protocol>
-			<Protocol>dmx512p</Protocol>
-			<Protocol>dmx512p-4</Protocol>
-			<Protocol>sj1221</Protocol>
-	</PixelProtocols>
-        <InputProtocols>
-            <Protocol>e131</Protocol>
-            <Protocol>artnet</Protocol>
-            <Protocol>ddp</Protocol>
-            <Protocol>zcpp</Protocol>
-        </InputProtocols>
+        </PixelProtocols>
+        <SerialProtocols>
+            <Protocol>DMX-Pro</Protocol>
+            <Protocol>DMX-Open</Protocol>
+            <Protocol>GenericSerial</Protocol>
+            <Protocol>LOR</Protocol>
+            <Protocol>Pixelnet-Lynx</Protocol>
+            <Protocol>Pixelnet-Open</Protocol>
+            <Protocol>Renard</Protocol>
+        </SerialProtocols>
         <SmartRemoteTypes>
-            <Type>falcon_v2</Type>
+            <Type>falcon_v1</Type>
+            <Type>fpp_v2</Type>
         </SmartRemoteTypes>
+        <fppStringFileName>co-bbbStrings</fppStringFileName>
     </AbstractVariant>
-	<Controller Name="F16V4">
-		<Variant Name="16 Local Ports" Base="Falcon:BaseV4FalconSettings">
-			<MaxPixelPort>16</MaxPixelPort>
-			<MaxSerialPort>1</MaxSerialPort>
-			<MaxPixelPortChannels>3072</MaxPixelPortChannels>
-            <v4BoardMode>0</v4BoardMode>
-		</Variant>
-		<Variant Name="16 Local Ports + 2 Smart Receiver Chains" Base="Falcon:BaseV4FalconSettings">
-			<MaxPixelPort>24</MaxPixelPort>
-			<MaxSerialPort>1</MaxSerialPort>
-			<MaxPixelPortChannels>3072</MaxPixelPortChannels>
-            <v4BoardMode>1</v4BoardMode>
-			<SupportsRemotes/>
-			<SupportsSmartRemotes>6</SupportsSmartRemotes>
-		</Variant>
-		<Variant Name="16 + 16 Local Ports" Base="Falcon:BaseV4FalconSettings">
-			<MaxPixelPort>32</MaxPixelPort>
-			<MaxSerialPort>1</MaxSerialPort>
-			<MaxPixelPortChannels>3072</MaxPixelPortChannels>
-            <v4BoardMode>2</v4BoardMode>
-		</Variant>
-		<Variant Name="16 + 16 Local Ports + 2 Smart Receiver Chains" Base="Falcon:BaseV4FalconSettings">
-			<MaxPixelPort>40</MaxPixelPort>
-			<MaxSerialPort>1</MaxSerialPort>
-			<MaxPixelPortChannels>2112</MaxPixelPortChannels>
-            <v4BoardMode>3</v4BoardMode>
-			<SupportsRemotes/>
-			<SupportsSmartRemotes>6</SupportsSmartRemotes>
-		</Variant>
-		<Variant Name="16 Local Ports + 4 Smart Receiver Chains" Base="Falcon:BaseV4FalconSettings">
-			<MaxPixelPort>32</MaxPixelPort>
-			<MaxSerialPort>1</MaxSerialPort>
-			<MaxPixelPortChannels>3072</MaxPixelPortChannels>
-            <v4BoardMode>4</v4BoardMode>
-			<SupportsRemotes/>
-			<SupportsSmartRemotes>6</SupportsSmartRemotes>
-		</Variant>
-		<Variant Name="16 Local Ports + 4 + 2 Smart Receiver Chains" Base="Falcon:BaseV4FalconSettings">
-			<MaxPixelPort>40</MaxPixelPort>
-			<MaxSerialPort>1</MaxSerialPort>
-			<MaxPixelPortChannels>2112</MaxPixelPortChannels>
-            <v4BoardMode>5</v4BoardMode>
-			<SupportsRemotes/>
-			<SupportsSmartRemotes>6</SupportsSmartRemotes>
-		</Variant>
-		<Variant Name="16 + 16 + 16 Local Ports" Base="Falcon:BaseV4FalconSettings">
-			<MaxPixelPort>48</MaxPixelPort>
-			<MaxSerialPort>1</MaxSerialPort>
-			<MaxPixelPortChannels>2112</MaxPixelPortChannels>
-            <v4BoardMode>6</v4BoardMode>
-		</Variant>
-		<Variant Name="16 + 16 Local Ports + 4 Smart Receiver Chains" Base="Falcon:BaseV4FalconSettings">
-			<MaxPixelPort>48</MaxPixelPort>
-			<MaxSerialPort>1</MaxSerialPort>
-			<MaxPixelPortChannels>2112</MaxPixelPortChannels>
-            <v4BoardMode>7</v4BoardMode>
-			<SupportsRemotes/>
-			<SupportsSmartRemotes>6</SupportsSmartRemotes>
-		</Variant>
-		<Variant Name="16 + 4 Smart Receiver Chains + 16 Local Ports" Base="Falcon:BaseV4FalconSettings">
-			<MaxPixelPort>48</MaxPixelPort>
-			<MaxSerialPort>1</MaxSerialPort>
-			<MaxPixelPortChannels>2112</MaxPixelPortChannels>
-            <v4BoardMode>8</v4BoardMode>
-			<SupportsRemotes/>
-			<SupportsSmartRemotes>6</SupportsSmartRemotes>
-		</Variant>
-		<Variant Name="16 Local Ports + 4 + 4 Smart Receiver Chains" Base="Falcon:BaseV4FalconSettings">
-			<MaxPixelPort>48</MaxPixelPort>
-			<MaxSerialPort>1</MaxSerialPort>
-			<MaxPixelPortChannels>2112</MaxPixelPortChannels>
-            <v4BoardMode>9</v4BoardMode>
-			<SupportsRemotes/>
-			<SupportsSmartRemotes>6</SupportsSmartRemotes>
-		</Variant>
-	</Controller>
-	<Controller Name="F48V4">
-		<Variant Name="4 + 4 + 4 Smart Receiver Chains" Base="Falcon:BaseV4FalconSettings">
-			<MaxPixelPort>48</MaxPixelPort>
-			<MaxSerialPort>1</MaxSerialPort>
-			<MaxPixelPortChannels>2112</MaxPixelPortChannels>
-            <v4BoardMode>10</v4BoardMode>
-			<SupportsRemotes/>
-			<SupportsSmartRemotes>6</SupportsSmartRemotes>
-		</Variant>
-		<Variant Name="4 + 4 Smart Receiver Chains" Base="Falcon:BaseV4FalconSettings">
-			<MaxPixelPort>32</MaxPixelPort>
-			<MaxSerialPort>1</MaxSerialPort>
-			<MaxPixelPortChannels>3072</MaxPixelPortChannels>
-            <v4BoardMode>11</v4BoardMode>
-			<SupportsRemotes/>
-			<SupportsSmartRemotes>6</SupportsSmartRemotes>
-		</Variant>
-	</Controller>
+    <AbstractVariant Name="FPPStringRPIWS281XPiHat" Base="FPP:BaseFPPSettings">
+        <MaxSerialPortChannels>512</MaxSerialPortChannels>
+        <MaxPixelPortChannels>4200</MaxPixelPortChannels>
+        <SupportsVirtualStrings/>
+        <SupportsAutoLayout/>
+        <SupportsPixelPortEndNullPixels/>
+        <PixelProtocols>
+            <Protocol>ws2811</Protocol>
+        </PixelProtocols>
+        <SerialProtocols>
+            <Protocol>DMX-Pro</Protocol>
+            <Protocol>DMX-Open</Protocol>
+            <Protocol>GenericSerial</Protocol>
+            <Protocol>LOR</Protocol>
+            <Protocol>Pixelnet-Lynx</Protocol>
+            <Protocol>Pixelnet-Open</Protocol>
+            <Protocol>Renard</Protocol>
+        </SerialProtocols>
+        <fppStringFileName>co-pixelStrings</fppStringFileName>
+        <fppStringDriverType>RPIWS281X</fppStringDriverType>
+    </AbstractVariant>
+    <AbstractVariant Name="FPPStringDPIPiHat" Base="FPP:BaseFPPSettings">
+        <MaxSerialPortChannels>512</MaxSerialPortChannels>
+        <MaxPixelPortChannels>4200</MaxPixelPortChannels>
+        <SupportsVirtualStrings/>
+        <SupportsAutoLayout/>
+        <SupportsRemotes/>
+        <SupportsSmartRemotes>6</SupportsSmartRemotes>
+        <AllSmartRemoteTypesPerPortMustBeSame/>
+        <SupportsPixelPortEndNullPixels/>
+        <PixelProtocols>
+            <Protocol>ws2811</Protocol>
+        </PixelProtocols>
+        <SerialProtocols>
+            <Protocol>DMX-Pro</Protocol>
+            <Protocol>DMX-Open</Protocol>
+            <Protocol>GenericSerial</Protocol>
+            <Protocol>LOR</Protocol>
+            <Protocol>Pixelnet-Lynx</Protocol>
+            <Protocol>Pixelnet-Open</Protocol>
+            <Protocol>Renard</Protocol>
+        </SerialProtocols>
+        <SmartRemoteTypes>
+            <Type>falcon_v1</Type>
+            <Type>fpp_v2</Type>
+        </SmartRemoteTypes>
+        <fppStringFileName>co-pixelStrings</fppStringFileName>
+        <fppStringDriverType>DPIPixels</fppStringDriverType>
+    </AbstractVariant>
+    <Controller Name="LED Panels">
+        <Variant Name="" ID="LED Panels" Base="FPP:BaseFPPSettings">
+            <MaxPixelPort>0</MaxPixelPort>
+            <MaxSerialPort>0</MaxSerialPort>
+            <MaxSerialPortChannels>0</MaxSerialPortChannels>
+            <MaxPixelPortChannels>0</MaxPixelPortChannels>
+            <SupportsLEDPanelMatrix/>
+            <SupportsAutoLayout/>
+            <PixelProtocols>
+            </PixelProtocols>
+            <SerialProtocols>
+            </SerialProtocols>
+        </Variant>
+    </Controller>
+    <Controller Name="Virtual Matrix">
+        <Variant Name="" ID="Virtual Matrix" Base="FPP:BaseFPPSettings">
+            <MaxPixelPort>0</MaxPixelPort>
+            <MaxSerialPort>0</MaxSerialPort>
+            <MaxSerialPortChannels>0</MaxSerialPortChannels>
+            <MaxPixelPortChannels>0</MaxPixelPortChannels>
+            <SupportsVirtualMatrix/>
+            <SupportsLEDPanelMatrix/>
+            <SupportsAutoLayout/>
+            <PixelProtocols>
+            </PixelProtocols>
+            <SerialProtocols>
+            </SerialProtocols>
+        </Variant>
+    </Controller>
+    <Controller Name="Pi4 Virtual Matrix">
+        <Variant Name="" ID="Pi4 Virtual Matrix" Base="FPP:BaseFPPSettings">
+            <MaxPixelPort>0</MaxPixelPort>
+            <MaxSerialPort>0</MaxSerialPort>
+            <MaxSerialPortChannels>0</MaxSerialPortChannels>
+            <MaxPixelPortChannels>0</MaxPixelPortChannels>
+            <SupportsVirtualMatrix/>
+            <MaxVirtualMatrixPorts>2</MaxVirtualMatrixPorts>
+            <SupportsLEDPanelMatrix/>
+            <SupportsAutoLayout/>
+            <PixelProtocols>
+            </PixelProtocols>
+            <SerialProtocols>
+            </SerialProtocols>
+        </Variant>
+    </Controller>
+    <Controller Name="Pi Hat">
+        <Variant Name="2 Output RPIWS281X" ID="PiHat" Base="FPP:FPPStringRPIWS281XPiHat">
+            <MaxPixelPort>2</MaxPixelPort>
+            <MaxSerialPort>1</MaxSerialPort>
+            <SupportsVirtualMatrix/>
+            <SupportsLEDPanelMatrix/>
+            <fppSerialPort1>ttyAMA0</fppSerialPort1>
+        </Variant>
+        <Variant Name="2 Output DPI" ID="PiHat-DPIPixels" Base="FPP:FPPStringDPIPiHat">
+            <MaxPixelPort>2</MaxPixelPort>
+            <MaxSerialPort>1</MaxSerialPort>
+            <SupportsLEDPanelMatrix/>
+            <fppSerialPort1>ttyAMA0</fppSerialPort1>
+        </Variant>
+        <Variant Name="24 Output DPI" ID="DPIPixels-24" Base="FPP:FPPStringDPIPiHat">
+            <MaxPixelPort>24</MaxPixelPort>
+            <MaxSerialPort>1</MaxSerialPort>
+            <SupportsLEDPanelMatrix/>
+            <fppSerialPort1>ttyAMA0</fppSerialPort1>
+        </Variant>
+    </Controller>
+    <Controller Name="Octoscroller">
+        <Variant Name="" ID="Octoscroller" Base="FPP:BaseFPPSettings">
+            <MaxPixelPort>0</MaxPixelPort>
+            <MaxSerialPort>0</MaxSerialPort>
+            <MaxSerialPortChannels>0</MaxSerialPortChannels>
+            <MaxPixelPortChannels>0</MaxPixelPortChannels>
+            <SupportsLEDPanelMatrix/>
+            <SupportsAutoLayout/>
+            <PixelProtocols>
+            </PixelProtocols>
+            <SerialProtocols>
+            </SerialProtocols>
+        </Variant>
+    </Controller>
+    <Controller Name="RGBCape24">
+        <Variant Name="" ID="RGBCape24" Base="FPP:FPPStringCape">
+            <MaxPixelPort>24</MaxPixelPort>
+            <MaxSerialPort>0</MaxSerialPort>
+            <MaxSerialPortChannels>0</MaxSerialPortChannels>
+            <fpp>3</fpp>
+            <fpp1>1,8</fpp1>
+            <fpp2>9,8</fpp2>
+            <fpp3>17,8</fpp3>
+        </Variant>
+    </Controller>
+    <Controller Name="RGBCape48">
+        <Variant Name="Revision C" ID="RGBCape48C" Base="FPP:FPPStringCape">
+            <MaxPixelPort>48</MaxPixelPort>
+            <MaxSerialPort>0</MaxSerialPort>
+            <MaxSerialPortChannels>0</MaxSerialPortChannels>
+            <fpp>6</fpp>
+            <fpp1>1,8</fpp1>
+            <fpp2>9,8</fpp2>
+            <fpp3>17,8</fpp3>
+            <fpp4>25,8</fpp4>
+            <fpp5>33,8</fpp5>
+            <fpp6>41,8</fpp6>
+        </Variant>
+        <Variant Name="Revision F" ID="RGBCape48F" Base="FPP:FPPStringCape">
+            <MaxPixelPort>48</MaxPixelPort>
+            <MaxSerialPort>0</MaxSerialPort>
+            <MaxSerialPortChannels>0</MaxSerialPortChannels>
+            <fpp>6</fpp>
+            <fpp1>1,8</fpp1>
+            <fpp2>9,8</fpp2>
+            <fpp3>17,8</fpp3>
+            <fpp4>25,8</fpp4>
+            <fpp5>33,8</fpp5>
+            <fpp6>41,8</fpp6>
+        </Variant>
+    </Controller>
+    <Controller Name="F4-B">
+        <Variant Name="" ID="F4-B" Base="FPP:FPPStringCape">
+            <MaxPixelPort>4</MaxPixelPort>
+            <MaxSerialPort>1</MaxSerialPort>
+        </Variant>
+    </Controller>
+    <Controller Name="F16-B">
+        <Variant Name="No Expansion (8 Serial)" ID="F16-B" Base="FPP:FPPStringCape">
+            <MaxPixelPort>16</MaxPixelPort>
+            <MaxSerialPort>8</MaxSerialPort>
+        </Variant>
+        <Variant Name="32 Outputs (8 Serial)" ID="F16-B-32" Base="FPP:FPPStringCape">
+            <MaxPixelPort>32</MaxPixelPort>
+            <MaxSerialPort>8</MaxSerialPort>
+            <fpp>1</fpp>
+            <fpp1>17,16</fpp1>
+        </Variant>
+        <Variant Name="48 outputs (No Serial)" ID="F16-B-48" Base="FPP:FPPStringCape">
+            <MaxPixelPort>48</MaxPixelPort>
+            <MaxSerialPort>0</MaxSerialPort>
+            <MaxSerialPortChannels>0</MaxSerialPortChannels>
+            <fpp>2</fpp>
+            <fpp1>17,16</fpp1>
+            <fpp2>33,16</fpp2>
+        </Variant>
+    </Controller>
+    <Controller Name="Mirage">
+        <Variant Name="No Receivers" ID="Mirage" Base="FPP:FPPStringCapeTTYs">
+            <MaxPixelPort>24</MaxPixelPort>
+            <MaxSerialPort>2</MaxSerialPort>
+            <fpp>3</fpp>
+            <fpp1>1,8</fpp1>
+            <fpp2>9,8</fpp2>
+            <fpp3>17,8</fpp3>
+            <fppSerialPort1>ttyS1</fppSerialPort1>
+            <fppSerialPort2>ttyS2</fppSerialPort2>
+        </Variant>
+        <Variant Name="One Receiver" ID="Mirage1Diff" Base="FPP:FPPStringCapeTTYs">
+            <MaxPixelPort>28</MaxPixelPort>
+            <MaxSerialPort>2</MaxSerialPort>
+            <fpp>4</fpp>
+            <fpp1>1,8</fpp1>
+            <fpp2>9,8</fpp2>
+            <fpp3>17,8</fpp3>
+            <fpp4>25,4</fpp4>
+            <fppSerialPort1>ttyS1</fppSerialPort1>
+            <fppSerialPort2>ttyS2</fppSerialPort2>
+        </Variant>
+        <Variant Name="Two Receivers" ID="Mirage2Diff" Base="FPP:FPPStringCapeTTYs">
+            <MaxPixelPort>32</MaxPixelPort>
+            <MaxSerialPort>2</MaxSerialPort>
+            <fpp>5</fpp>
+            <fpp1>1,8</fpp1>
+            <fpp2>9,8</fpp2>
+            <fpp3>17,8</fpp3>
+            <fpp4>25,4</fpp4>
+            <fpp5>29,4</fpp5>
+            <fppSerialPort1>ttyS1</fppSerialPort1>
+            <fppSerialPort2>ttyS2</fppSerialPort2>
+        </Variant>
+        <Variant Name="Three Receivers" ID="Mirage3Diff" Base="FPP:FPPStringCapeTTYs">
+            <MaxPixelPort>36</MaxPixelPort>
+            <MaxSerialPort>2</MaxSerialPort>
+            <fpp>6</fpp>
+            <fpp1>1,8</fpp1>
+            <fpp2>9,8</fpp2>
+            <fpp3>17,8</fpp3>
+            <fpp4>25,4</fpp4>
+            <fpp5>29,4</fpp5>
+            <fpp6>33,4</fpp6>
+            <fppSerialPort1>ttyS1</fppSerialPort1>
+            <fppSerialPort2>ttyS2</fppSerialPort2>
+        </Variant>
+        <Variant Name="Four Receivers" ID="Mirage4Diff" Base="FPP:FPPStringCapeTTYs">
+            <MaxPixelPort>40</MaxPixelPort>
+            <MaxSerialPort>2</MaxSerialPort>
+            <fpp>7</fpp>
+            <fpp1>1,8</fpp1>
+            <fpp2>9,8</fpp2>
+            <fpp3>17,8</fpp3>
+            <fpp4>25,4</fpp4>
+            <fpp5>29,4</fpp5>
+            <fpp6>33,4</fpp6>
+            <fpp7>37,4</fpp7>
+            <fppSerialPort1>ttyS1</fppSerialPort1>
+            <fppSerialPort2>ttyS2</fppSerialPort2>
+        </Variant>
+        <Variant Name="Five Receivers" ID="Mirage5Diff" Base="FPP:FPPStringCapeTTYs">
+            <MaxPixelPort>44</MaxPixelPort>
+            <MaxSerialPort>2</MaxSerialPort>
+            <fpp>8</fpp>
+            <fpp1>1,8</fpp1>
+            <fpp2>9,8</fpp2>
+            <fpp3>17,8</fpp3>
+            <fpp4>25,4</fpp4>
+            <fpp5>29,4</fpp5>
+            <fpp6>33,4</fpp6>
+            <fpp7>37,4</fpp7>
+            <fpp8>40,4</fpp8>
+            <fppSerialPort1>ttyS1</fppSerialPort1>
+            <fppSerialPort2>ttyS2</fppSerialPort2>
+        </Variant>
+    </Controller>
 </Vendor>

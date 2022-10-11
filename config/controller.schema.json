@@ -176,6 +176,18 @@
         },
         "universesMustBeInNumericalOrder": {
           "type": "boolean"
+        },
+        "defaultGamma": {
+          "type": "boolean"
+        },
+        "preferredInputProtocol": {
+          "$ref": "#/definitions/protocol"
+        },
+        "virtualMatrix": {
+          "type": "boolean"
+        },
+        "maxVirtualMatrixPorts": {
+          "type": "number"
         }
       },
       "additionalProperties": true,

@@ -1,0 +1,419 @@
+{
+  "vendor": "FPP",
+  "abstractVariants": [
+    {
+      "name": "BaseFPPSettings",
+      "pixelPortCommonSettings": true,
+      "pixelZigZag": true,
+      "maxZigZag": 600,
+      "upload": true,
+      "inputOnlyUpload": true,
+      "maxInputUniverses": 1000,
+      "inputProtocols": ["e131", "artnet", "ddp"],
+      "multipleSimulInProtocols": true,
+      "autoUpload": true,
+      "fullControl": true,
+      "defaultBrightness": true,
+      "defaultGamma": true,
+      "preferredInputProtocol": "ddp"
+    },
+    {
+      "name": "FPPStringCape",
+      "extends": "FPP:BaseFPPSettings",
+      "maxSerialPortChannels": 512,
+      "maxPixelPortChannels": 4200,
+      "virtualStrings": true,
+      "autoLayout": true,
+      "remotes": true,
+      "smartRemotes": 6,
+      "allSmartRemoteTypesPerPortSame": true,
+      "pixelPortEndNullPixels": true,
+      "pixelProtocols": ["ws2811"],
+      "serialProtocols": ["dmx", "pixelnet"],
+      "smartRemoteTypes": ["falcon_v1", "fpp_v2"],
+      "fppStringFileName": "co-bbbStrings"
+    },
+    {
+      "name": "FPPStringCapeTTYs",
+      "extends": "FPP:BaseFPPSettings",
+      "maxSerialPortChannels": 512,
+      "maxPixelPortChannels": 4200,
+      "virtualStrings": true,
+      "autoLayout": true,
+      "remotes": true,
+      "smartRemotes": 6,
+      "allSmartRemoteTypesPerPortSame": true,
+      "pixelPortEndNullPixels": true,
+      "pixelProtocols": ["ws2811"],
+      "serialProtocols": [
+        "dmx-pro",
+        "dmx-open",
+        "genericserial",
+        "lor",
+        "pixelnet-lynx",
+        "pixelnet-open",
+        "renard"
+      ],
+      "smartRemoteTypes": ["falcon_v1", "fpp_v2"],
+      "fppStringFileName": "co-bbbStrings"
+    },
+    {
+      "name": "FPPStringRPIWS281XPiHat",
+      "extends": "FPP:BaseFPPSettings",
+      "maxSerialPortChannels": 512,
+      "maxPixelPortChannels": 4200,
+      "virtualStrings": true,
+      "autoLayout": true,
+      "pixelPortEndNullPixels": true,
+      "pixelProtocols": ["ws2811"],
+      "serialProtocols": [
+        "dmx-pro",
+        "dmx-open",
+        "genericserial",
+        "lor",
+        "pixelnet-lynx",
+        "pixelnet-open",
+        "renard"
+      ],
+      "fppStringName": "co-pixelStrings",
+      "fppStringDriverType": "RPIWS281X"
+    },
+    {
+      "name": "FPPStringDPIPiHat",
+      "extends": "FPP:BaseFPPSettings",
+      "maxSerialPortChannels": 512,
+      "maxPixelPortChannels": 4200,
+      "virtualStrings": true,
+      "autoLayout": true,
+      "remotes": true,
+      "smartRemotes": 6,
+      "allSmartRemoteTypesPerPortSame": true,
+      "pixelPortEndNullPixels": true,
+      "pixelProtocols": ["ws2811"],
+      "serialProtocols": [
+        "dmx-pro",
+        "dmx-open",
+        "genericserial",
+        "lor",
+        "pixelnet-lynx",
+        "pixelnet-open",
+        "renard"
+      ],
+      "smartRemoteTypes": ["falcon_v1", "fpp_v2"],
+      "fppStringFileName": "co-pixelStrings",
+      "fppStringDriverType": "DPIPixels"
+    }
+  ],
+  "controllers": [
+    {
+      "name": "FPP",
+      "variants": [
+        {
+          "name": "",
+          "maxPixelPort": 0,
+          "maxSerialPort": 1,
+          "maxSerialPortChannels": 4096,
+          "maxPixelPortChannels": 0,
+          "autoLayout": true,
+          "upload": true,
+          "autoUpload": true,
+          "pixelProtocols": [],
+          "serialProtocols": [
+            "dmx",
+            "opendmx",
+            "genericserial",
+            "lor",
+            "pixelnet",
+            "pixelnet-open",
+            "renard"
+          ],
+          "inputProtocols": ["ddp-input"]
+        }
+      ]
+    },
+    {
+      "name": "LED Panels",
+      "variants": [
+        {
+          "name": "",
+          "extends": "FPP:BaseFPPSettings",
+          "maxPixelPort": 0,
+          "maxSerialPort": 0,
+          "maxSerialPortChannels": 0,
+          "maxPixelPortChannels": 0,
+          "ledPanelMatrix": true,
+          "autoLayout": true,
+          "pixelProtocols": [],
+          "serialProtocols": []
+        }
+      ]
+    },
+    {
+      "name": "Virtual Matrix",
+      "variants": [
+        {
+          "name": "",
+          "extends": "FPP:BaseFPPSettings",
+          "maxPixelPort": 0,
+          "maxSerialPort": 0,
+          "maxSerialPortChannels": 0,
+          "maxPixelPortChannels": 0,
+          "ledPanelMatrix": true,
+          "virtualMatrix": true,
+          "autoLayout": true,
+          "pixelProtocols": [],
+          "serialProtocols": []
+        }
+      ]
+    },
+    {
+      "name": "Pi4 Virtual Matrix",
+      "variants": [
+        {
+          "name": "",
+          "extends": "FPP:BaseFPPSettings",
+          "maxPixelPort": 0,
+          "maxSerialPort": 0,
+          "maxSerialPortChannels": 0,
+          "maxPixelPortChannels": 0,
+          "virtualMatrix": true,
+          "maxVirtualMatrixPorts": 2,
+          "ledPanelMatrix": true,
+          "autoLayout": true,
+          "pixelProtocols": [],
+          "serialProtocols": []
+        }
+      ]
+    },
+    {
+      "name": "Pi Hat",
+      "variants": [
+        {
+          "name": "2 Output RPIWS281X",
+          "extends": "FPP:FPPStringRPIWS281XPiHat",
+          "maxPixelPort": 2,
+          "maxSerialPort": 1,
+          "virtualMatrix": true,
+          "ledPanelMatrix": true,
+          "fppSerialPort1": "ttyAMA0"
+        },
+        {
+          "name": "2 Output DPIPixels",
+          "extends": "FPP:FPPStringDPIPiHat",
+          "maxPixelPort": 2,
+          "maxSerialPort": 1,
+          "virtualMatrix": true,
+          "ledPanelMatrix": true,
+          "fppSerialPort1": "ttyAMA0"
+        },
+        {
+          "name": "24 Output DPI",
+          "extends": "FPP:FPPStringDPIPiHat",
+          "maxPixelPort": 24,
+          "maxSerialPort": 1,
+          "virtualMatrix": true,
+          "ledPanelMatrix": true,
+          "fppSerialPort1": "ttyAMA0"
+        }
+      ]
+    },
+    {
+      "name": "Octoscroller",
+      "variants": [
+        {
+          "name": "",
+          "extends": "FPP:BaseFPPSettings",
+          "maxPixelPort": 0,
+          "maxSerialPort": 0,
+          "maxSerialPortChannels": 0,
+          "maxPixelPortChannels": 0,
+          "ledPanelMatrix": true,
+          "autoLayout": true,
+          "pixelProtocols": [],
+          "serialProtocols": []
+        }
+      ]
+    },
+    {
+      "name": "RGBCape24",
+      "variants": [
+        {
+          "name": "",
+          "extends": "FPP:FPPStringCape",
+          "maxPixelPort": 24,
+          "maxSerialPort": 0,
+          "maxSerialPortChannels": 0,
+          "fpp": "3",
+          "fpp1": "1,8",
+          "fpp2": "9,8",
+          "fpp3": "17,8"
+        }
+      ]
+    },
+    {
+      "name": "RGB48",
+      "variants": [
+        {
+          "name": "Revision C",
+          "extends": "FPP:FPPStringCape",
+          "maxPixelPort": 48,
+          "maxSerialPort": 0,
+          "maxSerialPortChannels": 0,
+          "fpp": "6",
+          "fpp1": "1,8",
+          "fpp2": "9,8",
+          "fpp3": "17,8",
+          "fpp4": "25,8",
+          "fpp5": "33,8",
+          "fpp6": "41,8"
+        },
+        {
+          "name": "Revision F",
+          "extends": "FPP:FPPStringCape",
+          "maxPixelPort": 48,
+          "maxSerialPort": 0,
+          "maxSerialPortChannels": 0,
+          "fpp": "6",
+          "fpp1": "1,8",
+          "fpp2": "9,8",
+          "fpp3": "17,8",
+          "fpp4": "25,8",
+          "fpp5": "33,8",
+          "fpp6": "41,8"
+        }
+      ]
+    },
+    {
+      "name": "F4-B",
+      "variants": [
+        {
+          "name": "",
+          "extends": "FPP:FPPStringCape",
+          "maxPixelPort": 4,
+          "maxSerialPort": 1
+        }
+      ]
+    },
+    {
+      "name": "F16-B",
+      "variants": [
+        {
+          "name": "No Expansion (8 Serial)",
+          "extends": "FPP:FPPStringCape",
+          "maxPixelPort": 16,
+          "maxSerialPort": 8
+        },
+        {
+          "name": "32 Outputs (8 Serial)",
+          "extends": "FPP:FPPStringCape",
+          "maxPixelPort": 32,
+          "maxSerialPort": 8,
+          "fpp": "1",
+          "fpp1": "17,16"
+        },
+        {
+          "name": "48 Outputs (No Serial)",
+          "extends": "FPP:FPPStringCape",
+          "maxPixelPort": 48,
+          "maxSerialPort": 0,
+          "maxSerialPortChannels": 0,
+          "fpp": "2",
+          "fpp1": "17,16",
+          "fpp3": "33,16"
+        }
+      ]
+    },
+    {
+      "name": "Mirage",
+      "variants": [
+        {
+          "name": "No Recievers",
+          "extends": "FPP:FPPStringCapeTTYs",
+          "maxPixelPort": 24,
+          "maxSerialPort": 2,
+          "fpp": "3",
+          "fpp1": "1,8",
+          "fpp2": "9,8",
+          "fpp3": "17,8",
+          "fppSerialPort1": "ttyS1",
+          "fppSerialPort2": "ttyS2"
+        },
+        {
+          "name": "One Reciever",
+          "extends": "FPP:FPPStringCapeTTYs",
+          "maxPixelPort": 28,
+          "maxSerialPort": 2,
+          "fpp": "4",
+          "fpp1": "1,8",
+          "fpp2": "9,8",
+          "fpp3": "17,8",
+          "fpp4": "25,4",
+          "fppSerialPort1": "ttyS1",
+          "fppSerialPort2": "ttyS2"
+        },
+        {
+          "name": "Two Recievers",
+          "extends": "FPP:FPPStringCapeTTYs",
+          "maxPixelPort": 32,
+          "maxSerialPort": 2,
+          "fpp": "5",
+          "fpp1": "1,8",
+          "fpp2": "9,8",
+          "fpp3": "17,8",
+          "fpp4": "25,4",
+          "fpp5": "29,4",
+          "fppSerialPort1": "ttyS1",
+          "fppSerialPort2": "ttyS2"
+        },
+        {
+          "name": "Three Recievers",
+          "extends": "FPP:FPPStringCapeTTYs",
+          "maxPixelPort": 36,
+          "maxSerialPort": 2,
+          "fpp": "6",
+          "fpp1": "1,8",
+          "fpp2": "9,8",
+          "fpp3": "17,8",
+          "fpp4": "25,4",
+          "fpp5": "29,4",
+          "fpp6": "33,4",
+          "fppSerialPort1": "ttyS1",
+          "fppSerialPort2": "ttyS2"
+        },
+        {
+          "name": "Four Recievers",
+          "extends": "FPP:FPPStringCapeTTYs",
+          "maxPixelPort": 40,
+          "maxSerialPort": 2,
+          "fpp": "7",
+          "fpp1": "1,8",
+          "fpp2": "9,8",
+          "fpp3": "17,8",
+          "fpp4": "25,4",
+          "fpp5": "29,4",
+          "fpp6": "33,4",
+          "fpp7": "37,4",
+          "fppSerialPort1": "ttyS1",
+          "fppSerialPort2": "ttyS2"
+        },
+        {
+          "name": "Five Recievers",
+          "extends": "FPP:FPPStringCapeTTYs",
+          "maxPixelPort": 40,
+          "maxSerialPort": 2,
+          "fpp": "8",
+          "fpp1": "1,8",
+          "fpp2": "9,8",
+          "fpp3": "17,8",
+          "fpp4": "25,4",
+          "fpp5": "29,4",
+          "fpp6": "33,4",
+          "fpp7": "37,4",
+          "fpp8": "40,4",
+          "fppSerialPort1": "ttyS1",
+          "fppSerialPort2": "ttyS2"
+        }
+      ]
+    }
+  ]
+}

@@ -2,6 +2,7 @@ import advatek from './advatek.json';
 import entec from './entec.json';
 import espixelstick from './espixelstick.json';
 import falcon from './falcon.json';
+import fpp from './fpp.json';
 import twinkly from './twinkly.json';
 
 const protocols = [
@@ -134,12 +135,16 @@ export interface SerializedVariant {
   universesMustBeSequential?: boolean;
   pixelPortEndNullPixels?: boolean;
   universesMustBeInNumericalOrder?: boolean;
+  defaultGamma?: boolean;
+  preferredInputProtocol?: string;
+  virtualMatrix?: boolean;
   [k: string]: unknown;
 }
 export interface Variant extends SerializedVariant {
   serialProtocols?: Protocol[];
   pixelProtocols?: Protocol[];
   inputProtocols?: Protocol[];
+  preferredInputProtocol: Protocol;
 }
 export interface SerializedController {
   name: string;
@@ -210,6 +215,7 @@ export default {
     entec,
     espixelstick,
     falcon,
+    fpp,
     twinkly,
   } as const),
   protocols,
