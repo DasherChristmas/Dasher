@@ -1,0 +1,227 @@
+{
+  "vendor": "Hanson Electrics",
+  "controllers": [
+    {
+      "name": "DMX18",
+      "variants": [
+        {
+          "name": "",
+          "maxInputUniverses": 1,
+          "maxPixelPort": 0,
+          "maxSerialPort": 1,
+          "maxSerialPortChannels": 512,
+          "maxPixelPortChannels": 0,
+          "noWebUI": true,
+          "autoLayout": true,
+          "pixelProtocols": [],
+          "serialProtocols": ["dmx", "dmx-open"],
+          "inputProtocols": ["dmx", "opendmx"]
+        }
+      ]
+    },
+    {
+      "name": "DMX2-18",
+      "variants": [
+        {
+          "name": "",
+          "maxInputUniverses": 1,
+          "maxPixelPort": 0,
+          "maxSerialPort": 1,
+          "maxSerialPortChannels": 512,
+          "maxPixelPortChannels": 0,
+          "autoLayout": true,
+          "noWebUI": true,
+          "pixelProtocols": [],
+          "serialProtocols": ["dmx", "dmx-open"],
+          "inputProtocols": ["dmx", "opendmx"]
+        }
+      ]
+    },
+    {
+      "name": "DMX2-24",
+      "variants": [
+        {
+          "name": "",
+          "maxInputUniverses": 1,
+          "maxPixelPort": 0,
+          "maxSerialPort": 1,
+          "maxSerialPortChannels": 512,
+          "maxPixelPortChannels": 0,
+          "autoLayout": true,
+          "noWebUI": true,
+          "pixelProtocols": [],
+          "serialProtocols": ["dmx", "dmx-open"],
+          "inputProtocols": ["dmx", "opendmx"]
+        }
+      ]
+    },
+    {
+      "name": "DMX36",
+      "variants": [
+        {
+          "name": "",
+          "maxInputUniverses": 1,
+          "maxPixelPort": 0,
+          "maxSerialPort": 1,
+          "maxSerialPortChannels": 512,
+          "maxPixelPortChannels": 0,
+          "autoLayout": true,
+          "noWebUI": true,
+          "pixelProtocols": [],
+          "serialProtocols": ["dmx", "dmx-open"],
+          "inputProtocols": ["dmx", "opendmx"]
+        }
+      ]
+    },
+    {
+      "name": "DMX36 MK2",
+      "variants": [
+        {
+          "name": "",
+          "maxInputUniverses": 1,
+          "maxPixelPort": 0,
+          "maxSerialPort": 1,
+          "maxSerialPortChannels": 512,
+          "maxPixelPortChannels": 0,
+          "autoLayout": true,
+          "noWebUI": true,
+          "pixelProtocols": [],
+          "serialProtocols": ["dmx", "dmx-open"],
+          "inputProtocols": ["dmx", "opendmx"]
+        }
+      ]
+    },
+    {
+      "name": "rPi-28D",
+      "variants": [
+        {
+          "name": "",
+          "extends": "FPP:BaseFPPSettings",
+          "maxPixelPort": 3,
+          "maxSerialPort": 1,
+          "maxSerialPortChannels": 512,
+          "maxPixelPortChannels": 4800,
+          "virtualStrings": true,
+          "autoLayout": true,
+          "pixelPortEndNullPixels": true,
+          "ledPanelMatrix": true,
+          "virtualMatrix": true,
+          "pixelProtocols": ["ws2811", "ws2801"],
+          "serialProtocols": [
+            "dmx-pro",
+            "dmx-open",
+            "genericserial",
+            "lor",
+            "pixelnet-lynx",
+            "pixelnet-open",
+            "renard"
+          ],
+          "fppSerialPort1": "ttyAMA0",
+          "fppStringFileName": "co-pixelStrings"
+        }
+      ]
+    },
+    {
+      "name": "rPi-MFC",
+      "variants": [
+        {
+          "name": "",
+          "extends": "FPP:BaseFPPSettings",
+          "maxPixelPort": 1,
+          "maxSerialPort": 1,
+          "maxSerialPortChannels": 512,
+          "maxPixelPortChannels": 4800,
+          "virtualStrings": true,
+          "autoLayout": true,
+          "pixelPortEndNullPixels": true,
+          "pixelProtocols": ["ws2811"],
+          "serialProtocols": [
+            "dmx-pro",
+            "dmx-open",
+            "genericserial",
+            "lor",
+            "pixelnet-lynx",
+            "pixelnet-open",
+            "renard"
+          ],
+          "fppSerialPort1": "ttyAMA0",
+          "fppStringFileName": "co-pixelStrings"
+        }
+      ]
+    },
+    {
+      "name": "HE123",
+      "variants": [
+        {
+          "name": "",
+          "extends": "FPP:StringCape",
+          "maxPixelPort": 48,
+          "maxSerialPort": 0,
+          "maxSerialPortChannels": 0,
+          "maxPixelPortChannels": 4800,
+          "fpp": 6,
+          "fpp1": "1,8",
+          "fpp2": "9,8",
+          "fpp3": "17,8",
+          "fpp4": "25,8",
+          "fpp5": "33,8",
+          "fpp6": "41,8"
+        }
+      ]
+    },
+    {
+      "name": "rPi-P10",
+      "variants": [
+        {
+          "name": "",
+          "extends": "FPP:FPPBaseSettings",
+          "maxPixelPort": 0,
+          "maxSerialPort": 0,
+          "maxSerialPortChannels": 0,
+          "maxPixelPortChannels": 0,
+          "ledPanelMatrix": true,
+          "virtualMatrix": true,
+          "autoLayout": true,
+          "pixelProtocols": [],
+          "serialProtocols": []
+        }
+      ]
+    },
+    {
+      "name": "Octoscroller",
+      "variants": [
+        {
+          "name": "",
+          "extends": "FPP:BaseFPPSettings",
+          "maxPixelPort": 0,
+          "maxSerialPort": 0,
+          "maxSerialPortChannels": 0,
+          "maxPixelPortChannels": 0,
+          "ledPanelMatrix": true,
+          "autoLayout": true,
+          "pixelProtocols": [],
+          "serialProtocols": []
+        }
+      ]
+    },
+    {
+      "name": "oPi8",
+      "variants": [
+        {
+          "name": "",
+          "extends": "FPP:FPPBaseSettings",
+          "noWebUI": true,
+          "autoLayout": true,
+          "maxInputUniverses": 34,
+          "maxSerialPortChannels": 512,
+          "maxPixelPortChannels": 2040,
+          "maxPixelPort": 8,
+          "maxSerialPort": 2,
+          "serialProtocols": ["dmx"],
+          "pixelProtocols": ["ws2811", "ws2801", "apa102"],
+          "inputProtocols": ["e131", "artnet", "ddp"]
+        }
+      ]
+    }
+  ]
+}

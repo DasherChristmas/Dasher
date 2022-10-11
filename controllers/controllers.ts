@@ -3,6 +3,7 @@ import entec from './entec.json';
 import espixelstick from './espixelstick.json';
 import falcon from './falcon.json';
 import fpp from './fpp.json';
+import hanson from './hanson.json';
 import twinkly from './twinkly.json';
 
 const protocols = [
@@ -216,6 +217,7 @@ export default {
     espixelstick,
     falcon,
     fpp,
+    hanson,
     twinkly,
   } as const),
   protocols,
