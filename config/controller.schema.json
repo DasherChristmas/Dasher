@@ -31,55 +31,71 @@
           "type": "string"
         },
         "noWebUI": {
-          "type": "boolean"
+          "type": "boolean",
+          "default": true
         },
         "upload": {
-          "type": "boolean"
+          "type": "boolean",
+          "default": true
         },
         "inputOnlyUpload": {
-          "type": "boolean"
+          "type": "boolean",
+          "default": true
         },
         "autoUpload": {
-          "type": "boolean"
+          "type": "boolean",
+          "default": true
         },
         "pixelPortCommonSettings": {
-          "type": "boolean"
+          "type": "boolean",
+          "default": true
         },
         "pixelZigZag": {
-          "type": "boolean"
+          "type": "boolean",
+          "default": true
         },
         "maxZigZag": {
           "type": "number"
         },
         "fullControl": {
-          "type": "boolean"
+          "type": "boolean",
+          "default": true
         },
         "multipleSimulOutProtocols": {
-          "type": "boolean"
+          "type": "boolean",
+          "default": true
         },
         "multipleSimulInProtocols": {
-          "type": "boolean"
+          "type": "boolean",
+          "default": true
         },
         "ledPanelMatrix": {
-          "type": "boolean"
+          "type": "boolean",
+          "default": true
         },
         "allInputUniversesSameSize": {
-          "type": "boolean"
+          "type": "boolean",
+          "default": true
         },
         "virtualStrings": {
-          "type": "boolean"
+          "type": "boolean",
+          "default": true
         },
         "autoLayout": {
-          "type": "boolean"
+          "type": "boolean",
+          "default": true
         },
         "mergeConsecutiveVirtStrings": {
-          "type": "boolean"
+          "type": "boolean",
+          "default": true
         },
         "remotes": {
-          "type": "boolean"
+          "type": "boolean",
+          "default": true
         },
         "defaultBrightness": {
-          "type": "boolean"
+          "type": "boolean",
+          "default": true
         },
         "maxInputUniverses": {
           "type": "number"
@@ -109,13 +125,15 @@
           "type": "number"
         },
         "allSmartRemoteTypesPerPortSame": {
-          "type": "boolean"
+          "type": "boolean",
+          "default": true
         },
         "smartRemotes": {
           "type": "number"
         },
         "needsDDPInputUpload": {
-          "type": "boolean"
+          "type": "boolean",
+          "default": true
         },
         "smartRemoteTypes": {
           "type": "array",
@@ -148,19 +166,24 @@
           "type": "number"
         },
         "needsFullUniverseForSerial": {
-          "type": "boolean"
+          "type": "boolean",
+          "default": true
         },
         "allInputUniversesMustBe510": {
-          "type": "boolean"
+          "type": "boolean",
+          "default": true
         },
         "forceExpanded": {
-          "type": "boolean"
+          "type": "boolean",
+          "default": true
         },
         "pixelPortGrouping": {
-          "type": "boolean"
+          "type": "boolean",
+          "default": true
         },
         "pixelPortColorOrder": {
-          "type": "boolean"
+          "type": "boolean",
+          "default": true
         },
         "maxInputUniverseChannels": {
           "type": "number"
@@ -169,43 +192,54 @@
           "type": "number"
         },
         "universesMustBeSequential": {
-          "type": "boolean"
+          "type": "boolean",
+          "default": true
         },
         "pixelPortEndNullPixels": {
-          "type": "boolean"
+          "type": "boolean",
+          "default": true
         },
         "universesMustBeInNumericalOrder": {
-          "type": "boolean"
+          "type": "boolean",
+          "default": true
         },
         "defaultGamma": {
-          "type": "boolean"
+          "type": "boolean",
+          "default": true
         },
         "preferredInputProtocol": {
           "$ref": "#/definitions/protocol"
         },
         "virtualMatrix": {
-          "type": "boolean"
+          "type": "boolean",
+          "default": true
         },
         "maxVirtualMatrixPorts": {
           "type": "number"
         },
         "pixelPortBrightness": {
-          "type": "boolean"
+          "type": "boolean",
+          "default": true
         },
         "pixelPortGamma": {
-          "type": "boolean"
+          "type": "boolean",
+          "default": true
         },
         "pixelPortNullPixels": {
-          "type": "boolean"
+          "type": "boolean",
+          "default": true
         },
         "pixelPortDirection": {
-          "type": "boolean"
+          "type": "boolean",
+          "default": true
         },
         "universePerString": {
-          "type": "boolean"
+          "type": "boolean",
+          "default": true
         },
         "dmxAfterPixels": {
-          "type": "boolean"
+          "type": "boolean",
+          "default": true
         }
       },
       "additionalProperties": true,
