@@ -5,6 +5,8 @@ import falcon from './falcon.json';
 import fpp from './fpp.json';
 import hanson from './hanson.json';
 import hinkspix from './hinkspix.json';
+import holidaycoro from './holidaycoro.json';
+import j1sys from './j1sys.json';
 import twinkly from './twinkly.json';
 
 const protocols = [
@@ -226,6 +228,8 @@ export default {
     fpp,
     hanson,
     hinkspix,
+    holidaycoro,
+    j1sys,
     twinkly,
   } as const),
   protocols,
