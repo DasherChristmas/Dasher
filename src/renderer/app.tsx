@@ -5,7 +5,7 @@ import {
   Navigate,
 } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
-import './App.style.scss';
+import './App.scss';
 import AppConfigStateNode from './appConfig';
 import Controllers from './pages/controllers/Controllers';
 import Models from './pages/models/Models';
