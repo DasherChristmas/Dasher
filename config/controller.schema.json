@@ -159,7 +159,7 @@
         "pixelPortGrouping": {
           "type": "boolean"
         },
-        "pixelProtColorOrder": {
+        "pixelPortColorOrder": {
           "type": "boolean"
         },
         "maxInputUniverseChannels": {
@@ -188,6 +188,24 @@
         },
         "maxVirtualMatrixPorts": {
           "type": "number"
+        },
+        "pixelPortBrightness": {
+          "type": "boolean"
+        },
+        "pixelPortGamma": {
+          "type": "boolean"
+        },
+        "pixelPortNullPixels": {
+          "type": "boolean"
+        },
+        "pixelPortDirection": {
+          "type": "boolean"
+        },
+        "universePerString": {
+          "type": "boolean"
+        },
+        "dmxAfterPixels": {
+          "type": "boolean"
         }
       },
       "additionalProperties": true,

@@ -7,7 +7,7 @@
         {
           "name": "",
           "pixelPortGrouping": true,
-          "pixelProtColorOrder": true,
+          "pixelPortColorOrder": true,
           "maxInputUniverses": 16,
           "maxPixelPort": 8,
           "maxSerialPort": 0,
@@ -215,7 +215,7 @@
         {
           "name": "",
           "pixelPortGrouping": true,
-          "pixelProtColorOrder": true,
+          "pixelPortColorOrder": true,
           "maxInputUniverses": 2,
           "maxPixelPort": 1,
           "maxSerialPort": 0,

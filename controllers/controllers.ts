@@ -139,6 +139,12 @@ export interface SerializedVariant {
   defaultGamma?: boolean;
   preferredInputProtocol?: string;
   virtualMatrix?: boolean;
+  pixelPortBrightness?: boolean;
+  pixelPortGamma?: boolean;
+  pixelPortNullPixels?: boolean;
+  pixelPortDirection?: boolean;
+  universePerString?: boolean;
+  dmxAfterPixels?: boolean;
   [k: string]: unknown;
 }
 export interface Variant extends SerializedVariant {
