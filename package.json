@@ -108,8 +108,6 @@
   "dependencies": {
     "@electron/remote": "^2.0.8",
     "@mui/base": "^5.0.0-alpha.99",
-    "@types/electron": "^1.6.10",
-    "@types/memoizee": "^0.4.8",
     "electron-debug": "^3.2.0",
     "electron-log": "^4.4.8",
     "electron-tooltip": "^1.1.5",
@@ -125,6 +123,8 @@
     "recoil": "^0.7.5"
   },
   "devDependencies": {
+    "@types/electron": "^1.6.10",
+    "@types/memoizee": "^0.4.8",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.7",
     "@svgr/webpack": "^6.3.1",
     "@teamsupercell/typings-for-css-modules-loader": "^2.5.1",
