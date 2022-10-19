@@ -1,0 +1,60 @@
+{
+  "vendor": "HinksPix",
+  "controllers": [
+    {
+      "name": "EasyLights Pix16",
+      "variants": [
+        {
+          "name": "",
+          "pixelPortBrightness": true,
+          "pixelPortGamma": true,
+          "pixelPortNullPixels": true,
+          "pixelPortDirection": true,
+          "pixelProtColorOrder": true,
+          "universePerString": true,
+          "dmxAfterPixels": true,
+          "upload": true,
+          "remotes": true,
+          "maxInputUniverses": 65,
+          "maxPixelPort": 16,
+          "maxSerialPort": 1,
+          "maxSerialPortChannels": 512,
+          "maxPixelPortChannels": 2040,
+          "autoLayout": true,
+          "pixelProtocols": ["ws2811", "ws2801", "tls3001", "apa102"],
+          "serialProtocols": ["dmx"],
+          "inputProtocols": ["e131", "artnet", "ddp"],
+          "multipleSimulOutProtocols": true
+        }
+      ]
+    },
+    {
+      "name": "PRO",
+      "variants": [
+        {
+          "name": "",
+          "pixelPortBrightness": true,
+          "pixelPortGamma": true,
+          "pixelPortNullPixels": true,
+          "pixelPortDirection": true,
+          "pixelPortColorOrder": true,
+          "universePerString": true,
+          "dmxAfterPixels": true,
+          "remotes": true,
+          "smartRemotes": 16,
+          "upload": true,
+          "maxPixelPort": 48,
+          "maxSerialPort": 1,
+          "maxSerialPortChannels": 512,
+          "maxPixelPortChannels": 2040,
+          "autoLayout": true,
+          "pixelProtocols": ["ws2811", "ws2801", "tls3001", "apa102"],
+          "serialProtocols": ["dmx"],
+          "inputProtocols": ["e131", "artnet", "ddp"],
+          "smartRemoteTypes": ["hinkspix_4", "hinkspix_16", "hinkspix_16ac"],
+          "multipleSimulOutProtocols": true
+        }
+      ]
+    }
+  ]
+}

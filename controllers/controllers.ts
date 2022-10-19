@@ -4,6 +4,7 @@ import espixelstick from './espixelstick.json';
 import falcon from './falcon.json';
 import fpp from './fpp.json';
 import hanson from './hanson.json';
+import hinkspix from './hinkspix.json';
 import twinkly from './twinkly.json';
 
 const protocols = [
@@ -224,6 +225,7 @@ export default {
     falcon,
     fpp,
     hanson,
+    hinkspix,
     twinkly,
   } as const),
   protocols,
