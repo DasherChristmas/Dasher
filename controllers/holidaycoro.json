@@ -1,0 +1,88 @@
+{
+  "vendor": "HolodayCoro",
+  "controllers": [
+    {
+      "name": "AlphaPix 4",
+      "variants": [
+        {
+          "name": "",
+          "upload": true,
+          "pixelPortBrightness": true,
+          "pixelPortNullPixels": true,
+          "pixelPortDirection": true,
+          "pixelPortColorOrder": true,
+          "maxInputUniverses": 16,
+          "maxPixelPort": 4,
+          "maxSerialPort": 1,
+          "maxSerialPortChannels": 512,
+          "maxPixelPortChannels": 2040,
+          "allInputUniversesSameSize": true,
+          "needsFullUniverseForSerial": true,
+          "autoLayout": true,
+          "pixelProtocols": [
+            "ws2811",
+            "tm18xx",
+            "ws2801",
+            "tls3001",
+            "lpd6803"
+          ],
+          "serialProtocols": ["dmx"],
+          "inputProtocols": ["e131", "artnet"]
+        }
+      ]
+    },
+    {
+      "name": "AlphaPix 16",
+      "variants": [
+        {
+          "name": "",
+          "upload": true,
+          "pixelPortBrightness": true,
+          "pixelPortNullPixels": true,
+          "pixelPortDirection": true,
+          "pixelPortColorOrder": true,
+          "maxInputUniverses": 32,
+          "maxPixelPort": 16,
+          "maxSerialPort": 3,
+          "maxSerialPortChannels": 512,
+          "maxPixelPortChannels": 1020,
+          "allInputUniversesSameSize": true,
+          "autoLayout": true,
+          "needsFullUniverseForSerial": true,
+          "pixelProtocols": [
+            "ws2811",
+            "tm18xx",
+            "ws2801",
+            "tls3001",
+            "lpd6803"
+          ],
+          "serialProtocols": ["dmx"],
+          "inputProtocols": ["e131", "artnet"]
+        }
+      ]
+    },
+    {
+      "name": "AlphaPix Flex",
+      "variants": [
+        {
+          "name": "",
+          "upload": true,
+          "pixelPortBrightness": true,
+          "pixelPortNullPixels": true,
+          "pixelPortDirection": true,
+          "pixelPortColorOrder": true,
+          "maxInputUniverses": 96,
+          "maxPixelPort": 48,
+          "maxSerialPort": 2,
+          "maxSerialPortChannels": 512,
+          "maxPixelPortChannels": 1020,
+          "allInputUniversesSameSize": true,
+          "autoLayout": true,
+          "pixelProtocols": ["ws2811", "tm18xx", "ws2801", "lpd6803"],
+          "serialProtocols": ["dmx"],
+          "inputProtocols": ["e131", "artnet"]
+        }
+      ]
+    }
+  ]
+}
