@@ -240,6 +240,10 @@
         "dmxAfterPixels": {
           "type": "boolean",
           "default": true
+        },
+        "ts": {
+          "type": "boolean",
+          "default": true
         }
       },
       "additionalProperties": true,

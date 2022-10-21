@@ -1,0 +1,68 @@
+{
+  "vendor": "Minlon",
+  "abstractVariants": [
+    {
+      "name": "MinlonBaseSettings",
+      "upload": true,
+      "pixelPortGrouping": true,
+      "pixelPortDirection": true,
+      "pixelPortColorOrder": true,
+      "ts": true,
+      "fullControl": true,
+      "maxSerialPort": 0,
+      "maxSerialPortChannels": 0,
+      "maxPixelPortChannels": 2760,
+      "allInputUniversesMustBe510": true,
+      "pixelProtocols": [
+        "ws2811",
+        "tm18xx",
+        "apa104",
+        "sm16703",
+        "ucs2903",
+        "gs820x",
+        "sk6812",
+        "rgb+",
+        "rgbw+",
+        "rgb+2"
+      ],
+      "serialProtocols": [],
+      "inputProtocols": ["e131", "artnet", "ddp"],
+      "universesMustBeInNumericalOrder": true
+    }
+  ],
+  "controllers": [
+    {
+      "name": "RGB NDB Plus",
+      "variants": [
+        {
+          "name": "",
+          "extends": "Minlon:MinlonBaseSettings",
+          "maxInputUniverses": 16,
+          "maxPixelPort": 16
+        }
+      ]
+    },
+    {
+      "name": "RGB NDB 4",
+      "variants": [
+        {
+          "name": "",
+          "extends": "Minlon:MinlonBaseSettings",
+          "maxInputUniverses": 4,
+          "maxPixelPort": 4
+        }
+      ]
+    },
+    {
+      "name": "NDB Pro",
+      "variants": [
+        {
+          "name": "",
+          "extends": "Minlon:MinlonBaseSettings",
+          "maxInputUniverses": 16,
+          "maxPixelPort": 8
+        }
+      ]
+    }
+  ]
+}

@@ -10,6 +10,7 @@ import j1sys from './j1sys.json';
 import kulp from './kulp.json';
 import lor from './lor.json';
 import microcyb from './microcyb.json';
+import minlon from './minlon.json';
 import twinkly from './twinkly.json';
 
 const protocols = [
@@ -151,6 +152,7 @@ export interface SerializedVariant {
   pixelPortDirection?: boolean;
   universePerString?: boolean;
   dmxAfterPixels?: boolean;
+  ts?: boolean;
   [k: string]: unknown;
 }
 export interface Variant extends SerializedVariant {
@@ -236,6 +238,7 @@ export default {
     kulp,
     lor,
     microcyb,
+    minlon,
     twinkly,
   } as const),
   protocols,
