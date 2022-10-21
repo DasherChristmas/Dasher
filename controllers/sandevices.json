@@ -1,0 +1,88 @@
+{
+  "vendor": "SanDevices",
+  "abstractVariants": [
+    {
+      "name": "BaseSanDevicesSettings",
+      "pixelPortNullPixels": true,
+      "pixelPortGrouping": true,
+      "pixelPortDirection": true,
+      "pixelPortColorOrder": true,
+      "upload": true,
+      "inputOnlyUpload": true,
+      "autoLayout": true,
+      "maxInputUniverses": 12,
+      "maxPixelPortChannels": 2997,
+      "pixelProtocols": [
+        "ws2811",
+        "tm18xx",
+        "lpd6803",
+        "ws2801",
+        "tls3001",
+        "gece",
+        "sm16716"
+      ],
+      "serialProtocols": [],
+      "inputProtocols": ["e131", "artnet"],
+      "multipleSimulOutProtocols": true
+    }
+  ],
+  "controllers": [
+    {
+      "name": "E6804",
+      "variants": [
+        {
+          "name": "4.x Firmware",
+          "extends": "SanDevices:BaseSanDevicesSettings",
+          "maxPixelPort": 4,
+          "maxSerialPort": 0,
+          "maxSerialPortChannels": 0,
+          "maxStartNulls": 9
+        },
+        {
+          "name": "5.x Firmware",
+          "extends": "SanDevices:BaseSanDevicesSettings",
+          "maxPixelPort": 4,
+          "maxSerialPort": 0,
+          "maxSerialPortChannels": 0
+        }
+      ]
+    },
+    {
+      "name": "E682",
+      "variants": [
+        {
+          "name": "4.x Firmware",
+          "extends": "SanDevices:BaseSanDevicesSettings",
+          "maxPixelPort": 16,
+          "maxSerialPort": 4,
+          "maxSerialPortChannels": 512,
+          "maxStartNulls": 9,
+          "serialProtocols": ["dmx", "renard"]
+        },
+        {
+          "name": "5.x Firmware",
+          "extends": "SanDevices:BaseSanDevicesSettings",
+          "maxPixelPort": 16,
+          "maxSerialPort": 4,
+          "maxSerialPortChannels": 512,
+          "serialProtocols": ["dmx", "renard"]
+        }
+      ]
+    },
+    {
+      "name": "E680",
+      "variants": [
+        {
+          "name": "",
+          "extends": "SanDevices:BaseSanDevicesSettings",
+          "maxInputUniverses": 4,
+          "maxPixelPort": 16,
+          "maxSerialPort": 0,
+          "maxSerialPortChannels": 0,
+          "maxPixelPortChannels": 510,
+          "inputProtocols": ["e131"]
+        }
+      ]
+    }
+  ]
+}
