@@ -1,0 +1,217 @@
+{
+  "vendor": "LOR",
+  "abstractVariants": [
+    {
+      "name": "BasePixieSettings",
+      "autoLayout": true,
+      "maxInputUniverses": 0,
+      "maxSerialPort": 0,
+      "maxSerialPortChannels": 0,
+      "noWebUI": true,
+      "pixelProtocols": ["ws2811", "lor optimised"],
+      "serialProtocols": ["lor", "lor optimised"],
+      "inputProtocols": ["lor", "lor optimised"]
+    },
+    {
+      "name": "CTBBaseSettings",
+      "maxInputUniverses": 1,
+      "maxPixelPort": 0,
+      "maxSerialPort": 0,
+      "maxPixelPortChannels": 0,
+      "noWebUI": true,
+      "autoLayout": true,
+      "pixelProtocols": [],
+      "serialProtocols": ["dmx", "lor", "lor optimised"],
+      "inputProtocols": ["dmx", "lor", "lor optimised"]
+    }
+  ],
+  "controllers": [
+    {
+      "name": "PixCon16",
+      "variants": [
+        {
+          "name": "",
+          "upload": true,
+          "autoLayout": true,
+          "maxInputUniverses": 96,
+          "maxPixelPort": 16,
+          "maxSerialPort": 4,
+          "maxSerialPortChannels": 512,
+          "maxPixelPortChannels": 1020,
+          "needsFullUniverseForSerial": true,
+          "noWebUI": true,
+          "pixelProtocols": [
+            "ws2811",
+            "tm18xx",
+            "tm1803",
+            "tm1804",
+            "tm1809",
+            "ws2801",
+            "tls3001",
+            "lpd6803",
+            "lpd8806",
+            "apa102",
+            "sm16716",
+            "mb16020",
+            "my9231",
+            "my9221",
+            "sk6812",
+            "ucs1903"
+          ],
+          "serialProtocols": ["dmx"],
+          "inputProtocols": ["e131", "artnet"]
+        }
+      ]
+    },
+    {
+      "name": "Pixie 2",
+      "variants": [
+        {
+          "name": "",
+          "extends": "LOR:BasePixieSettings",
+          "maxPixelPort": 2,
+          "maxPixelPortChannels": 300
+        }
+      ]
+    },
+    {
+      "name": "Pixie 4",
+      "variants": [
+        {
+          "name": "",
+          "extends": "LOR:BasePixieSettings",
+          "maxPixelPort": 4,
+          "maxPixelPortChannels": 510
+        }
+      ]
+    },
+    {
+      "name": "Pixie 8",
+      "variants": [
+        {
+          "name": "",
+          "extends": "LOR:BasePixieSettings",
+          "maxPixelPort": 8,
+          "maxPixelPortChannels": 510
+        }
+      ]
+    },
+    {
+      "name": "Pixie 16",
+      "variants": [
+        {
+          "name": "",
+          "extends": "LOR:BasePixieSettings",
+          "maxPixelPort": 16,
+          "maxPixelPortChannels": 510
+        }
+      ]
+    },
+    {
+      "name": "CTB32",
+      "variants": [
+        {
+          "name": "",
+          "extends": "LOR:CTBBaseSettings",
+          "maxSerialPortChannels": 32
+        }
+      ]
+    },
+    {
+      "name": "CTB16PC",
+      "variants": [
+        {
+          "name": "",
+          "extends": "LOR:CTBBaseSettings",
+          "maxSerialPortChannels": 512
+        }
+      ]
+    },
+    {
+      "name": "DIO32 DMX",
+      "variants": [
+        {
+          "name": "",
+          "extends": "LOR:CTBBaseSettings",
+          "maxSerialPortChannels": 512
+        }
+      ]
+    },
+    {
+      "name": "CTB08",
+      "variants": [
+        {
+          "name": "",
+          "extends": "LOR:CTBBaseSettings",
+          "maxSerialPortChannels": 512
+        }
+      ]
+    },
+    {
+      "name": "CTB04PC",
+      "variants": [
+        {
+          "name": "",
+          "extends": "LOR:CTBBaseSettings",
+          "maxSerialPortChannels": 512
+        }
+      ]
+    },
+    {
+      "name": "LOR160x",
+      "variants": [
+        {
+          "name": "",
+          "extends": "LOR:CTBBaseSettings",
+          "maxSerialPortChannels": 512
+        }
+      ]
+    },
+    {
+      "name": "LOR800",
+      "variants": [
+        {
+          "name": "",
+          "extends": "LOR:CTBBaseSettings",
+          "maxSerialPortChannels": 512
+        }
+      ]
+    },
+    {
+      "name": "Cosmic Color",
+      "variants": [
+        {
+          "name": "",
+          "maxInputUniverses": 0,
+          "maxPixelPort": 1,
+          "maxSerialPort": 0,
+          "maxSerialPortChannels": 0,
+          "maxPixelPortChannels": 150,
+          "noWebUI": true,
+          "autoLayout": true,
+          "pixelProtocols": ["ccr", "ccb"],
+          "serialProtocols": ["dmx", "lor", "lor optimised"],
+          "inputProtocols": ["dmx", "lor", "lor optimised"]
+        }
+      ]
+    },
+    {
+      "name": "PixieLink",
+      "variants": [
+        {
+          "name": "",
+          "universePerString": true,
+          "maxInputUniverses": 192,
+          "maxPixelPort": 96,
+          "maxSerialPort": 0,
+          "maxSerialPortChannels": 0,
+          "maxPixelPortChannels": 1020,
+          "autoLayout": true,
+          "pixelProtocols": ["ws2811"],
+          "serialProtocols": [],
+          "inputProtocols": ["e131"]
+        }
+      ]
+    }
+  ]
+}
