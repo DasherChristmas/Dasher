@@ -1,0 +1,38 @@
+{
+  "vendor": "MICROCYB",
+  "controllers": [
+    {
+      "name": "M4-PI",
+      "variants": [
+        {
+          "name": "",
+          "extends": "FPP:FPPStringDPIPiHat",
+          "maxPixelPort": 4,
+          "maxSerialPort": 0
+        }
+      ]
+    },
+    {
+      "name": "M8-PI",
+      "variants": [
+        {
+          "name": "",
+          "extends": "FPP:FPPStringDPIPiHat",
+          "maxPixelPort": 8,
+          "maxSerialPort": 0
+        }
+      ]
+    },
+    {
+      "name": "M16-PI",
+      "variants": [
+        {
+          "name": "",
+          "extends": "FPP:FPPStringDPIPiHat",
+          "maxPixelPort": 16,
+          "maxSerialPort": 0
+        }
+      ]
+    }
+  ]
+}
