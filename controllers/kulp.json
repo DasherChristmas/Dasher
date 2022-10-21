@@ -1,0 +1,269 @@
+{
+  "vendor": "KulpLights",
+  "controllers": [
+    {
+      "name": "F32-B",
+      "variants": [
+        {
+          "name": "4 Serial",
+          "extends": "FPP:FPPStringCape",
+          "maxPixelPort": 44,
+          "maxSerialPort": 4
+        },
+        {
+          "name": "8 Serial",
+          "extends": "FPP:FPPStringCape",
+          "maxPixelPort": 40,
+          "maxSerialPort": 8
+        },
+        {
+          "name": "No Serial",
+          "extends": "FPP:FPPStringCape",
+          "maxPixelPort": 8,
+          "maxSerialPort": 0
+        }
+      ]
+    },
+    {
+      "name": "F40D-PB",
+      "variants": [
+        {
+          "name": "4 Serial",
+          "extends": "FPP:FPPStringCape",
+          "maxPixelPort": 36,
+          "maxSerialPort": 4
+        },
+        {
+          "name": "8 Serial",
+          "extends": "FPP:FPPStringCape",
+          "maxPixelPort": 32,
+          "maxSerialPort": 8
+        },
+        {
+          "name": "No Serial",
+          "extends": "FPP:FPPStringCape",
+          "maxPixelPort": 40,
+          "maxSerialPort": 0
+        }
+      ]
+    },
+    {
+      "name": "F8-B",
+      "variants": [
+        {
+          "name": "4 Serial",
+          "extends": "FPP:FPPStringCape",
+          "maxPixelPort": 16,
+          "maxSerialPort": 4
+        },
+        {
+          "name": "8 Serial",
+          "extends": "FPP:FPPStringCape",
+          "maxPixelPort": 12,
+          "maxSerialPort": 8
+        },
+        {
+          "name": "No Serial",
+          "extends": "FPP:FPPStringCape",
+          "maxPixelPort": 32,
+          "maxSerialPort": 0
+        },
+        {
+          "name": "4 Serial w/ Expansion",
+          "extends": "FPP:FPPStringCape",
+          "maxPixelPort": 32,
+          "maxSerialPort": 4,
+          "fpp": 1,
+          "fpp1": "17,16"
+        },
+        {
+          "name": "8 Serial w/ Expansion",
+          "extends": "FPP:FPPStringCape",
+          "maxPixelPort": 28,
+          "maxSerialPort": 8,
+          "fpp": 1,
+          "fpp1": "13,16"
+        },
+        {
+          "name": "No Serial w/ Expansion",
+          "extends": "FPP:FPPStringCape",
+          "maxPixelPort": 32,
+          "maxSerialPort": 0,
+          "fpp": 1,
+          "fpp1": "21,16"
+        }
+      ]
+    },
+    {
+      "name": "K16A-B",
+      "variants": [
+        {
+          "name": "No Expansion",
+          "extends": "FPP:FPPStringCapeTTYs",
+          "maxPixelPort": 32,
+          "maxSerialPort": 2,
+          "fpp": 1,
+          "fpp1": "33,-1",
+          "fppSerialPort1": "ttyS1",
+          "fppSerialPort2": "ttyS2"
+        },
+        {
+          "name": "w/ Expansion",
+          "extends": "FPP:FPPStringCapeTTYs",
+          "maxPixelPort": 48,
+          "maxSerialPort": 2,
+          "fpp": 1,
+          "fpp1": "33,16",
+          "fppSerialPort1": "ttyS1",
+          "fppSerialPort2": "ttyS2"
+        }
+      ]
+    },
+    {
+      "name": "K4-PB",
+      "variants": [
+        {
+          "name": "",
+          "extends": "fpp:FPPStringCapeTTYs",
+          "maxPixelPort": 4,
+          "maxSerialPort": 1,
+          "fppSerialPort1": "ttyS4"
+        }
+      ]
+    },
+    {
+      "name": "K40D-PB",
+      "variants": [
+        {
+          "name": "",
+          "extends": "fpp:FPPStringCapeTTYs",
+          "maxPixelPort": 40,
+          "maxSerialPort": 1,
+          "fppSerialPort1": "ttyS4"
+        }
+      ]
+    },
+    {
+      "name": "K32A-B",
+      "variants": [
+        {
+          "name": "",
+          "extends": "fpp:FPPStringCapeTTYs",
+          "maxPixelPort": 48,
+          "maxSerialPort": 2,
+          "fppSerialPort1": "ttyS1",
+          "fppSerialPort2": "ttyS2"
+        }
+      ]
+    },
+    {
+      "name": "K128D-B",
+      "variants": [
+        {
+          "name": "",
+          "extends": "FPP:FPPStringCapeTTYs",
+          "maxPixelPort": 128,
+          "maxSerialPort": 2,
+          "fppSerialPort1": "ttyS1",
+          "fppSerialPort2": "ttyS2",
+          "fppStringDriverType": "BBShiftString"
+        }
+      ]
+    },
+    {
+      "name": "K8-B",
+      "variants": [
+        {
+          "name": "No Expansion",
+          "extends": "FPP:FPPStringCapeTTYs",
+          "maxPixelPort": 20,
+          "maxSerialPort": 2,
+          "fpp": 1,
+          "fpp1": "21,-1",
+          "fppSerialPort1": "ttyS1",
+          "fppSerialPort2": "ttyS2"
+        },
+        {
+          "name": "w/ Expansion",
+          "extends": "FPP:FPPStringCapeTTYs",
+          "maxPixelPort": 36,
+          "maxSerialPort": 2,
+          "fpp": 1,
+          "fpp1": "21,16",
+          "fppSerialPort1": "ttyS1",
+          "fppSerialPort2": "ttyS2"
+        }
+      ]
+    },
+    {
+      "name": "K8-PB",
+      "variants": [
+        {
+          "name": "No Expansion",
+          "extends": "FPP:FPPStringCapeTTYs",
+          "maxPixelPort": 20,
+          "maxSerialPort": 1,
+          "fpp": 1,
+          "fpp1": "21,-1",
+          "fppSerialPort1": "ttyS1"
+        },
+        {
+          "name": "w/ Expansion",
+          "extends": "FPP:FPPStringCapeTTYs",
+          "maxPixelPort": 36,
+          "maxSerialPort": 1,
+          "fpp": 1,
+          "fpp1": "21,16",
+          "fppSerialPort1": "ttyS1"
+        }
+      ]
+    },
+    {
+      "name": "K8-B-Scroller",
+      "variants": [
+        {
+          "name": "",
+          "extends": "FPP:FPPStringCapeTTYs",
+          "maxPixelPort": 12,
+          "maxSerialPort": 2,
+          "fppSerialPort1": "ttyS1",
+          "fppSerialPort2": "ttyS2",
+          "ledPanelMatrix": true
+        }
+      ]
+    },
+    {
+      "name": "OctoPlus",
+      "variants": [
+        {
+          "name": "",
+          "extends": "FPP:FPPBaseSettings",
+          "maxPixelPort": 0,
+          "maxSerialPort": 0,
+          "maxSerialPortChannels": 0,
+          "maxPixelPortChannels": 0,
+          "ledPanelMatrix": true,
+          "autoLayout": true,
+          "pixelProtocols": [],
+          "serialProtocols": []
+        }
+      ]
+    },
+    {
+      "name": "PocketScroller",
+      "variants": [
+        {
+          "name": "",
+          "maxPixelPort": 0,
+          "maxSerialPort": 0,
+          "maxSerialPortChannels": 0,
+          "maxPixelPortChannels": 0,
+          "ledPanelMatrix": true,
+          "autoLayout": true,
+          "pixelProtocols": [],
+          "serialProtocols": []
+        }
+      ]
+    }
+  ]
+}

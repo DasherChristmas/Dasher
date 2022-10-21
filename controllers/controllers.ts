@@ -7,6 +7,7 @@ import hanson from './hanson.json';
 import hinkspix from './hinkspix.json';
 import holidaycoro from './holidaycoro.json';
 import j1sys from './j1sys.json';
+import kulp from './kulp.json';
 import twinkly from './twinkly.json';
 
 const protocols = [
@@ -230,6 +231,7 @@ export default {
     hinkspix,
     holidaycoro,
     j1sys,
+    kulp,
     twinkly,
   } as const),
   protocols,
