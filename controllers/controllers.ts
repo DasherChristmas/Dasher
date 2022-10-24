@@ -15,6 +15,7 @@ import sandevices from './sandevices.json';
 import scott from './scott.json';
 import twinkly from './twinkly.json';
 import wallyslights from './wallyslights.json';
+import wled from './wled.json';
 
 const protocols = [
   'twinkly',
@@ -246,6 +247,7 @@ export default {
     scott,
     twinkly,
     wallyslights,
+    wled,
   } as const),
   protocols,
 };

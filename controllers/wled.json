@@ -1,0 +1,149 @@
+{
+  "vendor": "WLED",
+  "abstractVariants": [
+    {
+      "name": "BaseWLEDSettings",
+      "pixelPortDirection": true,
+      "pixelPortColorOrder": true,
+      "pixelPortNullPixels": true,
+      "upload": true,
+      "maxInputUniverses": 9,
+      "maxSerialPortChannels": 0,
+      "maxPixelPortChannels": 2400,
+      "allInputUniversesSameSize": true,
+      "universesMustBeSequential": true,
+      "autoLayout": true,
+      "pixelProtocols": ["ws2811", "tm18xx", "ws2801", "lpd8806", "apa102"],
+      "serialProtocols": [],
+      "inputProtocols": ["e131", "ddp", "artnet"]
+    },
+    {
+      "name": "ESP32WLEDSettings",
+      "extends": "WLED:BaseWLEDSettings",
+      "maxInputUniverses": 24,
+      "maxPixelPortChannels": 3000
+    }
+  ],
+  "controllers": [
+    {
+      "name": "WLED",
+      "variants": [
+        {
+          "name": "Generic ESP8266",
+          "extends": "WLED:BaseWLEDSettings",
+          "maxPixelPort": 3,
+          "maxSerialPort": 0,
+          "Port1": 2,
+          "Port2": 1,
+          "Port3": 3
+        },
+        {
+          "name": "Generic ESP32",
+          "extends": "WLED:ESP32WLEDSettings",
+          "maxPixelPort": 8,
+          "maxSerialPort": 0,
+          "Port1": 2,
+          "Port2": 13,
+          "Port3": 12,
+          "Port4": 14,
+          "Port5": 27,
+          "Port6": 26,
+          "Port7": 25,
+          "Port8": 33
+        }
+      ]
+    },
+    {
+      "name": "QuinLED-Dig-Quad",
+      "variants": [
+        {
+          "name": "ESP8266",
+          "extends": "WLED:BaseWLEDSettings",
+          "maxPixelPort": 3,
+          "maxSerialPort": 0,
+          "Port1": 2,
+          "Port2": 3,
+          "Port3": 1
+        },
+        {
+          "name": "ESP32",
+          "extends": "WLED:ESP32WLEDSettings",
+          "maxPixelPort": 5,
+          "maxSerialPort": 0,
+          "Port1": 16,
+          "Port2": 3,
+          "Port3": 1,
+          "Port4": 4,
+          "Port5": 15
+        }
+      ]
+    },
+    {
+      "name": "QuinLED-Dig-Uno",
+      "variants": [
+        {
+          "name": "ESP8266",
+          "extends": "WLED:BaseWLEDSettings",
+          "maxPixelPort": 2,
+          "maxSerialPort": 0,
+          "Port1": 3,
+          "Port2": 1
+        },
+        {
+          "name": "ESP32",
+          "extends": "WLED:ESP32WLEDSettings",
+          "maxPixelPort": 2,
+          "maxSerialPort": 0,
+          "Port1": 16,
+          "Port2": 3
+        }
+      ]
+    },
+    {
+      "name": "E1-WiFi",
+      "variants": [
+        {
+          "name": "ESP8266 v1.00",
+          "extends": "WLED:BaseWLEDSettings",
+          "maxPixelPort": 1,
+          "maxSerialPort": 0,
+          "Port1": 2
+        }
+      ]
+    },
+    {
+      "name": "E8-WiFi",
+      "variants": [
+        {
+          "name": "",
+          "extends": "WLED:ESP32WLEDSettings",
+          "maxPixelPort": 8,
+          "maxSerialPort": 0,
+          "Port1": 4,
+          "Port2": 16,
+          "Port3": 17,
+          "Port4": 18,
+          "Port5": 19,
+          "Port6": 21,
+          "Port7": 23,
+          "Port8": 22
+        }
+      ]
+    },
+    {
+      "name": "ESP3DEUXQuattro",
+      "variants": [
+        {
+          "name": "",
+          "extends": "WLED:ESP32WLEDSettings",
+          "maxPixelPort": 4,
+          "maxSerialPort": 0,
+          "Port1": 32,
+          "Port2": 33,
+          "Port3": 16,
+          "Port4": 4
+        }
+      ]
+    }
+  ]
+}
