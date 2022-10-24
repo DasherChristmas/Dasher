@@ -12,6 +12,7 @@ import lor from './lor.json';
 import microcyb from './microcyb.json';
 import minlon from './minlon.json';
 import sandevices from './sandevices.json';
+import scott from './scott.json';
 import twinkly from './twinkly.json';
 
 const protocols = [
@@ -241,6 +242,7 @@ export default {
     microcyb,
     minlon,
     sandevices,
+    scott,
     twinkly,
   } as const),
   protocols,

@@ -1,0 +1,131 @@
+{
+  "vendor": "ScottNation",
+  "controllers": [
+    {
+      "name": "PB16",
+      "variants": [
+        {
+          "name": "No Expansion",
+          "extends": "FPP:FPPStringCape",
+          "maxPixelPort": 16,
+          "maxSerialPort": 2
+        },
+        {
+          "name": "w/ Expansion",
+          "extends": "FPP:FPPStringCape",
+          "maxPixelPort": 32,
+          "maxSerialPort": 2,
+          "fpp": 1,
+          "fpp1": "17,16"
+        }
+      ]
+    },
+    {
+      "name": "PB16v2",
+      "variants": [
+        {
+          "name": "No Expansion",
+          "extends": "FPP:FPPStringCapeTTYs",
+          "maxPixelPort": 20,
+          "maxSerialPort": 2,
+          "fpp": 1,
+          "fpp1": "21,-1",
+          "fppSerialPort1": "ttyS1",
+          "fppSerialPort2": "ttyS2"
+        },
+        {
+          "name": "w/ Expansion",
+          "extends": "FPP:FPPStringCapeTTYs",
+          "maxPixelPort": 36,
+          "maxSerialPort": 2,
+          "fpp": 1,
+          "fpp1": "21,16",
+          "fppSerialPort1": "ttyS1",
+          "fppSerialPort2": "ttyS2"
+        }
+      ]
+    },
+    {
+      "name": "BBB16",
+      "variants": [
+        {
+          "name": "No Expansion",
+          "extends": "FPP:FPPStringCapeTTYs",
+          "maxPixelPort": 16,
+          "maxSerialPort": 2,
+          "fpp": 1,
+          "fpp1": "17,-1",
+          "fppSerialPort1": "ttyS1",
+          "fppSerialPort2": "ttyS2"
+        },
+        {
+          "name": "w/ Expansion",
+          "extends": "FPP:FPPStringCapeTTYs",
+          "maxPixelPort": 32,
+          "maxSerialPort": 2,
+          "fpp": 1,
+          "fpp1": "17,16",
+          "fppSerialPort1": "ttyS1",
+          "fppSerialPort2": "ttyS2"
+        }
+      ]
+    },
+    {
+      "name": "BBB16v2",
+      "variants": [
+        {
+          "name": "No Expansion",
+          "extends": "FPP:FPPStringCapeTTYs",
+          "maxPixelPort": 16,
+          "maxSerialPort": 2,
+          "fpp": 1,
+          "fpp1": "21,-1",
+          "fppSerialPort1": "ttyS1",
+          "fppSerialPort2": "ttyS2"
+        },
+        {
+          "name": "w/ Expansion",
+          "extends": "FPP:FPPStringCapeTTYs",
+          "maxPixelPort": 36,
+          "maxSerialPort": 2,
+          "fpp": 1,
+          "fpp1": "21,16",
+          "fppSerialPort1": "ttyS1",
+          "fppSerialPort2": "ttyS2"
+        }
+      ]
+    },
+    {
+      "name": "BBB16-Flex",
+      "variants": [
+        {
+          "name": "",
+          "extends": "FPP:FPPStringCapeTTYs",
+          "maxPixelPort": 48,
+          "maxSerialPort": 2,
+          "fpp": 2,
+          "fpp1": "17,16",
+          "fpp2": "33,16",
+          "fppSerialPort1": "ttyS1",
+          "fppSerialPort2": "ttyS2"
+        }
+      ]
+    },
+    {
+      "name": "BBB16-Exp",
+      "variants": [
+        {
+          "name": "",
+          "extends": "FPP:FPPStringCapeTTYs",
+          "maxPixelPort": 48,
+          "maxSerialPort": 2,
+          "fpp": 2,
+          "fpp1": "17,16",
+          "fpp2": "33,16",
+          "fppSerialPort1": "ttyS1",
+          "fppSerialPort2": "ttyS2"
+        }
+      ]
+    }
+  ]
+}
