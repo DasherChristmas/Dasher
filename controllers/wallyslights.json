@@ -1,0 +1,18 @@
+{
+  "vendor": "Wally's Lights",
+  "controllers": [
+    {
+      "name": "WB1616",
+      "variants": [
+        {
+          "name": "",
+          "extends": "FPP:FPPStringCapeTTYs",
+          "maxPixelPort": 32,
+          "maxSerialPort": 2,
+          "fppSerialPort1": "ttyS1",
+          "fppSerialPort2": "ttyS2"
+        }
+      ]
+    }
+  ]
+}

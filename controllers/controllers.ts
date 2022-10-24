@@ -14,6 +14,7 @@ import minlon from './minlon.json';
 import sandevices from './sandevices.json';
 import scott from './scott.json';
 import twinkly from './twinkly.json';
+import wallyslights from './wallyslights.json';
 
 const protocols = [
   'twinkly',
@@ -244,6 +245,7 @@ export default {
     sandevices,
     scott,
     twinkly,
+    wallyslights,
   } as const),
   protocols,
 };
