@@ -71,7 +71,7 @@ const Tabs: React.FC = () => {
     <div className="TabsContainer">
       <div className="TabsList">
         {dasherTabs.map((tab) => (
-          <Tab tab={tab} />
+          <Tab tab={tab} key={tab.path} />
         ))}
       </div>
     </div>

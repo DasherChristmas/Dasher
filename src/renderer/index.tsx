@@ -4,11 +4,7 @@ import React from 'react';
 import App from './App';
 import Error from './Error';
 
-import controllers from '../../controllers/controllers';
-
 import { loadAppConfig } from './appConfig';
-
-console.log(controllers);
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);

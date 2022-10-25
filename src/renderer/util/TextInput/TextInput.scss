@@ -10,6 +10,8 @@
     left: spacing(0.5);
     right: spacing(0.5);
   }
+  overflow: hidden;
+  position: relative;
 
   &.primary {
     background-color: $primary;
@@ -38,5 +40,10 @@
   &:focus {
     background-color: rgba($text, 0.075);
     border-bottom: 2px solid rgba($text, 0.5);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
   }
 }

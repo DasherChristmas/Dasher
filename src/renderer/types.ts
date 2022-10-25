@@ -1,4 +1,6 @@
-const protocols = ['E131', 'LOR', 'ArtNet'] as const;
+import controllers from '../../controllers/controllers';
+
+const protocols = ['E131', 'LOR', 'ArtNet', 'None (no output)'] as const;
 export type Protocol = typeof protocols[number]; // todo: make union type after finish dasher-controllers
 
 interface T {
@@ -75,12 +77,15 @@ export const controllerSchema = {
     },
     vendor: {
       type: 'string',
+      enum: Object.values(controllers.vendors).map((v) => v.vendor),
     },
     model: {
       type: 'string',
+      enum: [''],
     },
     variant: {
       type: 'string',
+      enum: [''],
     },
     autoSize: {
       type: 'boolean',

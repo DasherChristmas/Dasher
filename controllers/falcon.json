@@ -211,7 +211,7 @@
           "bankSize": 16
         },
         {
-          "name": "Two Expantion Boards",
+          "name": "Two Expansion Boards",
           "extends": "Falcon:BaseFalconV3Settings",
           "maxPixelPort": 48,
           "maxSerialPort": 4,

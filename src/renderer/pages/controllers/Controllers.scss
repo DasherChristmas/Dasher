@@ -193,9 +193,12 @@
       border: 2px solid $primary;
 
       table {
-        overflow: hidden;
+        overflow-x: hidden;
         width: 100%;
         border-radius: spacing(1.5);
+        * {
+          overflow-y: visible;
+        }
         th {
           font-weight: normal;
           border-right: solid 2px $quaternary;
@@ -217,7 +220,6 @@
 
           td {
             white-space: nowrap;
-            overflow: hidden;
             text-overflow: ellipsis;
             text-shadow: spacing(0.4) spacing(0.4) 0px rgba($quaternary, 0.5);
             position: relative;

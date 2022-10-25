@@ -24,6 +24,8 @@ import { appStateChannels, mainProcessChannels } from '../../../main/channels';
 import { Controller, controllerSchema } from '../../types';
 import TextInput from '../../util/TextInput/TextInput';
 import useL10N from '../../util/l10n/l10n';
+import TypeableDropdown from '../../util/TypeableDropdown/TypeableDropdown';
+import controllerDefs from '../../../../controllers/controllers';
 
 const DirectorySelection: React.FC = () => {
   const directory = useRecoilValue(directoryState);
@@ -91,39 +93,109 @@ const ControllerEditor: React.FC = () => {
   return (
     <div className="Editor">
       <table>
-        {controller
-          ? Object.entries(controllerSchema.properties).map(([prop, value]) => {
-              switch (value.type) {
-                case 'string': {
-                  return (
-                    <tr key={`${controller.id}-${prop}`}>
-                      <th>{msg(`controllers/${prop}`)}</th>
-                      <td>
-                        <TextInput
-                          color="none"
-                          defaultValue={
-                            controller[
-                              prop as keyof typeof controller
-                            ] as string
-                          }
-                          onChange={(e) => {
-                            updateControllerProperty(prop, e.target.value);
-                          }}
-                        />
-                      </td>
-                    </tr>
-                  );
+        <tbody>
+          {controller
+            ? Object.entries(controllerSchema.properties).map(
+                ([prop, value]) => {
+                  switch (value.type) {
+                    case 'string': {
+                      return (
+                        <tr key={`${controller.id}-${prop}`}>
+                          <th>{msg(`controllers/${prop}`)}</th>
+                          <td>
+                            {'enum' in value ? (
+                              <TypeableDropdown
+                                defaultValue={
+                                  controller[
+                                    prop as keyof typeof controller
+                                  ] as string
+                                }
+                                options={
+                                  // eslint-disable-next-line no-nested-ternary
+                                  prop === 'model'
+                                    ? controllerDefs.vendors[
+                                        controller.vendor.toLowerCase() as keyof typeof controllerDefs['vendors']
+                                      ]?.controllers.map((c) => c.name) || []
+                                    : prop === 'variant'
+                                    ? (
+                                        controllerDefs.vendors[
+                                          controller.vendor.toLowerCase() as keyof typeof controllerDefs['vendors']
+                                        ]?.controllers || []
+                                      )
+                                        .find(
+                                          (c) =>
+                                            c.name.toLowerCase() ===
+                                            controller.model?.toLowerCase()
+                                        )
+                                        ?.variants.map((v) => v.name) || []
+                                    : value.enum
+                                }
+                                onChange={(v) => {
+                                  // @ts-expect-error Cannot determine overlap, but we won't let users add extras anyway
+                                  updateControllerProperty(prop, v);
+                                }}
+                                force
+                              />
+                            ) : (
+                              <TextInput
+                                color="none"
+                                defaultValue={
+                                  controller[
+                                    prop as keyof typeof controller
+                                  ] as string
+                                }
+                                onChange={(e) => {
+                                  updateControllerProperty(
+                                    // @ts-expect-error Cannot determine overlap, but we won't let users add extras anyway
+                                    prop,
+                                    e.target.value
+                                  );
+                                }}
+                              />
+                            )}
+                          </td>
+                        </tr>
+                      );
+                    }
+                    default: {
+                      return null;
+                    }
+                  }
                 }
-                default: {
-                  return null;
-                }
-              }
-            })
-          : null}
+              )
+            : null}
+        </tbody>
       </table>
     </div>
   );
 };
+
+const blankController = () =>
+  Object.fromEntries(
+    Object.entries(controllerSchema.properties).map(([prop, desc]) => [
+      prop,
+      (() => {
+        if ('optional' in desc && desc.optional) return undefined;
+        switch (desc.type) {
+          case 'string': {
+            return 'enum' in desc ? desc.enum[0] : '';
+          }
+          case 'number': {
+            return 0;
+          }
+          case 'boolean': {
+            return false;
+          }
+          case 'array': {
+            return [];
+          }
+          default: {
+            return undefined;
+          }
+        }
+      })(),
+    ])
+  );
 
 const Controls: React.FC = () => {
   const [controllers, setControllers] = useRecoilState(controllersState);
@@ -133,7 +205,13 @@ const Controls: React.FC = () => {
 
   return (
     <div className="Controls">
-      <Plus />
+      <Plus
+        onClick={useCallback(() => {
+          // @ts-expect-error TS cannot validate even though it is built from schema
+          setControllers(controllers.concat([blankController()]));
+          selectController(controllers.length);
+        }, [controllers, setControllers, selectController])}
+      />
       <div className="Seperator" />
       <ChevronsUp
         onClick={useCallback(() => {

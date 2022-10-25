@@ -10,11 +10,18 @@ const TextInput: React.FC<
       | 'quinary'
       | 'none';
   }
-> = ({ color, className, ...rest }) => (
+> = ({ color, className, onKeyDown, ...rest }) => (
   <input
     type="text"
     className={`TextInput ${color} ${className || ''}`}
     {...rest}
+    onKeyDown={(e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        (e.target as HTMLInputElement).blur();
+      }
+      onKeyDown?.(e);
+    }}
   />
 );
 

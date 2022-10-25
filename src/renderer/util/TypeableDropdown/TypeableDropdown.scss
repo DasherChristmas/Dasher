@@ -1,0 +1,49 @@
+@import '../../theme.scss';
+
+.TypeableDropdown {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow-y: visible;
+
+  & > .TextInput:focus + .OptionsContainer {
+    height: min-content !important;
+    border-width: 2px;
+  }
+
+  .OptionsContainer {
+    position: absolute;
+    height: 0px;
+    top: 100%;
+    overflow: hidden;
+    border-bottom-left-radius: spacing(1.5);
+    border-bottom-right-radius: spacing(1.5);
+    background-color: $secondary;
+    border: 0px solid $quaternary;
+    border-top-width: 0px !important;
+    z-index: 999;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .Option {
+      cursor: pointer;
+      padding: spacing(2);
+      padding-top: spacing(0.25);
+      padding-bottom: spacing(0.25);
+      border-radius: spacing(1);
+
+      &:hover {
+        background-color: rgba($accent, 0.1);
+      }
+
+      .Match {
+        background-color: rgba($accent, 0.25);
+      }
+
+      &.Focused {
+        background-color: rgba($accent, 0.1);
+      }
+    }
+  }
+}
