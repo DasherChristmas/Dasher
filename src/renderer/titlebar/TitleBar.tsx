@@ -23,6 +23,7 @@ import appIcon from '../../../assets/icon-nobg.png';
 
 import './TitleBar.scss';
 import { mainProcessChannels, titleBarChannels } from '../../main/channels';
+import { platform } from 'os';
 
 // Used to broadcast events to all menus
 const eventTarget = new EventTarget();
@@ -303,7 +304,7 @@ const AppMenu: React.FC = () => {
 const TitleBar: React.FC = () => {
   const isMaximized = useRecoilValue(maximizedState);
   const appTitle = useRecoilValue(titleState);
-  return (
+  return platform() === 'darwin' ? null : (
     <div id="TitleBar">
       <div>
         <img
