@@ -5,7 +5,6 @@ import paths from './paths';
 
 export const windowEventTarget = new EventEmitter();
 
-// eslint-disable-next-line
 export let windowState: {
   x?: number;
   y?: number;

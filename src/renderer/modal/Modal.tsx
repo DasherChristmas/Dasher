@@ -52,7 +52,6 @@ export const Modal: React.FC<{
       delete tempModals[name];
       setModals(tempModals);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [children, name, priority, setModals]);
   return null;
 };

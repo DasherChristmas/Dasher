@@ -10,8 +10,8 @@ import {
 import { getControllers, saveControllers } from './controllers';
 import { Controller } from '../renderer/types';
 import { windowEventTarget, windowState } from './getWindowState';
-// eslint-disable-next-line
-import { mainWindow } from './main'; // Creates a dependency cycle, which eslint hates XD.
+
+import { mainWindow } from './main';
 
 const appConfig = getAppConfig();
 

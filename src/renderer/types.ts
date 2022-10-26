@@ -22,13 +22,13 @@ interface T4 extends T {
   properties: Record<string, SchemaDescriptor>;
 }
 
-type SchemaDescriptor = T1 | T2 | T3 | T4;
+export type SchemaDescriptor = T1 | T2 | T3 | T4;
 
-type SchemaString<S extends T1> = S['enum'] extends readonly string[]
+export type SchemaString<S extends T1> = S['enum'] extends readonly string[]
   ? S['enum'][number]
   : string;
-type SchemaArray<S extends T3> = FromSchema<S['items']>[];
-type SchemaObject<S extends T4> = {
+export type SchemaArray<S extends T3> = FromSchema<S['items']>[];
+export type SchemaObject<S extends T4> = {
   [prop in keyof S['properties'] as S['properties'][prop] extends {
     optional: true;
   }
@@ -75,6 +75,9 @@ export const controllerSchema = {
       type: 'string',
       enum: ['Ethernet', 'USB', 'Null'],
     },
+    active: {
+      type: 'boolean',
+    },
     vendor: {
       type: 'string',
       enum: Object.values(controllers.vendors).map((v) => v.vendor),
@@ -114,7 +117,7 @@ export const controllerSchema = {
     },
     protocol: {
       type: 'string',
-      enum: protocols,
+      enum: ['ArtNet', 'DDP', 'E131', 'OPC', 'ZCPP'],
     },
     fppProxy: {
       type: 'string',
@@ -122,14 +125,18 @@ export const controllerSchema = {
     priority: {
       type: 'number',
     },
-    version: {
-      type: 'number',
-    },
     expanded: {
       type: 'boolean',
     },
     ups: {
       type: 'boolean',
+    },
+    multicast: {
+      type: 'boolean',
+      optioal: true,
+    },
+    maxUniverseChannels: {
+      type: 'number',
     },
     universes: {
       type: 'array',
@@ -144,7 +151,7 @@ export const controllerSchema = {
           },
           networkType: {
             type: 'string',
-            enum: protocols,
+            enum: ['ArtNet', 'DDP', 'E131', 'OPC', 'ZCPP'],
           },
           maxChannels: {
             type: 'number',

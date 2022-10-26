@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable jsx-a11y/no-noninteractive-element-to-interactive-role */
 import { useRecoilValue } from 'recoil';
 import {
   CheckCircle,
@@ -128,7 +126,6 @@ const SubMenuItem: React.FC<{
               strokeWidth="2px"
             />
             <input type="checkbox" className="MenuCheck" ref={ref} />
-            {/* eslint-disable-next-line @typescript-eslint/no-use-before-define */}
             <SubMenu menu={item.submenu! as Electron.Menu} />
           </label>
         </ClickAwayListener>
@@ -252,7 +249,6 @@ const MenuBarItem: React.FC<{
   const ref = useRef<HTMLInputElement>(null);
   return (
     <div role="button" tabIndex={-1} className="MenuBarItem MenuItem">
-      {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
       <ClickAwayListener
         onClickAway={() => {
           if (ref.current) ref.current.checked = false;
@@ -261,7 +257,6 @@ const MenuBarItem: React.FC<{
         <label
           className="ItemLabel"
           onClick={onRadioClick.bind(onRadioClick, ref)}
-          // eslint-disable-next-line jsx-a11y/no-noninteractive-element-to-interactive-role
           role="button"
           tabIndex={-1}
           onKeyDown={(e) => {

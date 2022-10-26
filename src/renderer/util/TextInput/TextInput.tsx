@@ -2,13 +2,14 @@ import './TextInput.scss';
 
 const TextInput: React.FC<
   Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'> & {
-    color?:
+    color:
       | 'primary'
       | 'secondary'
       | 'tertiary'
       | 'quaternary'
       | 'quinary'
-      | 'none';
+      | 'none'
+      | string;
   }
 > = ({ color, className, onKeyDown, ...rest }) => (
   <input

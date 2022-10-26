@@ -1,6 +1,5 @@
 import { atom } from 'recoil';
 import { ipcRenderer } from 'electron';
-import remote from '@electron/remote';
 import { Controller } from './types';
 import { appStateChannels } from '../main/channels';
 
@@ -39,9 +38,6 @@ export const controllersState = atom<Controller[]>({
         .invoke('appstate:getControllers')
         .then((controllers: Controller[]) => {
           setSelf(controllers);
-          return onSet((newValue) => {
-            ipcRenderer.send(appStateChannels.setControllers, newValue);
-          });
         })
         .catch(() => {});
     },
@@ -51,4 +47,9 @@ export const controllersState = atom<Controller[]>({
 export const selectedControllerState = atom<number>({
   key: 'selectedControllerState',
   default: -1,
+});
+
+export const hasControllerChangesState = atom<boolean>({
+  key: 'hasControllerChangesState',
+  default: false,
 });

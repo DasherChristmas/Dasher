@@ -1,0 +1,56 @@
+@import '../../theme.scss';
+.Toggle {
+  overflow: hidden;
+  background-color: $primary;
+  border-radius: 9999px;
+  height: spacing(5);
+  width: spacing(10);
+  display: block;
+  position: relative;
+
+  input {
+    visibility: hidden;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: $accent;
+    padding: 0;
+    display: grid;
+    align-items: center;
+
+    &::before {
+      content: '';
+      background-color: $accent;
+      visibility: visible;
+      height: 100%;
+      width: 100%;
+      border-radius: 9999px;
+      left: -50%;
+      opacity: 0;
+      position: absolute;
+      transition: left 0.1s ease-out, opacity 0.1s ease-out;
+    }
+
+    &::after {
+      background-color: $text;
+      height: spacing(3);
+      width: spacing(3);
+      margin: spacing(0.75);
+      margin-left: spacing(1);
+      left: 0px;
+      content: '';
+      visibility: visible;
+      border-radius: 9999px;
+      transition: margin-left 0.1s ease-out;
+      position: absolute;
+    }
+
+    &:checked::before {
+      left: 0%;
+      opacity: 1;
+    }
+    &:checked::after {
+      margin-left: spacing(6);
+    }
+  }
+}

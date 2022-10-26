@@ -1,31 +1,34 @@
 import './Controllers.scss';
-import React, { useCallback, useMemo, useState } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import React, { useCallback, useState } from 'react';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import {
   ChevronDown,
   ChevronsDown,
   ChevronsUp,
   ChevronUp,
+  Minus,
   Plus,
   Save,
   Trash2,
 } from 'react-feather';
 import { ipcRenderer } from 'electron';
-import memoizee from 'memoizee';
 
 import Button from '../../util/Button/Button';
 
 import {
   controllersState,
   directoryState,
+  hasControllerChangesState,
   selectedControllerState,
 } from '../../appState';
 import { appStateChannels, mainProcessChannels } from '../../../main/channels';
-import { Controller, controllerSchema } from '../../types';
+import { Controller, controllerSchema, SchemaDescriptor } from '../../types';
 import TextInput from '../../util/TextInput/TextInput';
 import useL10N from '../../util/l10n/l10n';
 import TypeableDropdown from '../../util/TypeableDropdown/TypeableDropdown';
 import controllerDefs from '../../../../controllers/controllers';
+import Toggle from '../../util/Toggle/Toggle';
+import NumberInput from '../../util/NumberInput/NumberInput';
 
 const DirectorySelection: React.FC = () => {
   const directory = useRecoilValue(directoryState);
@@ -72,22 +75,282 @@ const DirectorySelection: React.FC = () => {
   );
 };
 
+const ControllerSection: React.FC<{
+  properties: (Omit<
+    React.InputHTMLAttributes<HTMLInputElement>,
+    'type' | 'onChange'
+  > & {
+    controller: any;
+    prop: string;
+    def: SchemaDescriptor;
+    onChange: (value: Controller[keyof Controller]) => void;
+    suppress?: (e: React.SyntheticEvent<HTMLInputElement>) => boolean;
+    localizedName?: string;
+  })[];
+  name: string;
+  localizedName?: string;
+}> = ({ name, properties, localizedName }) => {
+  const msg = useL10N();
+  const [open, setOpen] = useState(false);
+  return (
+    <tr className={`Section ${open ? 'Open' : ''}`}>
+      <th>
+        <div>
+          {localizedName ?? msg(`controllers/${name}`)}
+          <div role="button" onClick={() => setOpen(!open)}>
+            {open ? <Minus size="0.9rem" /> : <Plus size="0.9rem" />}
+          </div>
+        </div>
+      </th>
+      <td>
+        <table>
+          <tbody>
+            {properties.map(
+              (
+                {
+                  controller,
+                  prop,
+                  def,
+                  onChange,
+                  suppress = () => false,
+                  localizedName,
+                  ...rest
+                },
+                idx
+              ) => (
+                <tr key={`${controller.id}-${name}-${prop}-${idx}`}>
+                  <th>{localizedName ?? msg(`controllers/${prop}`)}</th>
+                  <td>
+                    {(() => {
+                      switch (def.type) {
+                        case 'string': {
+                          return 'enum' in def ? (
+                            <TypeableDropdown
+                              color="none"
+                              key={`${controller.id}-${prop}`}
+                              defaultValue={
+                                controller[
+                                  prop as keyof typeof controller
+                                ] as string
+                              }
+                              options={def.enum || []}
+                              onChangeCapture={(e) => {
+                                if (suppress(e)) {
+                                  e.preventDefault();
+                                  e.stopPropagation();
+                                }
+                              }}
+                              onChange={(v) => {
+                                onChange(v);
+                              }}
+                              force
+                              {...rest}
+                            />
+                          ) : (
+                            <TextInput
+                              key={`${controller.id}-${prop}`}
+                              color="none"
+                              defaultValue={
+                                controller[
+                                  prop as keyof typeof controller
+                                ] as string
+                              }
+                              onChange={(e) => {
+                                if (suppress(e)) return;
+                                onChange(e.target.value);
+                              }}
+                              {...rest}
+                            />
+                          );
+                        }
+                        case 'boolean': {
+                          return (
+                            <Toggle
+                              key={`${controller.id}-${prop}`}
+                              defaultChecked={
+                                controller[
+                                  prop as keyof typeof controller
+                                ] as boolean
+                              }
+                              onChangeCapture={(e) => {
+                                if (suppress(e)) {
+                                  e.preventDefault();
+                                  e.stopPropagation();
+                                }
+                              }}
+                              onChange={(v) => {
+                                onChange(v);
+                              }}
+                              {...rest}
+                            />
+                          );
+                        }
+                        case 'number': {
+                          return (
+                            <NumberInput
+                              color="none"
+                              key={`${controller.id}-${prop}`}
+                              defaultValue={
+                                controller[
+                                  prop as keyof typeof controller
+                                ] as number
+                              }
+                              onChange={(e) => {
+                                if (suppress(e)) return;
+                                onChange(Number(e.target.value));
+                              }}
+                              {...rest}
+                            />
+                          );
+                        }
+                        default: {
+                          return null;
+                        }
+                      }
+                    })()}
+                  </td>
+                </tr>
+              )
+            )}
+          </tbody>
+        </table>
+        <p>{msg('controllers/expandToEdit')}</p>
+      </td>
+    </tr>
+  );
+};
+
+const ControllerProperty: React.FC<
+  Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'onChange'> & {
+    controller: any;
+    prop: string;
+    def: SchemaDescriptor;
+    onChange: (value: Controller[keyof Controller]) => void;
+    suppress?: (e: React.SyntheticEvent<HTMLInputElement>) => boolean;
+    localizedName?: string;
+  }
+> = ({
+  controller,
+  prop,
+  def,
+  onChange,
+  suppress = () => false,
+  localizedName,
+  ...rest
+}) => {
+  const msg = useL10N();
+  return (
+    <tr>
+      <th>{localizedName ?? msg(`controllers/${prop}`)}</th>
+      <td>
+        {(() => {
+          switch (def.type) {
+            case 'string': {
+              return 'enum' in def ? (
+                <TypeableDropdown
+                  color="none"
+                  key={`${controller.id}-${prop}`}
+                  defaultValue={
+                    controller[prop as keyof typeof controller] as string
+                  }
+                  options={def.enum || []}
+                  onChangeCapture={(e) => {
+                    if (suppress(e)) {
+                      e.preventDefault();
+                      e.stopPropagation();
+                    }
+                  }}
+                  onChange={(v) => {
+                    onChange(v);
+                  }}
+                  force
+                  {...rest}
+                />
+              ) : (
+                <TextInput
+                  key={`${controller.id}-${prop}`}
+                  color="none"
+                  defaultValue={
+                    controller[prop as keyof typeof controller] as string
+                  }
+                  onChange={(e) => {
+                    if (suppress(e)) return;
+                    onChange(e.target.value);
+                  }}
+                  {...rest}
+                />
+              );
+            }
+            case 'boolean': {
+              return (
+                <Toggle
+                  key={`${controller.id}-${prop}`}
+                  defaultChecked={
+                    controller[prop as keyof typeof controller] as boolean
+                  }
+                  onChangeCapture={(e) => {
+                    if (suppress(e)) {
+                      e.preventDefault();
+                      e.stopPropagation();
+                    }
+                  }}
+                  onChange={(v) => {
+                    onChange(v);
+                  }}
+                  {...rest}
+                />
+              );
+            }
+            case 'number': {
+              return (
+                <NumberInput
+                  color="none"
+                  key={`${controller.id}-${prop}`}
+                  defaultValue={
+                    controller[prop as keyof typeof controller] as number
+                  }
+                  onChange={(e) => {
+                    if (suppress(e)) return;
+                    onChange(Number(e.target.value));
+                  }}
+                  {...rest}
+                />
+              );
+            }
+            default: {
+              return null;
+            }
+          }
+        })()}
+      </td>
+    </tr>
+  );
+};
+
+ControllerProperty.defaultProps = {
+  suppress() {
+    return false;
+  },
+};
+
 const ControllerEditor: React.FC = () => {
   const [controllers, setControllers] = useRecoilState(controllersState);
   const selectedController = useRecoilValue(selectedControllerState);
   const controller = controllers[selectedController];
+  const setHasChanges = useSetRecoilState(hasControllerChangesState);
 
-  const updateControllerProperty = useCallback(
-    <P extends keyof Controller>(prop: P, value: typeof controller[P]) => {
+  const updateController = useCallback(
+    (newData: Partial<Controller>) => {
       const idx = selectedController;
-      const newController = { ...controller };
-      newController[prop] = value;
+      const newController = { ...controller, ...newData };
       const newControllers = [...controllers];
       newControllers.splice(idx, 1, newController);
       setControllers(newControllers);
+      setHasChanges(true);
     },
-    [controllers, controller, setControllers, selectedController]
+    [controllers, controller, setControllers, selectedController, setHasChanges]
   );
+
   const msg = useL10N();
 
   return (
@@ -95,74 +358,316 @@ const ControllerEditor: React.FC = () => {
       <table>
         <tbody>
           {controller
-            ? Object.entries(controllerSchema.properties).map(
-                ([prop, value]) => {
-                  switch (value.type) {
-                    case 'string': {
-                      return (
-                        <tr key={`${controller.id}-${prop}`}>
-                          <th>{msg(`controllers/${prop}`)}</th>
-                          <td>
-                            {'enum' in value ? (
-                              <TypeableDropdown
-                                defaultValue={
-                                  controller[
-                                    prop as keyof typeof controller
-                                  ] as string
-                                }
-                                options={
-                                  // eslint-disable-next-line no-nested-ternary
-                                  prop === 'model'
-                                    ? controllerDefs.vendors[
-                                        controller.vendor.toLowerCase() as keyof typeof controllerDefs['vendors']
-                                      ]?.controllers.map((c) => c.name) || []
-                                    : prop === 'variant'
-                                    ? (
-                                        controllerDefs.vendors[
-                                          controller.vendor.toLowerCase() as keyof typeof controllerDefs['vendors']
-                                        ]?.controllers || []
-                                      )
-                                        .find(
-                                          (c) =>
-                                            c.name.toLowerCase() ===
-                                            controller.model?.toLowerCase()
-                                        )
-                                        ?.variants.map((v) => v.name) || []
-                                    : value.enum
-                                }
-                                onChange={(v) => {
-                                  // @ts-expect-error Cannot determine overlap, but we won't let users add extras anyway
-                                  updateControllerProperty(prop, v);
-                                }}
-                                force
-                              />
-                            ) : (
-                              <TextInput
-                                color="none"
-                                defaultValue={
-                                  controller[
-                                    prop as keyof typeof controller
-                                  ] as string
-                                }
-                                onChange={(e) => {
-                                  updateControllerProperty(
-                                    // @ts-expect-error Cannot determine overlap, but we won't let users add extras anyway
-                                    prop,
-                                    e.target.value
-                                  );
-                                }}
-                              />
-                            )}
-                          </td>
-                        </tr>
-                      );
-                    }
-                    default: {
-                      return null;
-                    }
+            ? (() => {
+                switch (controller.type) {
+                  case 'Ethernet': {
+                    return (
+                      <>
+                        <ControllerProperty
+                          controller={controller}
+                          prop="type"
+                          def={controllerSchema.properties.type}
+                          onChange={(value) => {
+                            updateController({
+                              // @ts-expect-error Cannot verify that it is in enum, but it's fine
+                              type: value as string,
+                            });
+                          }}
+                        />
+                        <ControllerProperty
+                          controller={controller}
+                          prop="name"
+                          def={controllerSchema.properties.name}
+                          onChange={(value) => {
+                            updateController({ name: value as string });
+                          }}
+                        />
+                        <ControllerProperty
+                          controller={controller}
+                          prop="description"
+                          def={controllerSchema.properties.description}
+                          onChange={(value) => {
+                            updateController({
+                              description: value as string,
+                            });
+                          }}
+                        />
+                        <ControllerProperty
+                          controller={controller}
+                          prop="id"
+                          def={controllerSchema.properties.id}
+                          onChange={() => {}}
+                          suppress={() => true}
+                          onBlur={(e) => {
+                            updateController({
+                              id: Number(e.target.value),
+                            });
+                          }}
+                          min={0}
+                        />
+                        <ControllerProperty
+                          controller={controller}
+                          prop="autoLayout"
+                          def={controllerSchema.properties.autoLayout}
+                          onChange={(value) => {
+                            updateController({
+                              autoLayout: value as boolean,
+                            });
+                          }}
+                        />
+                        <ControllerProperty
+                          controller={controller}
+                          prop="autoUpload"
+                          def={controllerSchema.properties.autoUpload}
+                          onChange={(value) => {
+                            updateController({
+                              autoUpload: value as boolean,
+                            });
+                          }}
+                        />
+                        <ControllerProperty
+                          controller={controller}
+                          prop="autoSize"
+                          def={controllerSchema.properties.autoSize}
+                          onChange={(value) => {
+                            updateController({
+                              autoSize: value as boolean,
+                            });
+                          }}
+                        />
+                        <ControllerProperty
+                          controller={controller}
+                          prop="active"
+                          def={controllerSchema.properties.active}
+                          onChange={(value) => {
+                            updateController({
+                              active: value as boolean,
+                            });
+                          }}
+                        />
+                        <ControllerProperty
+                          controller={controller}
+                          prop="vendor"
+                          def={controllerSchema.properties.vendor}
+                          onChange={(value) => {
+                            updateController({
+                              vendor: value as string,
+                            });
+                          }}
+                        />
+                        <ControllerProperty
+                          controller={controller}
+                          prop="model"
+                          def={{
+                            ...controllerSchema.properties.model,
+                            enum:
+                              controllerDefs.vendors[
+                                controller.vendor?.toLowerCase() as keyof typeof controllerDefs['vendors']
+                              ]?.controllers.map((c) => c.name) || [],
+                          }}
+                          onChange={(value) => {
+                            updateController({
+                              // @ts-expect-error Cannot verify that it is in enum, but it's fine
+                              model: value as string,
+                            });
+                          }}
+                        />
+                        <ControllerProperty
+                          controller={controller}
+                          prop="variant"
+                          def={{
+                            ...controllerSchema.properties.variant,
+                            enum:
+                              (
+                                controllerDefs.vendors[
+                                  controller.vendor?.toLowerCase() as keyof typeof controllerDefs['vendors']
+                                ]?.controllers || []
+                              )
+                                .find(
+                                  (c) =>
+                                    c.name.toLowerCase() ===
+                                    controller.model?.toLowerCase()
+                                )
+                                ?.variants.map((v) => v.name) || [],
+                          }}
+                          onChange={(value) => {
+                            updateController({
+                              // @ts-expect-error Cannot verify that it is in enum, but it's fine
+                              variant: value as string,
+                            });
+                          }}
+                        />
+                        <ControllerProperty
+                          controller={controller}
+                          prop="suppressDuplicateFrames"
+                          def={
+                            controllerSchema.properties.suppressDuplicateFrames
+                          }
+                          onChange={(value) => {
+                            updateController({
+                              suppressDuplicateFrames: value as boolean,
+                            });
+                          }}
+                        />
+                        {controller.protocol === 'E131' ||
+                        controller.protocol === 'ArtNet' ? (
+                          <ControllerProperty
+                            controller={controller}
+                            prop="multicast"
+                            def={controllerSchema.properties.multicast}
+                            onChange={(value) => {
+                              updateController({
+                                multicast: value as boolean,
+                              });
+                            }}
+                          />
+                        ) : null}
+                        <ControllerProperty
+                          controller={controller}
+                          prop="ip"
+                          def={controllerSchema.properties.ip}
+                          onChange={(value) => {
+                            updateController({
+                              ip: value as string,
+                            });
+                          }}
+                        />
+                        <ControllerProperty
+                          controller={controller}
+                          prop="protocol"
+                          def={controllerSchema.properties.protocol}
+                          onChange={(value) => {
+                            updateController({
+                              // @ts-expect-error Cannot verify that it is in enum, but it's fine
+                              protocol: value as string,
+                              // @ts-expect-error Cannot verify that networkType it is in enum, but it's fine
+                              universes: controller.universes.map(
+                                (universe) => ({
+                                  ...universe,
+                                  networkType: value,
+                                })
+                              ),
+                            });
+                          }}
+                        />
+                        {controller.protocol === 'ArtNet' ||
+                        controller.protocol === 'ZCPP' ? (
+                          <ControllerProperty
+                            controller={controller}
+                            prop="priority"
+                            def={controllerSchema.properties.priority}
+                            onChange={(value) => {
+                              updateController({
+                                priority: value as number,
+                              });
+                            }}
+                          />
+                        ) : null}
+                        <ControllerProperty
+                          controller={{
+                            id: controller.id,
+                            startUniverse:
+                              controller.universes[0]?.baudRate || 0,
+                          }}
+                          prop="startUniverse"
+                          def={{
+                            type: 'number',
+                          }}
+                          min={1}
+                          onChange={(value) => {
+                            updateController({
+                              universes: controller.universes.map(
+                                (universe, idx) => ({
+                                  ...universe,
+                                  baudRate: idx + (value as number),
+                                })
+                              ),
+                            });
+                          }}
+                        />
+                        <ControllerProperty
+                          controller={{
+                            id: controller.id,
+                            universeCount: controller.universes.length,
+                          }}
+                          prop="universeCount"
+                          def={{
+                            type: 'number',
+                          }}
+                          min={1}
+                          onChange={(value) => {
+                            updateController({
+                              universes: Array(value)
+                                //@ts-expect-error
+                                .fill(null)
+                                .map((_, idx) => {
+                                  if (controller.universes[idx])
+                                    return controller.universes[idx];
+                                  return {
+                                    port: controller.ip,
+                                    maxChannels: Number(
+                                      controller.maxUniverseChannels
+                                    ),
+                                    networkType: controller.protocol,
+                                    baudRate:
+                                      idx + controller.universes[0].baudRate,
+                                  };
+                                }),
+                            });
+                          }}
+                        />
+                        <ControllerProperty
+                          controller={controller}
+                          prop="maxUniverseChannels"
+                          def={controllerSchema.properties.maxUniverseChannels}
+                          onChange={(value) => {
+                            updateController({
+                              maxUniverseChannels: value as number,
+                              universes: controller.universes.map(
+                                (universe) => ({
+                                  ...universe,
+                                  maxChannels: Number(value),
+                                })
+                              ),
+                            });
+                          }}
+                        />
+                        <ControllerSection
+                          name="individualSizes"
+                          properties={controller.universes.map(
+                            (universe, universeIdx) => ({
+                              controller: {
+                                id: controller.id,
+                                individualSize: universe.maxChannels,
+                              },
+                              prop: 'individualSize',
+                              localizedName: msg('controllers/individualSize', {
+                                number: universeIdx + 1,
+                              }),
+                              def: {
+                                type: 'number',
+                              },
+                              onChange(value) {
+                                const universes = [...controller.universes];
+                                universes.splice(universeIdx, 1, {
+                                  ...controller.universes[universeIdx],
+                                  maxChannels: value as number,
+                                });
+                                updateController({
+                                  universes,
+                                });
+                              },
+                            })
+                          )}
+                        />
+                      </>
+                    );
+                  }
+                  default: {
+                    return null;
                   }
                 }
-              )
+              })()
             : null}
         </tbody>
       </table>
@@ -170,7 +675,7 @@ const ControllerEditor: React.FC = () => {
   );
 };
 
-const blankController = () =>
+const blankController = (controllers: Controller[]) =>
   Object.fromEntries(
     Object.entries(controllerSchema.properties).map(([prop, desc]) => [
       prop,
@@ -181,6 +686,11 @@ const blankController = () =>
             return 'enum' in desc ? desc.enum[0] : '';
           }
           case 'number': {
+            if (prop === 'id') {
+              for (let i = 0; ; i++) {
+                if (controllers.findIndex((c) => c.id === i) < 0) return i;
+              }
+            }
             return 0;
           }
           case 'boolean': {
@@ -202,13 +712,14 @@ const Controls: React.FC = () => {
   const [selectedController, selectController] = useRecoilState(
     selectedControllerState
   );
+  const [hasChanges, setHasChanges] = useRecoilState(hasControllerChangesState);
 
   return (
     <div className="Controls">
       <Plus
         onClick={useCallback(() => {
           // @ts-expect-error TS cannot validate even though it is built from schema
-          setControllers(controllers.concat([blankController()]));
+          setControllers(controllers.concat([blankController(controllers)]));
           selectController(controllers.length);
         }, [controllers, setControllers, selectController])}
       />
@@ -250,6 +761,13 @@ const Controls: React.FC = () => {
         }, [controllers, setControllers, selectedController, selectController])}
       />
       <div className="Seperator" />
+      <Save
+        className={hasChanges ? 'Change' : ''}
+        onClick={useCallback(() => {
+          ipcRenderer.send(appStateChannels.setControllers, controllers);
+          setHasChanges(false);
+        }, [controllers, setHasChanges])}
+      />
       <Trash2
         onClick={useCallback(() => {
           const newControllers = [...controllers];
@@ -275,7 +793,6 @@ const ControllersPanel: React.FC = () => {
       <header className="SectionTitle">
         {msg('controllers/controllers-title')}
       </header>
-      {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
       <div
         onClick={(e) => {
           if (e.target === e.currentTarget) setSelectedController(-1);
@@ -293,7 +810,6 @@ const ControllersPanel: React.FC = () => {
               <th>{msg('controllers/description')}</th>
             </tr>
           </thead>
-          {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-to-interactive-role */}
           <tbody role="menu">
             {controllers.map((controller, cidx) => (
               <tr
@@ -311,7 +827,7 @@ const ControllersPanel: React.FC = () => {
                   {controller.universes
                     .map((u) => u.baudRate)
                     .sort((a, b) => a - b)
-                    .filter((u, i, a) => i === 0 || i === a.length - 1)
+                    .filter((_, i, a) => i === 0 || i === a.length - 1)
                     .join('-')}
                 </td>
                 <td>

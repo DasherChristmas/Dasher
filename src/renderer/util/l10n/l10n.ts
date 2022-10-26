@@ -29,7 +29,7 @@ const l10nState = atom<{
 const useL10N = () => {
   const l10nData = useRecoilValue(l10nState);
   const l10n = useMemo(() => new L10N(l10nData.locale), [l10nData.locale]);
-  const msg = useMemo(() => memoizee(l10n.getMessage.bind(l10n)), [l10n]);
+  const msg = useMemo(() => l10n.getMessage.bind(l10n), [l10n]);
 
   return msg;
 };

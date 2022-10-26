@@ -1,6 +1,3 @@
-/* eslint-disable import/no-cycle */
-/* eslint global-require: off, no-console: off, promise/always-return: off */
-
 /**
  * This module executes inside of electron's main process. You can start
  * electron renderer process from here and communicate with the other processes
@@ -30,7 +27,6 @@ class AppUpdater {
   }
 }
 
-// eslint-disable-next-line
 export let mainWindow: BrowserWindow | null = null;
 
 if (process.env.NODE_ENV === 'production') {
@@ -54,7 +50,9 @@ const installExtensions = async () => {
 
   return installer
     .default(
-      extensions.map((name) => installer[name]),
+      extensions.map((name) =>
+        typeof name === 'string' ? installer[name] : name
+      ),
       forceDownload
     )
     .catch(console.log);
@@ -142,7 +140,6 @@ const createWindow = async () => {
   });
 
   // Remove this if your app does not use auto updates
-  // eslint-disable-next-line
   new AppUpdater();
 };
 

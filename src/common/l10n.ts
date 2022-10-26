@@ -20,14 +20,16 @@ export class L10N {
 
     const format = (placeholders: string[], string: string) => {
       for (const placeholder of placeholders.concat(['number'])) {
-        string.replaceAll(`{${placeholder}}`, opts[placeholder] as string);
+        string = string.replaceAll(
+          `{${placeholder}}`,
+          opts[placeholder] as string
+        );
       }
 
       return string;
     };
 
     if (!msgDef) return name;
-    // eslint-disable-next-line no-else-return
     else if (typeof msgDef === 'string') return msgDef;
     else
       return format(

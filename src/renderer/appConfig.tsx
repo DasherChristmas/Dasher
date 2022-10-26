@@ -5,7 +5,6 @@ import AppConfig from '../common/appConfig';
 import { appConfigChannels } from '../main/channels';
 import { L10N } from '../common/l10n';
 
-// eslint-disable-next-line
 export let appConfig: AppConfig;
 export const appConfigAtom = atom({
   key: 'appConfig',

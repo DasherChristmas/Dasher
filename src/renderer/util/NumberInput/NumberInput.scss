@@ -1,18 +1,18 @@
 @import '../../theme.scss';
 
-.TextInput {
+.NumberInput {
   color: $text;
   outline: none;
   background-color: transparent;
-  border-bottom: 2px solid rgba($text, 0.25);
-  border-radius: 1px;
+  border: 2px solid rgba($text, 0.25);
+  height: spacing(7);
+  border-radius: spacing(3.5);
   padding: {
-    left: spacing(0.5);
+    left: spacing(3.5);
     right: spacing(0.5);
   }
   overflow: hidden;
   position: relative;
-  height: spacing(7);
 
   &.primary {
     background-color: $primary;
@@ -40,11 +40,16 @@
 
   &:focus {
     background-color: rgba($text, 0.075);
-    border-bottom: 2px solid rgba($text, 0.5);
+    border: 2px solid rgba($text, 0.5);
   }
 
   &:disabled {
     cursor: not-allowed;
     opacity: 0.5;
+  }
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    appearance: none !important;
   }
 }

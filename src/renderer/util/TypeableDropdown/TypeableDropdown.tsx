@@ -1,6 +1,6 @@
-/* eslint-disable jsx-a11y/no-noninteractive-element-to-interactive-role */
 import React, { useState, useEffect } from 'react';
-import mod from '../mod';
+import { useUpdateEffect } from 'react-use';
+import { mod } from '../../util';
 import TextInput from '../TextInput/TextInput';
 import './TypeableDropdown.scss';
 
@@ -31,42 +31,52 @@ const Option: React.FC<{
   );
 };
 
-const TypeableDropdown: React.FC<{
-  options: string[] | readonly string[];
-  onChange?: (value: string) => void;
-  defaultValue?: string;
-  color?:
-    | 'primary'
-    | 'secondary'
-    | 'tertiary'
-    | 'quaternary'
-    | 'quinary'
-    | 'none';
-  className?: string;
-  force?: boolean;
-}> = ({ color, options, onChange, defaultValue, className, force }) => {
-  const [value, setValue] = useState<string>(defaultValue || '');
+const TypeableDropdown: React.FC<
+  Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'onChange'> & {
+    options: string[] | readonly string[];
+    onChange?: (value: string) => void;
+    color:
+      | 'primary'
+      | 'secondary'
+      | 'tertiary'
+      | 'quaternary'
+      | 'quinary'
+      | 'none'
+      | string;
+    className?: string;
+    force?: boolean;
+  }
+> = ({
+  color,
+  options,
+  onChange,
+  defaultValue,
+  className,
+  force,
+  disabled,
+  ...rest
+}) => {
+  const [value, setValue] = useState<string>((defaultValue as string) || '');
   const [focused, setFocused] = useState(0);
   const filtered = options.filter((opt) =>
     value === '' ? true : opt?.toLowerCase()?.includes(value?.toLowerCase())
   );
 
-  useEffect(() => {
+  useUpdateEffect(() => {
     onChange?.(value);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
 
   useEffect(() => {
     if (force && !options.includes(value)) setValue(options[0]);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [options]);
 
   return (
     <div className={`TypeableDropdown ${color} ${className}`}>
       <TextInput
-        value={value}
         color={color}
-        disabled={options.length <= 1}
+        {...rest}
+        value={value}
+        disabled={options.length <= 1 || disabled}
         onChange={(e) => {
           setValue(e.target.value);
         }}
@@ -107,6 +117,10 @@ const TypeableDropdown: React.FC<{
             );
           }
         }}
+        onScrollCapture={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+        }}
       />
       <div className="OptionsContainer">
         {(options.includes(value) ? options : filtered).map((opt, idx) => (
@@ -128,7 +142,6 @@ const TypeableDropdown: React.FC<{
 TypeableDropdown.defaultProps = {
   onChange() {},
   defaultValue: '',
-  color: 'none',
   className: '',
   force: false,
 };

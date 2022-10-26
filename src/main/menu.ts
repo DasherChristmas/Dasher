@@ -5,7 +5,6 @@ import {
   MenuItemConstructorOptions,
   dialog,
 } from 'electron';
-// eslint-disable-next-line import/no-cycle
 import ipcEmitter from './ipc';
 
 interface DarwinMenuItemConstructorOptions extends MenuItemConstructorOptions {
