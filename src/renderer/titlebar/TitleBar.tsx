@@ -304,7 +304,9 @@ const AppMenu: React.FC = () => {
 const TitleBar: React.FC = () => {
   const isMaximized = useRecoilValue(maximizedState);
   const appTitle = useRecoilValue(titleState);
-  return platform() === 'darwin' ? null : (
+  return platform() === 'darwin' ? (
+    <div />
+  ) : (
     <div id="TitleBar">
       <div>
         <img
