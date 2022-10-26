@@ -76,20 +76,10 @@ const DirectorySelection: React.FC = () => {
 };
 
 const ControllerSection: React.FC<{
-  properties: (Omit<
-    React.InputHTMLAttributes<HTMLInputElement>,
-    'type' | 'onChange'
-  > & {
-    controller: any;
-    prop: string;
-    def: SchemaDescriptor;
-    onChange: (value: Controller[keyof Controller]) => void;
-    suppress?: (e: React.SyntheticEvent<HTMLInputElement>) => boolean;
-    localizedName?: string;
-  })[];
+  elements: React.ReactNode[];
   name: string;
   localizedName?: string;
-}> = ({ name, properties, localizedName }) => {
+}> = ({ name, elements, localizedName }) => {
   const msg = useL10N();
   const [open, setOpen] = useState(false);
   return (
@@ -104,115 +94,7 @@ const ControllerSection: React.FC<{
       </th>
       <td>
         <table>
-          <tbody>
-            {properties.map(
-              (
-                {
-                  controller,
-                  prop,
-                  def,
-                  onChange,
-                  suppress = () => false,
-                  localizedName,
-                  ...rest
-                },
-                idx
-              ) => (
-                <tr key={`${controller.id}-${name}-${prop}-${idx}`}>
-                  <th>{localizedName ?? msg(`controllers/${prop}`)}</th>
-                  <td>
-                    {(() => {
-                      switch (def.type) {
-                        case 'string': {
-                          return 'enum' in def ? (
-                            <TypeableDropdown
-                              color="none"
-                              key={`${controller.id}-${prop}`}
-                              defaultValue={
-                                controller[
-                                  prop as keyof typeof controller
-                                ] as string
-                              }
-                              options={def.enum || []}
-                              onChangeCapture={(e) => {
-                                if (suppress(e)) {
-                                  e.preventDefault();
-                                  e.stopPropagation();
-                                }
-                              }}
-                              onChange={(v) => {
-                                onChange(v);
-                              }}
-                              force
-                              {...rest}
-                            />
-                          ) : (
-                            <TextInput
-                              key={`${controller.id}-${prop}`}
-                              color="none"
-                              defaultValue={
-                                controller[
-                                  prop as keyof typeof controller
-                                ] as string
-                              }
-                              onChange={(e) => {
-                                if (suppress(e)) return;
-                                onChange(e.target.value);
-                              }}
-                              {...rest}
-                            />
-                          );
-                        }
-                        case 'boolean': {
-                          return (
-                            <Toggle
-                              key={`${controller.id}-${prop}`}
-                              defaultChecked={
-                                controller[
-                                  prop as keyof typeof controller
-                                ] as boolean
-                              }
-                              onChangeCapture={(e) => {
-                                if (suppress(e)) {
-                                  e.preventDefault();
-                                  e.stopPropagation();
-                                }
-                              }}
-                              onChange={(v) => {
-                                onChange(v);
-                              }}
-                              {...rest}
-                            />
-                          );
-                        }
-                        case 'number': {
-                          return (
-                            <NumberInput
-                              color="none"
-                              key={`${controller.id}-${prop}`}
-                              defaultValue={
-                                controller[
-                                  prop as keyof typeof controller
-                                ] as number
-                              }
-                              onChange={(e) => {
-                                if (suppress(e)) return;
-                                onChange(Number(e.target.value));
-                              }}
-                              {...rest}
-                            />
-                          );
-                        }
-                        default: {
-                          return null;
-                        }
-                      }
-                    })()}
-                  </td>
-                </tr>
-              )
-            )}
-          </tbody>
+          <tbody>{elements}</tbody>
         </table>
         <p>{msg('controllers/expandToEdit')}</p>
       </td>
@@ -331,6 +213,33 @@ ControllerProperty.defaultProps = {
   suppress() {
     return false;
   },
+};
+
+const UniverseSize: React.FC<{
+  idx: number;
+  update: (count: number) => void;
+}> = ({ idx, update }) => {
+  const controllers = useRecoilValue(controllersState);
+  const selectedController = useRecoilValue(selectedControllerState);
+  const controller = controllers[selectedController];
+  const msg = useL10N();
+
+  return (
+    <tr key={`${controller.id}-idividualSize-${idx}`}>
+      <th>
+        {msg(`controllers/individualSize`, {
+          number: idx + 1,
+        })}
+      </th>
+      <td>
+        <NumberInput
+          color="none"
+          value={controller.universes[idx].maxChannels}
+          onChange={(e) => update(Number(e.target.value))}
+        />
+      </td>
+    </tr>
+  );
 };
 
 const ControllerEditor: React.FC = () => {
@@ -634,30 +543,22 @@ const ControllerEditor: React.FC = () => {
                         />
                         <ControllerSection
                           name="individualSizes"
-                          properties={controller.universes.map(
-                            (universe, universeIdx) => ({
-                              controller: {
-                                id: controller.id,
-                                individualSize: universe.maxChannels,
-                              },
-                              prop: 'individualSize',
-                              localizedName: msg('controllers/individualSize', {
-                                number: universeIdx + 1,
-                              }),
-                              def: {
-                                type: 'number',
-                              },
-                              onChange(value) {
-                                const universes = [...controller.universes];
-                                universes.splice(universeIdx, 1, {
-                                  ...controller.universes[universeIdx],
-                                  maxChannels: value as number,
-                                });
-                                updateController({
-                                  universes,
-                                });
-                              },
-                            })
+                          elements={controller.universes.map(
+                            (universe, idx) => (
+                              <UniverseSize
+                                idx={idx}
+                                update={(value) => {
+                                  const universes = [...controller.universes];
+                                  universes.splice(idx, 1, {
+                                    ...controller.universes[idx],
+                                    maxChannels: value as number,
+                                  });
+                                  updateController({
+                                    universes,
+                                  });
+                                }}
+                              />
+                            )
                           )}
                         />
                       </>

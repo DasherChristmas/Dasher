@@ -21,14 +21,21 @@
   }
 
   &::-webkit-scrollbar {
-    width: spacing(2);
+    width: spacing(3);
   }
 
   &::-webkit-scrollbar-track {
-    background-color: $primary;
+    background-color: transparent;
   }
-  &::-webkit-scrollbar-button {
+  /*&::-webkit-scrollbar-button {
     color: $secondary;
+  }*/
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $tertiary;
+    border-radius: 9999px;
+    border: spacing(0.75) solid transparent;
+    background-clip: content-box;
   }
 }
 

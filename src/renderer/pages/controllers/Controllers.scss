@@ -251,6 +251,9 @@
               tbody {
                 display: flex;
                 flex-direction: column;
+                tr {
+                  border-radius: 0px;
+                }
               }
             }
           }
@@ -271,6 +274,14 @@
 
             table + p {
               display: none;
+            }
+
+            table th,
+            table td {
+              padding: spacing(1);
+              padding-left: spacing(2);
+              padding-right: spacing(2);
+              vertical-align: middle;
             }
           }
         }
