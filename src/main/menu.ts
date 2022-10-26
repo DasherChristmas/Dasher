@@ -6,6 +6,7 @@ import {
   dialog,
   app,
 } from 'electron';
+import { platform } from 'os';
 import ipcEmitter from './ipc';
 
 interface DarwinMenuItemConstructorOptions extends MenuItemConstructorOptions {
@@ -33,7 +34,9 @@ export default class MenuBuilder {
   }
 
   buildTemplate(): MenuItemConstructorOptions[] {
-    return this.buildDefaultTemplate();
+    return platform() === 'darwin'
+      ? this.buildDarwinTemplate()
+      : this.buildDefaultTemplate();
   }
   buildDarwinTemplate(): MenuItemConstructorOptions[] {
     const subMenuAbout: DarwinMenuItemConstructorOptions = {

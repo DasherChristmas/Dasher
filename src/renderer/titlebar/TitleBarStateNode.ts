@@ -19,6 +19,13 @@ export const menuState = atom({
 export const titleState = atom({
   key: 'appTitle',
   default: 'Dasher Sequencer',
+  effects: [
+    ({ onSet }) => {
+      onSet((newValue) => {
+        document.title = newValue;
+      });
+    },
+  ],
 });
 
 export const titleEmitter = new TypedEmitter<{
