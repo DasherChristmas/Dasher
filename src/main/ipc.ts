@@ -12,6 +12,7 @@ import { Controller } from '../renderer/types';
 import { windowEventTarget, windowState } from './getWindowState';
 
 import { mainWindow } from './main';
+import { SerialPort } from 'serialport';
 
 const appConfig = getAppConfig();
 
@@ -170,4 +171,9 @@ ipcMain.handle(appStateChannels.getControllers, () => {
 });
 ipcMain.on(appStateChannels.setControllers, (_, controllers: Controller[]) => {
   saveControllers(getAppConfig().rootDir, controllers);
+});
+
+ipcMain.handle(appStateChannels.getPorts, async () => {
+  const list = await SerialPort.list();
+  return list.map((port) => port.path);
 });

@@ -17,10 +17,11 @@ import Button from '../../util/Button/Button';
 
 import {
   controllersState,
-  directoryState,
   hasControllerChangesState,
+  portState,
   selectedControllerState,
-} from '../../appState';
+} from './ControllersState';
+import { directoryState } from '../../appState';
 import { appStateChannels, mainProcessChannels } from '../../../main/channels';
 import { Controller, controllerSchema, SchemaDescriptor } from '../../types';
 import TextInput from '../../util/TextInput/TextInput';
@@ -76,7 +77,7 @@ const DirectorySelection: React.FC = () => {
 };
 
 const ControllerSection: React.FC<{
-  elements: React.ReactNode[];
+  elements: React.ReactNode;
   name: string;
   localizedName?: string;
 }> = ({ name, elements, localizedName }) => {
@@ -108,7 +109,7 @@ const ControllerProperty: React.FC<
     prop: string;
     def: SchemaDescriptor;
     onChange: (value: Controller[keyof Controller]) => void;
-    suppress?: (e: React.SyntheticEvent<HTMLInputElement>) => boolean;
+    suppress?: (e: React.FormEvent<HTMLInputElement>) => boolean;
     localizedName?: string;
   }
 > = ({
@@ -247,6 +248,7 @@ const ControllerEditor: React.FC = () => {
   const selectedController = useRecoilValue(selectedControllerState);
   const controller = controllers[selectedController];
   const setHasChanges = useSetRecoilState(hasControllerChangesState);
+  const ports = useRecoilValue(portState);
 
   const updateController = useCallback(
     (newData: Partial<Controller>) => {
@@ -266,64 +268,138 @@ const ControllerEditor: React.FC = () => {
     <div className="Editor">
       <table>
         <tbody>
-          {controller
-            ? (() => {
+          {controller ? (
+            <>
+              <ControllerProperty
+                controller={controller}
+                prop="type"
+                def={controllerSchema.properties.type}
+                onChange={(value) => {
+                  updateController({
+                    // @ts-expect-error Cannot verify that it is in enum, but it's fine
+                    type: value as string,
+                  });
+                }}
+              />
+              <ControllerProperty
+                controller={controller}
+                prop="name"
+                def={controllerSchema.properties.name}
+                onChange={(value) => {
+                  updateController({ name: value as string });
+                }}
+              />
+              <ControllerProperty
+                controller={controller}
+                prop="description"
+                def={controllerSchema.properties.description}
+                onChange={(value) => {
+                  updateController({
+                    description: value as string,
+                  });
+                }}
+              />
+              <ControllerProperty
+                controller={controller}
+                prop="id"
+                def={controllerSchema.properties.id}
+                onChange={() => {}}
+                suppress={() => true}
+                onBlur={(e) => {
+                  let id = Number(e.target.value);
+                  let idx = controllers.findIndex((c) => c.id === id);
+                  if (idx > -1 && idx !== selectedController) {
+                    for (let i = 0; ; i++) {
+                      if (controllers.findIndex((c) => c.id === i) < 0) {
+                        id = i;
+                        break;
+                      }
+                    }
+                  }
+                  updateController({
+                    id,
+                  });
+                }}
+                min={0}
+              />
+              <ControllerProperty
+                controller={controller}
+                prop="autoLayout"
+                def={controllerSchema.properties.autoLayout}
+                onChange={(value) => {
+                  updateController({
+                    autoLayout: value as boolean,
+                  });
+                }}
+              />
+              <ControllerProperty
+                controller={controller}
+                prop="activeState"
+                def={controllerSchema.properties.activeState}
+                onChange={(value) => {
+                  updateController({
+                    // @ts-expect-error
+                    activeState: value as string,
+                  });
+                }}
+              />
+              <ControllerProperty
+                controller={controller}
+                prop="vendor"
+                def={controllerSchema.properties.vendor}
+                onChange={(value) => {
+                  updateController({
+                    vendor: value as string,
+                  });
+                }}
+              />
+              <ControllerProperty
+                controller={controller}
+                prop="model"
+                def={{
+                  ...controllerSchema.properties.model,
+                  enum:
+                    controllerDefs.vendors[
+                      controller.vendor?.toLowerCase() as keyof typeof controllerDefs['vendors']
+                    ]?.controllers.map((c) => c.name) || [],
+                }}
+                onChange={(value) => {
+                  updateController({
+                    // @ts-expect-error Cannot verify that it is in enum, but it's fine
+                    model: value as string,
+                  });
+                }}
+              />
+              <ControllerProperty
+                controller={controller}
+                prop="variant"
+                def={{
+                  ...controllerSchema.properties.variant,
+                  enum:
+                    (
+                      controllerDefs.vendors[
+                        controller.vendor?.toLowerCase() as keyof typeof controllerDefs['vendors']
+                      ]?.controllers || []
+                    )
+                      .find(
+                        (c) =>
+                          c.name.toLowerCase() ===
+                          controller.model?.toLowerCase()
+                      )
+                      ?.variants.map((v) => v.name) || [],
+                }}
+                onChange={(value) => {
+                  updateController({
+                    // @ts-expect-error Cannot verify that it is in enum, but it's fine
+                    variant: value as string,
+                  });
+                }}
+              />
+              {(() => {
                 switch (controller.type) {
                   case 'Ethernet': {
                     return (
                       <>
-                        <ControllerProperty
-                          controller={controller}
-                          prop="type"
-                          def={controllerSchema.properties.type}
-                          onChange={(value) => {
-                            updateController({
-                              // @ts-expect-error Cannot verify that it is in enum, but it's fine
-                              type: value as string,
-                            });
-                          }}
-                        />
-                        <ControllerProperty
-                          controller={controller}
-                          prop="name"
-                          def={controllerSchema.properties.name}
-                          onChange={(value) => {
-                            updateController({ name: value as string });
-                          }}
-                        />
-                        <ControllerProperty
-                          controller={controller}
-                          prop="description"
-                          def={controllerSchema.properties.description}
-                          onChange={(value) => {
-                            updateController({
-                              description: value as string,
-                            });
-                          }}
-                        />
-                        <ControllerProperty
-                          controller={controller}
-                          prop="id"
-                          def={controllerSchema.properties.id}
-                          onChange={() => {}}
-                          suppress={() => true}
-                          onBlur={(e) => {
-                            updateController({
-                              id: Number(e.target.value),
-                            });
-                          }}
-                          min={0}
-                        />
-                        <ControllerProperty
-                          controller={controller}
-                          prop="autoLayout"
-                          def={controllerSchema.properties.autoLayout}
-                          onChange={(value) => {
-                            updateController({
-                              autoLayout: value as boolean,
-                            });
-                          }}
-                        />
                         <ControllerProperty
                           controller={controller}
                           prop="autoUpload"
@@ -341,68 +417,6 @@ const ControllerEditor: React.FC = () => {
                           onChange={(value) => {
                             updateController({
                               autoSize: value as boolean,
-                            });
-                          }}
-                        />
-                        <ControllerProperty
-                          controller={controller}
-                          prop="active"
-                          def={controllerSchema.properties.active}
-                          onChange={(value) => {
-                            updateController({
-                              active: value as boolean,
-                            });
-                          }}
-                        />
-                        <ControllerProperty
-                          controller={controller}
-                          prop="vendor"
-                          def={controllerSchema.properties.vendor}
-                          onChange={(value) => {
-                            updateController({
-                              vendor: value as string,
-                            });
-                          }}
-                        />
-                        <ControllerProperty
-                          controller={controller}
-                          prop="model"
-                          def={{
-                            ...controllerSchema.properties.model,
-                            enum:
-                              controllerDefs.vendors[
-                                controller.vendor?.toLowerCase() as keyof typeof controllerDefs['vendors']
-                              ]?.controllers.map((c) => c.name) || [],
-                          }}
-                          onChange={(value) => {
-                            updateController({
-                              // @ts-expect-error Cannot verify that it is in enum, but it's fine
-                              model: value as string,
-                            });
-                          }}
-                        />
-                        <ControllerProperty
-                          controller={controller}
-                          prop="variant"
-                          def={{
-                            ...controllerSchema.properties.variant,
-                            enum:
-                              (
-                                controllerDefs.vendors[
-                                  controller.vendor?.toLowerCase() as keyof typeof controllerDefs['vendors']
-                                ]?.controllers || []
-                              )
-                                .find(
-                                  (c) =>
-                                    c.name.toLowerCase() ===
-                                    controller.model?.toLowerCase()
-                                )
-                                ?.variants.map((v) => v.name) || [],
-                          }}
-                          onChange={(value) => {
-                            updateController({
-                              // @ts-expect-error Cannot verify that it is in enum, but it's fine
-                              variant: value as string,
                             });
                           }}
                         />
@@ -444,16 +458,17 @@ const ControllerEditor: React.FC = () => {
                         <ControllerProperty
                           controller={controller}
                           prop="protocol"
-                          def={controllerSchema.properties.protocol}
+                          def={{
+                            ...controllerSchema.properties.protocol,
+                            enum: ['ArtNet', 'DDP', 'E131', 'OPC', 'ZCPP'],
+                          }}
                           onChange={(value) => {
                             updateController({
-                              // @ts-expect-error Cannot verify that it is in enum, but it's fine
                               protocol: value as string,
-                              // @ts-expect-error Cannot verify that networkType it is in enum, but it's fine
                               universes: controller.universes.map(
                                 (universe) => ({
                                   ...universe,
-                                  networkType: value,
+                                  networkType: value as string,
                                 })
                               ),
                             });
@@ -507,8 +522,7 @@ const ControllerEditor: React.FC = () => {
                           onChange={(value) => {
                             updateController({
                               universes: Array(value)
-                                //@ts-expect-error
-                                .fill(null)
+                                .fill('')
                                 .map((_, idx) => {
                                   if (controller.universes[idx])
                                     return controller.universes[idx];
@@ -541,10 +555,11 @@ const ControllerEditor: React.FC = () => {
                             });
                           }}
                         />
-                        <ControllerSection
-                          name="individualSizes"
-                          elements={controller.universes.map(
-                            (universe, idx) => (
+                        {controller.protocol === 'E131' ||
+                        controller.protocol === 'ArtNet' ? (
+                          <ControllerSection
+                            name="individualSizes"
+                            elements={controller.universes.map((_, idx) => (
                               <UniverseSize
                                 idx={idx}
                                 update={(value) => {
@@ -558,8 +573,296 @@ const ControllerEditor: React.FC = () => {
                                   });
                                 }}
                               />
-                            )
-                          )}
+                            ))}
+                          />
+                        ) : null}
+                        {controller.protocol === 'DDP' ? (
+                          <ControllerProperty
+                            controller={controller}
+                            prop="channelsPerPacket"
+                            def={controllerSchema.properties.channelsPerPacket}
+                            onChange={(v) => {
+                              updateController({
+                                channelsPerPacket: v as number,
+                              });
+                            }}
+                            defaultValue={controller.channelsPerPacket ?? 1440}
+                          />
+                        ) : null}
+                        {controller.protocol === 'ZCPP' ||
+                        controller.protocol === 'DDP' ? (
+                          <ControllerProperty
+                            controller={controller}
+                            prop="channels"
+                            def={controllerSchema.properties.channels}
+                            onChange={(v) => {
+                              updateController({
+                                channels: v as number,
+                              });
+                            }}
+                            disabled={controller.autoSize}
+                          />
+                        ) : null}
+                      </>
+                    );
+                  }
+                  case 'USB': {
+                    return (
+                      <>
+                        <ControllerProperty
+                          controller={controller}
+                          prop="autoSize"
+                          def={controllerSchema.properties.autoSize}
+                          onChange={(value) => {
+                            updateController({
+                              autoSize: value as boolean,
+                            });
+                          }}
+                        />
+                        <ControllerProperty
+                          controller={controller}
+                          prop="suppressDuplicateFrames"
+                          def={
+                            controllerSchema.properties.suppressDuplicateFrames
+                          }
+                          onChange={(value) => {
+                            updateController({
+                              suppressDuplicateFrames: value as boolean,
+                            });
+                          }}
+                        />
+                        <ControllerProperty
+                          controller={controller}
+                          prop="port"
+                          def={{
+                            ...controllerSchema.properties.port,
+                            enum: ['Not Connected'].concat(ports),
+                          }}
+                          onChange={(value) => {
+                            controller;
+                            updateController({
+                              port: value as string,
+                            });
+                          }}
+                        />
+                        <ControllerProperty
+                          controller={controller}
+                          prop="protocol"
+                          def={{
+                            ...controllerSchema.properties.protocol,
+                            enum: [
+                              'DMX',
+                              'LOR',
+                              'LOR Optimised',
+                              'OpenDMX',
+                              'Pixelnet -Open',
+                              'Renard',
+                              'D-Light',
+                              'Generic Serial',
+                            ],
+                          }}
+                          onChange={(value) => {
+                            updateController({
+                              protocol: value as string,
+                              universes: controller.universes.map(
+                                (universe) => ({
+                                  ...universe,
+                                  networkType: value as string,
+                                })
+                              ),
+                            });
+                          }}
+                        />
+                        {controller.protocol !== 'LOR Optimised' ? (
+                          <ControllerProperty
+                            controller={controller}
+                            prop="channels"
+                            def={controllerSchema.properties.channels}
+                            onChange={(v) => {
+                              updateController({
+                                channels: v as number,
+                              });
+                            }}
+                            disabled={controller.autoSize}
+                            defaultValue={controller.channels ?? 512}
+                          />
+                        ) : null}
+                        {controller.protocol === 'LOR Optimised' ? (
+                          <>
+                            <ControllerProperty
+                              controller={{
+                                ...controller,
+                                deviceCount: controller.devices?.length ?? 0,
+                              }}
+                              prop="deviceCount"
+                              def={{
+                                type: 'number',
+                              }}
+                              min={0}
+                              suppress={(e) =>
+                                Number((e.target as HTMLInputElement).value) < 0
+                              }
+                              onChange={(v) => {
+                                updateController({
+                                  devices: Array(v)
+                                    .fill('')
+                                    .map((_, idx) => {
+                                      if (controller.devices?.[idx])
+                                        return controller.devices[idx];
+                                      return {
+                                        deviceType: 'AC Controller',
+                                        addressMode: 'Normal',
+                                        unitID: idx + 1,
+                                        description: '',
+                                      };
+                                    }),
+                                });
+                              }}
+                              disabled={controller.autoSize}
+                            />
+                            {controller.devices
+                              ? controller.devices.map((device, deviceidx) => (
+                                  <ControllerSection
+                                    name={`${controller.id}-devices`}
+                                    key={`${controller.id}-device-${deviceidx}`}
+                                    localizedName={msg('controllers/device', {
+                                      number: deviceidx + 1,
+                                    })}
+                                    elements={
+                                      <>
+                                        <ControllerProperty
+                                          controller={{
+                                            ...controller,
+                                            id: `${controller.id}-device-${deviceidx}`,
+                                            deviceType: device.deviceType,
+                                          }}
+                                          prop="deviceType"
+                                          def={
+                                            controllerSchema.properties.devices
+                                              .items.properties.deviceType
+                                          }
+                                          onChange={(v) => {
+                                            const devices = [
+                                              ...(controller.devices || []),
+                                            ];
+                                            devices.splice(deviceidx, 1, {
+                                              ...devices[deviceidx],
+                                              // @ts-expect-error
+                                              deviceType: v,
+                                            });
+                                            updateController({
+                                              devices,
+                                            });
+                                          }}
+                                        />
+                                        <ControllerProperty
+                                          controller={{
+                                            ...controller,
+                                            id: `${controller.id}-device-${deviceidx}`,
+                                            unitID: device.unitID,
+                                          }}
+                                          prop="unitID"
+                                          def={
+                                            controllerSchema.properties.devices
+                                              .items.properties.unitID
+                                          }
+                                          min={1}
+                                          suppress={(e) =>
+                                            Number(
+                                              (e.target as HTMLInputElement)
+                                                .value
+                                            ) < 1
+                                          }
+                                          onChange={(v) => {
+                                            const devices = [
+                                              ...(controller.devices || []),
+                                            ];
+                                            devices.splice(deviceidx, 1, {
+                                              ...devices[deviceidx],
+                                              unitID: Number(v),
+                                            });
+                                            updateController({
+                                              devices,
+                                            });
+                                          }}
+                                        />
+                                        {!device.deviceType.startsWith(
+                                          'Pixie'
+                                        ) ? (
+                                          <ControllerProperty
+                                            controller={{
+                                              ...controller,
+                                              id: `${controller.id}-device-${deviceidx}`,
+                                              addressMode: device.addressMode,
+                                            }}
+                                            prop="addressMode"
+                                            def={
+                                              controllerSchema.properties
+                                                .devices.items.properties
+                                                .addressMode
+                                            }
+                                            onChange={(v) => {
+                                              const devices = [
+                                                ...(controller.devices || []),
+                                              ];
+                                              devices.splice(deviceidx, 1, {
+                                                ...devices[deviceidx],
+                                                // @ts-expect-error
+                                                addressMode: v,
+                                              });
+                                              updateController({
+                                                devices,
+                                              });
+                                            }}
+                                          />
+                                        ) : null}
+                                        <ControllerProperty
+                                          controller={{
+                                            ...controller,
+                                            id: `${controller.id}-device-${deviceidx}`,
+                                            description: device.description,
+                                          }}
+                                          prop="description"
+                                          def={
+                                            controllerSchema.properties.devices
+                                              .items.properties.description
+                                          }
+                                          onChange={(v) => {
+                                            const devices = [
+                                              ...(controller.devices || []),
+                                            ];
+                                            devices.splice(deviceidx, 1, {
+                                              ...devices[deviceidx],
+                                              description: v as string,
+                                            });
+                                            updateController({
+                                              devices,
+                                            });
+                                          }}
+                                        />
+                                      </>
+                                    }
+                                  />
+                                ))
+                              : null}
+                          </>
+                        ) : null}
+                      </>
+                    );
+                  }
+                  case 'Null': {
+                    return (
+                      <>
+                        <ControllerProperty
+                          controller={controller}
+                          prop="channels"
+                          def={controllerSchema.properties.channels}
+                          onChange={(v) => {
+                            updateController({
+                              channels: v as number,
+                            });
+                          }}
+                          defaultValue={controller.channels ?? 512}
                         />
                       </>
                     );
@@ -568,8 +871,9 @@ const ControllerEditor: React.FC = () => {
                     return null;
                   }
                 }
-              })()
-            : null}
+              })()}
+            </>
+          ) : null}
         </tbody>
       </table>
     </div>
@@ -675,6 +979,7 @@ const Controls: React.FC = () => {
           newControllers.splice(selectedController, 1);
           selectController(0);
           setControllers(newControllers);
+          setHasChanges(true);
         }, [controllers, setControllers, selectedController, selectController])}
       />
     </div>

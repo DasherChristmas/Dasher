@@ -14,14 +14,13 @@
   "controllers/vendor": "Vendor",
   "controllers/model": "Model",
   "controllers/variant": "Variant",
-  "controllers/activeState": "State",
   "controllers/ip": "IP Address",
   "controllers/fppProxy": "FPP Proxy IP / Hostname",
   "controllers/id": "Controller ID",
   "controllers/autoLayout": "Auto Layout Models",
   "controllers/autoUpload": "Auto Upload Configuration",
   "controllers/autoSize": "Auto Size",
-  "controllers/active": "Active",
+  "controllers/activeState": "Active",
   "controllers/suppressDuplicateFrames": "Suppress Duplicate Frames",
   "controllers/startUniverse": "Start Universe",
   "controllers/universeCount": "Universe Count",
@@ -34,5 +33,16 @@
     "singular": "Universe {number}"
   },
   "controllers/individualSizes": "Individual Sizes",
-  "controllers/expandToEdit": "Expand section to edit"
+  "controllers/expandToEdit": "Expand section to edit",
+  "controllers/channelsPerPacket": "Channels Per Packet",
+  "controllers/channels": "Channels",
+  "controllers/device": {
+    "placeholders": [],
+    "plural": "Device {number}",
+    "singular": "Device {number}"
+  },
+  "controllers/deviceCount": "Devices",
+  "controllers/deviceType": "Device Type",
+  "controllers/unitID": "Unit ID",
+  "controllers/addressMode": "Address Mode"
 }

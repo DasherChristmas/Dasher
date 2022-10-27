@@ -1,7 +1,7 @@
 import controllers from '../../controllers/controllers';
 
 const protocols = ['E131', 'LOR', 'ArtNet', 'None (no output)'] as const;
-export type Protocol = typeof protocols[number]; // todo: make union type after finish dasher-controllers
+export type Protocol = typeof protocols[number];
 
 interface T {
   optional?: boolean;
@@ -117,7 +117,6 @@ export const controllerSchema = {
     },
     protocol: {
       type: 'string',
-      enum: ['ArtNet', 'DDP', 'E131', 'OPC', 'ZCPP'],
     },
     fppProxy: {
       type: 'string',
@@ -133,10 +132,22 @@ export const controllerSchema = {
     },
     multicast: {
       type: 'boolean',
-      optioal: true,
+      optional: true,
     },
     maxUniverseChannels: {
       type: 'number',
+    },
+    channelsPerPacket: {
+      type: 'number',
+      optional: true,
+    },
+    channels: {
+      type: 'number',
+      optional: true,
+    },
+    port: {
+      type: 'string',
+      optional: true,
     },
     universes: {
       type: 'array',
@@ -151,10 +162,41 @@ export const controllerSchema = {
           },
           networkType: {
             type: 'string',
-            enum: ['ArtNet', 'DDP', 'E131', 'OPC', 'ZCPP'],
           },
           maxChannels: {
             type: 'number',
+          },
+        },
+      },
+    },
+    devices: {
+      type: 'array',
+      optional: true,
+      items: {
+        type: 'object',
+        properties: {
+          deviceType: {
+            type: 'string',
+            enum: [
+              'AC Controller',
+              'RGB Controller',
+              'CCR',
+              'CCB',
+              'Pixie2',
+              'Pixie4',
+              'Pixie8',
+              'Pixie16',
+            ],
+          },
+          unitID: {
+            type: 'number',
+          },
+          addressMode: {
+            type: 'string',
+            enum: ['Normal', 'Legacy', 'Split'],
+          },
+          description: {
+            type: 'string',
           },
         },
       },

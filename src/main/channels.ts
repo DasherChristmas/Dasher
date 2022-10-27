@@ -40,6 +40,7 @@ export const appStateChannels = buildChannelsObject('appstate', [
   'setDirectory',
   'getControllers',
   'setControllers',
+  'getPorts',
 ]);
 
 type Channels =

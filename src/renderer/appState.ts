@@ -1,6 +1,5 @@
 import { atom } from 'recoil';
 import { ipcRenderer } from 'electron';
-import { Controller } from './types';
 import { appStateChannels } from '../main/channels';
 
 export const directoryState = atom({
@@ -27,29 +26,4 @@ export const directoryState = atom({
       return () => ipcRenderer.off(appStateChannels.setDirectory, setListener);
     },
   ],
-});
-
-export const controllersState = atom<Controller[]>({
-  key: 'controllersState',
-  default: [],
-  effects: [
-    ({ setSelf, onSet }) => {
-      ipcRenderer
-        .invoke('appstate:getControllers')
-        .then((controllers: Controller[]) => {
-          setSelf(controllers);
-        })
-        .catch(() => {});
-    },
-  ],
-});
-
-export const selectedControllerState = atom<number>({
-  key: 'selectedControllerState',
-  default: -1,
-});
-
-export const hasControllerChangesState = atom<boolean>({
-  key: 'hasControllerChangesState',
-  default: false,
 });

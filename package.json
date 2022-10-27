@@ -109,7 +109,8 @@
     "react-router-dom": "^6.3.0",
     "react-tooltip": "^4.2.21",
     "react-use": "^17.4.0",
-    "recoil": "^0.7.5"
+    "recoil": "^0.7.5",
+    "serialport": "^10.4.0"
   },
   "devDependencies": {
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.7",
