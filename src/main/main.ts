@@ -16,6 +16,7 @@ import { resolveHtmlPath } from './util';
 import './ipc';
 import './state';
 import { loadWindowState, setWindowState, windowState } from './getWindowState';
+import { platform } from 'os';
 
 loadWindowState();
 
@@ -74,7 +75,7 @@ const createWindow = async () => {
   mainWindow = new BrowserWindow({
     show: false,
     ...windowState,
-    titleBarStyle: 'hidden',
+    titleBarStyle: platform() === 'darwin' ? 'default' : 'hidden',
     icon: getAssetPath('icon.png'),
     webPreferences: {
       sandbox: false,

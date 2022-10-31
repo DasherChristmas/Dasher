@@ -305,7 +305,7 @@ const TitleBar: React.FC = () => {
   const isMaximized = useRecoilValue(maximizedState);
   const appTitle = useRecoilValue(titleState);
   return platform() === 'darwin' ? (
-    <div id="TitleBar" />
+    <div />
   ) : (
     <div id="TitleBar">
       <div>
