@@ -6,24 +6,33 @@ import paths from './paths';
 export const windowEventTarget = new EventEmitter();
 
 export let windowState: {
-  x?: number;
-  y?: number;
-  width?: number;
-  height?: number;
-  maximized?: boolean;
-} = {
-  height: 600,
-  width: 800,
-};
-
-export function setWindowState(
-  state: {
+  main: {
     x?: number;
     y?: number;
     width?: number;
     height?: number;
     maximized?: boolean;
+  };
+  preview: {
+    x?: number;
+    y?: number;
+    width?: number;
+    height?: number;
+    maximized?: boolean;
+  };
+} = {
+  main: {
+    height: 600,
+    width: 800,
   },
+  preview: {
+    height: 600,
+    width: 800,
+  },
+};
+
+export function setMainWindowState(
+  state: typeof windowState,
   suppress = false
 ) {
   windowState = {
@@ -38,13 +47,21 @@ export function setWindowState(
   );
 }
 
-export function loadWindowState() {
+export function loadMainWindowState() {
   try {
     const fileBuffer = fs.readFileSync(
       path.join(paths.appData, 'windowState.json')
     );
-    windowState = JSON.parse(fileBuffer.toString('utf-8'));
+    const newWindowState = JSON.parse(fileBuffer.toString('utf-8'));
+    if (!('main' in newWindowState)) {
+      setMainWindowState({
+        main: newWindowState,
+        preview: windowState.preview,
+      });
+    } else {
+      setMainWindowState(newWindowState);
+    }
   } catch {
-    setWindowState(windowState, true);
+    setMainWindowState(windowState, true);
   }
 }

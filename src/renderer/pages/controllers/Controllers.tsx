@@ -49,6 +49,7 @@ const DirectorySelection: React.FC = () => {
               ipcRenderer.send(mainProcessChannels.openFolder, directory);
             }}
             tabIndex={-1}
+            title={msg('controllers/directory-open')}
           >
             <code>{directory}</code>
           </button>

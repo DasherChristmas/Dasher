@@ -1,8 +1,9 @@
 import { atom } from 'recoil';
 import { ipcRenderer } from 'electron';
 import { Controller } from '../../types';
+import createDebug from '../../../common/debug';
 
-import { autoDetect, PortInfo } from '@serialport/bindings-cpp';
+const debug = createDebug('Controllers State', '#059669');
 
 export const controllersState = atom<Controller[]>({
   key: 'controllersState',
@@ -34,7 +35,7 @@ export const portState = atom<string[]>({
   default: [],
   effects: [
     ({ setSelf }) => {
-      console.debug('Getting ports');
+      debug.debug('Getting ports');
       ipcRenderer
         .invoke('appstate:getPorts')
         .then((ports: string[]) => {

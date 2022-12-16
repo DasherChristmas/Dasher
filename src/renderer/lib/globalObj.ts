@@ -1,0 +1,3 @@
+window.dasher = {
+  methods: {},
+};

@@ -43,10 +43,18 @@ export const appStateChannels = buildChannelsObject('appstate', [
   'getPorts',
 ]);
 
+export const windowStateChannels = buildChannelsObject('windowstate', [
+  'showPreview',
+  'hidePreview',
+  'openPreview',
+  'closePreview',
+]);
+
 type Channels =
   | ChannelList<typeof titleBarChannels>
   | ChannelList<typeof appConfigChannels>
   | ChannelList<typeof mainProcessChannels>
-  | ChannelList<typeof appStateChannels>;
+  | ChannelList<typeof appStateChannels>
+  | ChannelList<typeof windowStateChannels>;
 
 export default Channels;

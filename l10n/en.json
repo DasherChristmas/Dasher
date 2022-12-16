@@ -1,6 +1,7 @@
 {
   "controllers/directory-title": "Directory",
   "controllers/directory-prefix": "Current show directory:",
+  "controllers/directory-open": "Open folder",
   "controllers/change-temp": "Change temporarily",
   "controllers/change-perm": "Change permenantly",
   "controllers/controllers-title": "Controllers",
@@ -44,5 +45,9 @@
   "controllers/deviceCount": "Devices",
   "controllers/deviceType": "Device Type",
   "controllers/unitID": "Unit ID",
-  "controllers/addressMode": "Address Mode"
+  "controllers/addressMode": "Address Mode",
+  "controllers/port": "Port",
+  "models/models-title": "Models",
+  "models/model-properties": "Edit Model",
+  "models/preview": "Layout Preview"
 }

@@ -1,5 +1,5 @@
 import {
-  MemoryRouter as Router,
+  HashRouter as Router,
   Routes,
   Route,
   Navigate,
@@ -16,18 +16,28 @@ import TitleBar from './titlebar/TitleBar';
 export default function App() {
   return (
     <RecoilRoot>
-      <TitleBar />
       <Router>
-        <div className="AppContainer">
-          <Tabs />
-          <Routes>
-            <Route path="/" element={<Navigate to="/controllers" />} />
-            <Route path="/controllers" element={<Controllers />} />
-            <Route path="/models" element={<Models />} />
-          </Routes>
-        </div>
+        <Routes>
+          <Route
+            path="*"
+            element={
+              <>
+                <TitleBar />
+                <div className="AppContainer">
+                  <Tabs />
+                  <Routes>
+                    <Route path="/" element={<Navigate to="/controllers" />} />
+                    <Route path="/controllers" element={<Controllers />} />
+                    <Route path="/models" element={<Models />} />
+                  </Routes>
+                </div>
+                <StatusBar />
+              </>
+            }
+          />
+          <Route path="/preview" element={<div />} />
+        </Routes>
       </Router>
-      <StatusBar />
       <AppConfigStateNode />
     </RecoilRoot>
   );

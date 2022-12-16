@@ -1,8 +1,10 @@
 import React from 'react';
+import createDebug from '../common/debug';
 
+const debug = createDebug('Util', '#ea580c');
 export function noOpListener(prevent: boolean): (e: React.UIEvent) => void {
   return (e) => {
-    console.debug('call');
+    debug.debug('call');
     if (prevent) e.preventDefault();
     e.stopPropagation();
   };

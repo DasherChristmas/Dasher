@@ -94,6 +94,7 @@
     }
   },
   "dependencies": {
+    "@dasherchristmas/dasher-render": "^1.1.0",
     "@electron/remote": "^2.0.8",
     "@mui/base": "^5.0.0-alpha.99",
     "electron-debug": "^3.2.0",
@@ -110,7 +111,8 @@
     "react-tooltip": "^4.2.21",
     "react-use": "^17.4.0",
     "recoil": "^0.7.5",
-    "serialport": "^10.4.0"
+    "serialport": "^10.4.0",
+    "twgl.js": "^5.3.0"
   },
   "devDependencies": {
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.7",

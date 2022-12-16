@@ -6,12 +6,13 @@ import {
   titleBarChannels,
   mainProcessChannels,
   appStateChannels,
+  windowStateChannels,
 } from './channels';
 import { getControllers, saveControllers } from './controllers';
 import { Controller } from '../renderer/types';
 import { windowEventTarget, windowState } from './getWindowState';
 
-import { mainWindow } from './main';
+import { mainWindow, previewWindow } from './main';
 import { SerialPort } from 'serialport';
 
 const appConfig = getAppConfig();
@@ -52,6 +53,7 @@ ipcMain.on(mainProcessChannels.openFolder, (_, folder: string) => {
 
 windowEventTarget.on('change', () => {
   mainWindow?.webContents.send(
+    // @ts-ignore
     windowState.maximized
       ? titleBarChannels.maximize
       : titleBarChannels.unmaximize
@@ -176,4 +178,12 @@ ipcMain.on(appStateChannels.setControllers, (_, controllers: Controller[]) => {
 ipcMain.handle(appStateChannels.getPorts, async () => {
   const list = await SerialPort.list();
   return list.map((port) => port.path);
+});
+
+ipcMain.on(windowStateChannels.showPreview, () => {
+  previewWindow?.hide();
+});
+
+ipcMain.on(windowStateChannels.showPreview, () => {
+  previewWindow?.show();
 });
