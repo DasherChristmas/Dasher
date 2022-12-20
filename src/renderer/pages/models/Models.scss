@@ -1,22 +1,28 @@
 @import '../../theme.scss';
 
 .ModelsContainer {
-  padding: spacing(4);
-  padding-top: spacing(2);
-  gap: spacing(4);
-  row-gap: spacing(2);
   position: relative;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(min-content, 1fr));
-  grid-template-rows: repeat(2, minmax(min-content, 1fr));
-  grid-auto-flow: column;
 
   .ModelEditor {
+    height: 100%;
     position: relative;
-    min-height: 0;
+
+    .Section {
+      margin: spacing(4);
+      margin-top: spacing(6);
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      height: auto;
+    }
   }
 
   .ModelPreview {
-    grid-row-end: span 2;
+    margin: spacing(4);
+    margin-top: spacing(6);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    height: auto;
   }
 }
