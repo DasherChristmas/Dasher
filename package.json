@@ -94,7 +94,6 @@
     }
   },
   "dependencies": {
-    "@dasherchristmas/dasher-render": "^1.1.0",
     "@electron/remote": "^2.0.8",
     "@mui/base": "^5.0.0-alpha.99",
     "electron-debug": "^3.2.0",
@@ -153,6 +152,7 @@
     "lint-staged": "^13.0.3",
     "mini-css-extract-plugin": "^2.6.1",
     "prettier": "^2.7.1",
+    "raw-loader": "^4.0.2",
     "react-refresh": "^0.14.0",
     "react-test-renderer": "^18.2.0",
     "rimraf": "^3.0.2",

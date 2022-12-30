@@ -92,7 +92,7 @@ const configuration: webpack.Configuration = {
       },
       // SVG
       {
-        test: /\.svg$/,
+        test: /\.svg$/i,
         use: [
           {
             loader: '@svgr/webpack',
@@ -108,6 +108,11 @@ const configuration: webpack.Configuration = {
           },
           'file-loader',
         ],
+      },
+      // Shaders
+      {
+        test: /\.(glsl|vs|fs)$/i,
+        use: 'raw-loader',
       },
     ],
   },

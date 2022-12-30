@@ -12,21 +12,35 @@ $text: #fafafa;
 
 .SectionTitle {
   position: absolute;
-  left: spacing(2);
-  top: spacing(-4);
+  left: 0;
+  top: 0;
+  width: 100%;
   background-color: $tertiary;
-  padding: spacing(1);
-  padding-left: spacing(2);
-  padding-right: spacing(2);
-  border-radius: spacing(1.5);
+  padding: spacing(2);
+  padding-top: spacing(1);
+  border-top-left-radius: spacing(1.5);
+  border-top-right-radius: spacing(1.5);
+
+  &::after {
+    content: '';
+    background-color: $secondary;
+    height: spacing(1.5);
+    border-top-left-radius: spacing(1.5);
+    border-top-right-radius: spacing(1.5);
+    position: absolute;
+    width: 100%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
 }
 
 .Section {
   position: relative;
-  margin-top: spacing(4);
   background-color: $secondary;
   border-radius: spacing(1.5);
   padding: spacing(4);
+  padding-top: spacing(12);
   left: 0;
   right: 0;
 }

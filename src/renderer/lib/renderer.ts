@@ -1,4 +1,6 @@
 import createDebug from '../../common/debug';
+import vs from './vs.glsl';
+import fs from './fs.glsl';
 
 const debug = createDebug('Renderer', '#ff0000');
 
