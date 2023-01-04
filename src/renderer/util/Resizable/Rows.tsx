@@ -50,8 +50,8 @@ const ResizableRows: React.FC<{
   const [rowWidths, setRowWidths] = useState<number[]>([]);
   const resizeListener = useCallback(() => {
     setTableHeight(ref.current!.clientHeight);
-    setRowWidths((columnWidths) =>
-      columnWidths.map(
+    setRowWidths((rowWidths) =>
+      rowWidths.map(
         (width) => width * (ref.current!.clientHeight / tableHeight)
       )
     );
@@ -101,38 +101,40 @@ const ResizableRows: React.FC<{
   );
 
   return (
-    <table className="ResizableRows" ref={ref}>
-      <tbody>
-        {children.map((child, idx) => (
-          <React.Fragment key={idx}>
-            <tr>
-              <td height={rowWidths[idx]}>
-                <div
-                  className="ChildWrapper"
-                  style={{
-                    minHeight: minWidths[idx] ?? 0,
-                  }}
-                >
-                  <div className="ChildBox">{child}</div>
-                </div>
-              </td>
-            </tr>
-            {idx !== children.length - 1 ? (
+    <div className="ResizableRows" ref={ref}>
+      <table>
+        <tbody>
+          {children.map((child, idx) => (
+            <React.Fragment key={idx}>
               <tr>
-                <td height={0}>
-                  <Handle
-                    resize={useCallback(
-                      (delta: number) => resizeRow(idx, delta),
-                      [resizeRow]
-                    )}
-                  />
+                <td height={rowWidths[idx]}>
+                  <div
+                    className="ChildWrapper"
+                    style={{
+                      minHeight: minWidths[idx] ?? 0,
+                    }}
+                  >
+                    <div className="ChildBox">{child}</div>
+                  </div>
                 </td>
               </tr>
-            ) : null}
-          </React.Fragment>
-        ))}
-      </tbody>
-    </table>
+              {idx !== children.length - 1 ? (
+                <tr>
+                  <td height={0}>
+                    <Handle
+                      resize={useCallback(
+                        (delta: number) => resizeRow(idx, delta),
+                        [resizeRow]
+                      )}
+                    />
+                  </td>
+                </tr>
+              ) : null}
+            </React.Fragment>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 };
 
